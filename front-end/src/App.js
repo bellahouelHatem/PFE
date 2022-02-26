@@ -2,11 +2,6 @@ import './App.css';
 import Page from './Components/page';
 import ReactDOM from "react-dom";
 
-
-
-
-
-
 function App() {
   return (
     

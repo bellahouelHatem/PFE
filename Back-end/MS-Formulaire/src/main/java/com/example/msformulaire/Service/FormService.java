@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping(value = "/api")
 public class FormService {
@@ -15,8 +16,8 @@ public class FormService {
     public List<Formulaire> getAll(){
         return formRepository.findAll();
     }
-   @PostMapping("/Forms")
-    public void ajouter(@RequestBody Formulaire e) {
-        formRepository.save(e);
+   @PostMapping("/Form")
+    public void ajouter(@RequestBody Formulaire form) {
+        formRepository.save(form);
     }
 }

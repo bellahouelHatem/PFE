@@ -10,5 +10,6 @@ import javax.persistence.*;
 public class Formulaire {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
+    @Column(updatable = true, name="Form", nullable = false, columnDefinition = "text")
     private String Form;
 }
