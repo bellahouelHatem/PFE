@@ -12,4 +12,7 @@ public class Formulaire {
     private Long Id;
     @Column(updatable = true, name="Form", nullable = false, columnDefinition = "text")
     private String Form;
+    private String Titre;
+    private String Type;
+    private String DateCreation;
 }

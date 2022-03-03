@@ -1,10 +1,11 @@
 import React, { Component, createRef } from "react";
 import $ from "jquery";
-import axios from "axios";
 window.jQuery = $;
 window.$ = $;
  require("jquery-ui-sortable");
   require("formBuilder");
+
+  const d = new Date().toISOString().slice(0, 10);
 
 var options =  {
  
@@ -19,7 +20,10 @@ class Formulaire  extends Component {
   constructor(){
     super();
     this.state={
+      titre:"",
+      type:""
     }
+    this.handleChange = this.handleChange.bind(this);
   }
   fb = createRef();
 
@@ -34,24 +38,35 @@ class Formulaire  extends Component {
       this.state.form.actions.clearFields()
    
    } 
-   save()   {
+   handleChange(event) {
+    this.setState({titre: event.target.value});
+  } handleChange1(event) {
+    this.setState({type: event.target.value});
+  }
+
+   save(e)   {
      var data = JSON.stringify(this.state.form.actions.getData('json', true))
-     var body = {form : data}
+    
+     
+     var body = {form : data,
+      type: this.state.type,
+      titre: this.state.titre,
+      dateCreation:d
+    }
      fetch('http://localhost:8081/api/Form',{
        method:'POST',
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify(body)})
     .then(res=>{alert()})
-    //  axios.post("http://localhost:8081/api/Form",{
-    //    Form:
-    //  }
-    
-   }
-    
-  
-
+  }
     render() { 
         return (<div >
+          <div class="form-group">
+    <label for="formGroupExampleInput">Titre</label>
+    <input value={this.state.titre} type="text" class="form-control" placeholder="Titre"  onChange={(e)=> this.handleChange(e)}/>
+    <label for="formGroupExampleInput">Type</label>
+    <input value={this.state.type} type="text" class="form-control"  placeholder="Type" onChange={(e)=>this.handleChange1(e)}/>
+  </div>
           <div class="news" id='hatem'  ref={this.fb}>
           
           
