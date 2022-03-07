@@ -4,7 +4,7 @@ window.jQuery = $;
 window.$ = $;
  require("jquery-ui-sortable");
   require("formBuilder");
-
+//getting the date to save it
   const d = new Date().toISOString().slice(0, 10);
 
 var options =  {
@@ -45,9 +45,7 @@ class Formulaire  extends Component {
   }
 
    save(e)   {
-     var data = JSON.stringify(this.state.form.actions.getData('json', true))
-    
-     
+     var data = JSON.stringify(this.state.form.actions.getData('json', true))  
      var body = {form : data,
       type: this.state.type,
       titre: this.state.titre,

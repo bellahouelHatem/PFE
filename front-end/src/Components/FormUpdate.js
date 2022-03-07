@@ -8,22 +8,48 @@ import { useLocation } from "react-router-dom";
  require("jquery-ui-sortable");
   require("formBuilder");
   
+  
 function FormUpdate (property) {
+  const [Form, setForm] = useState();
+  const [Type,setType]=useState();
+  const [Titre,setTitre]=useState();
   const location= useLocation();
-  const {hatem}=location.state
-  const Id = hatem;
+  const {Id}=location.state;
+  const {titre}=location.state
+  const {type}=location.state
+  const {date}=location.state
+  // setTitre(titre)
+  // setType(type)
+  const  handleChangeTitre= (event)=> {
+    setTitre(event.target.value);
+  } 
+
+
+  const handleChangeType = (event) =>{
+    setType( event.target.value);
+  }
   
   
   const fb = createRef();
-   const save = ()=>  {
-    var data = JSON.stringify(state.actions.getData('json', true))
-    var body = {form : data}
-    fetch('http://localhost:8081/api/form/{id}',{
-      method:'POST',
-     headers:{"Content-Type":"application/json"},
-     body:JSON.stringify(body)})
-   .then(res=>{alert()})
+
+
+
+
+  //save the changes
+   const edit = ()=>  {
+     const url = 'http://localhost:8081/api/forms/'+Id.toString()
+    var data = JSON.stringify(Form.actions.getData('json', true))
+    var Body = {
+      form : data,
+      type: Type,
+      titre: Titre,
+      dateCreation:date
+    }
+   axios.put(url,Body)
+   .then(res=>alert("done")).catch(err=>console.log(err))
+  
  }
+ //effacer le contenu du FormBuilder
  const clear = ()=>{
     
   Form.actions.clearFields()
@@ -31,45 +57,43 @@ function FormUpdate (property) {
 }
 
 
-  const [state, setState] = useState();
-  const [Form, setForm] = useState();
-  const [data,setData]=useState()
-const view = (d)=>{
   
+//getting the data by id from the databse method
+const view = (d)=>{
     const y= d;
     const x = y.form;
-    const z = JSON.parse(x)
-    
-        var options =  {
+    const z = JSON.parse(x);
+    var options =  {
       showActionButtons: false ,
       formData : z
-      }; 
-      const formBuilder =  $(fb.current).formBuilder(options);
-      setForm(formBuilder);
-    }
+    }; 
+    //genereiting the form from the data
+    const formBuilder =  $(fb.current).formBuilder(options);
+    setForm(formBuilder);
+    setTitre(titre)
+    setType(type)
+  }
   
    
 useEffect(()=>{
-  
   const url = "http://localhost:8081/api/form/"+Id.toString()
   axios.get(url).then(res=>view(res.data)).catch(err=>console.log(err))
-  //console.log(data)
 },[])
    
         return (<div >
           <div class="form-group">
-    {/* <label for="formGroupExampleInput">Titre</label>
-    <input value={this.state.titre} type="text" class="form-control" placeholder="Titre"  onChange={(e)=> this.handleChange(e)}/>
+    <label for="formGroupExampleInput">Titre</label>
+    <input value={Titre}   type="text" class="form-control" placeholder="Titre"  onChange={(e)=>handleChangeTitre(e)}/>
     <label for="formGroupExampleInput">Type</label>
-    <input value={this.state.type} type="text" class="form-control"  placeholder="Type" onChange={(e)=>this.handleChange1(e)}/> */}
+    <input value={Type}  type="text" class="form-control"  placeholder="Type" onChange={(e)=>handleChangeType(e)}/>
   </div>
           <div class="news" id='hatem'  ref={fb}>
           
           
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button id='clear' onClick={(e) => clear(e)} type="button" class="btn btn-danger" >clear</button> 
-        <button id = 'save' onClick={(e) => save(e)} type="button" class="btn btn-primary">Save</button>
+        <button id='clear' onClick={(e) => clear(e)} type="button" class="btn btn-danger" >Delete</button> 
+        <button id = 'save' onClick={(e) => edit(e)} type="button" class="btn btn-primary">Edit</button>
         
         </div>
 
