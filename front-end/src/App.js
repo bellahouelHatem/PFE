@@ -1,6 +1,5 @@
 import './App.css';
 import Page from './Components/page';
-import ReactDOM from "react-dom";
 function App() {
   return (
     
@@ -16,7 +15,4 @@ function App() {
     
   );
 }
-// const rootElement = document.getElementById("root");
-// ReactDOM.render(<App />, rootElement);
-
 export default App;

@@ -1,5 +1,6 @@
 import React, { Component, createRef } from "react";
 import $ from "jquery";
+import { Link } from "react-router-dom";
 window.jQuery = $;
 window.$ = $;
  require("jquery-ui-sortable");
@@ -58,24 +59,23 @@ class Formulaire  extends Component {
     .then(res=>{alert()})
   }
     render() { 
-        return (<div >
+        return (
+        <div >
           <div class="form-group">
-    <label for="formGroupExampleInput">Titre</label>
-    <input value={this.state.titre} type="text" class="form-control" placeholder="Titre"  onChange={(e)=> this.handleChange(e)}/>
-    <label for="formGroupExampleInput">Type</label>
-    <input value={this.state.type} type="text" class="form-control"  placeholder="Type" onChange={(e)=>this.handleChange1(e)}/>
-  </div>
-          <div class="news" id='hatem'  ref={this.fb}>
-          
-          
-        </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button id='clear' onClick={(e) => this.clear(e)} type="button" class="btn btn-danger" >clear</button> 
-        <button id = 'save' onClick={(e) => this.save(e)} type="button" class="btn btn-primary">Save</button>
+             <label for="formGroupExampleInput">Titre</label>
+             <input value={this.state.titre} type="text" class="form-control" placeholder="Titre"  onChange={(e)=> this.handleChange(e)}/>
+             <label for="formGroupExampleInput">Type</label>
+             <input value={this.state.type} type="text" class="form-control"  placeholder="Type" onChange={(e)=>this.handleChange1(e)}/>
+          </div>
+           {/* creating the FormBuilder */}
+          <div class="news" id='hatem'  ref={this.fb}></div>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+             <button id='clear' onClick={(e) => this.clear(e)} type="button" class="btn btn-danger" >clear</button> 
+             <Link reloadDocument={true} to="/Forms"><button id = 'save' onClick={(e) => this.save(e)} type="button" class="btn btn-primary">Save</button></Link>
         
+          </div>
         </div>
-
-    </div>);
+    );
     }
     
 }

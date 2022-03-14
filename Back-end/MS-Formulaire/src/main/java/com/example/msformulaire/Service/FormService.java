@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping(value = "/api")
@@ -24,7 +25,6 @@ public class FormService {
     public void updateForm(@PathVariable(name = "id") Long id,@RequestBody Formulaire formulaire){
         Formulaire formulaire1 = formRepository.findById(id).get();
         formulaire1.setForm(formulaire.getForm());
-        formulaire1.setDateCreation(formulaire.getDateCreation());
         formulaire1.setTitre(formulaire.getTitre());
         formulaire1.setType(formulaire.getType());
         formRepository.save(formulaire1);
@@ -34,5 +34,9 @@ public class FormService {
    @PostMapping("/Form")
     public void ajouter(@RequestBody Formulaire form) {
         formRepository.save(form);
+    }
+    @DeleteMapping("/form/{id}")
+    public void Delete(@PathVariable(name = "id") Long id){
+         formRepository.deleteById(id);
     }
 }
