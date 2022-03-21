@@ -71,7 +71,7 @@ class Formulaire  extends Component {
           <div class="news" id='hatem'  ref={this.fb}></div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
              <button id='clear' onClick={(e) => this.clear(e)} type="button" class="btn btn-danger" >clear</button> 
-             <Link reloadDocument={true} to="/Forms"><button id = 'save' onClick={(e) => this.save(e)} type="button" class="btn btn-primary">Save</button></Link>
+             <Link reloadDocument={true} to="/DynamicForms"><button id = 'save' onClick={(e) => this.save(e)} type="button" class="btn btn-primary">Save</button></Link>
         
           </div>
         </div>

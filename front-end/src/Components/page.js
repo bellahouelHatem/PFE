@@ -13,6 +13,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import FormUpdate from "./FormUpdate";
 
 export default class Page  extends Component {
     render() { 
@@ -38,6 +39,7 @@ export default class Page  extends Component {
                 <Route path="/StaticForms" element={<StaticForms/>}/>
                 <Route path="/DynamicForms" element= {<DynamicForms/>}/>
                 <Route path="/SafetyStandardsForm" element={<SafetyStandardsForm/>}/>
+                <Route path="/updateForm" element={<FormUpdate/>}/>
                 <Route path="/ServerRoomInspectionForm" element={<ServerRoomInspectionForm/>}/>
               </Routes>
               </div>

@@ -10,6 +10,7 @@ import { useLocation } from "react-router-dom";
   
   
 function FormUpdate (property) {
+
   const [Form, setForm] = useState();
   const [Type,setType]=useState();
   const [Titre,setTitre]=useState();
@@ -17,14 +18,13 @@ function FormUpdate (property) {
   const {Id}=location.state;
   const {titre}=location.state
   const {type}=location.state
-  const {date}=location.state
-  // setTitre(titre)
-  // setType(type)
+
+  //input change Holder
   const  handleChangeTitre= (event)=> {
     setTitre(event.target.value);
   } 
 
-
+  //input change Holder
   const handleChangeType = (event) =>{
     setType( event.target.value);
   }
@@ -42,9 +42,8 @@ function FormUpdate (property) {
     var Body = {
       form : data,
       type: Type,
-      titre: Titre,
-      dateCreation:date
-    }
+      titre: Titre
+        }
    axios.put(url,Body)
    .then(res=>alert("done")).catch(err=>console.log(err))
   
@@ -62,16 +61,18 @@ function FormUpdate (property) {
 const view = (d)=>{
     const y= d;
     const x = y.form;
-    const z = JSON.parse(x);
+    const DataForm = JSON.parse(x);
     var options =  {
       showActionButtons: false ,
-      formData : z
+      formData : DataForm
     }; 
+
     //genereiting the form from the data
     const formBuilder =  $(fb.current).formBuilder(options);
+    //saving the formData
     setForm(formBuilder);
-    setTitre(titre)
-    setType(type)
+    setTitre(titre);
+    setType(type);
   }
   
    
@@ -80,24 +81,29 @@ useEffect(()=>{
   axios.get(url).then(res=>view(res.data)).catch(err=>console.log(err))
 },[])
    
-        return (<div >
-          <div class="form-group">
-    <label for="formGroupExampleInput">Titre</label>
-    <input value={Titre}   type="text" class="form-control" placeholder="Titre"  onChange={(e)=>handleChangeTitre(e)}/>
-    <label for="formGroupExampleInput">Type</label>
-    <input value={Type}  type="text" class="form-control"  placeholder="Type" onChange={(e)=>handleChangeType(e)}/>
-  </div>
-          <div class="news" id='hatem'  ref={fb}>
+        return (
+        <div >
           
-          
-        </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button id='clear' onClick={(e) => clear(e)} type="button" class="btn btn-danger" >Delete</button> 
-        <button id = 'save' onClick={(e) => edit(e)} type="button" class="btn btn-primary">Edit</button>
-        
-        </div>
+           <div class="form-group">
+                 <label for="formGroupExampleInput">Titre</label>
+                 <input value={Titre}   type="text" class="form-control" placeholder="Titre"  onChange={(e)=>handleChangeTitre(e)}/>
+                 <label for="formGroupExampleInput">Type</label>
+                 <input value={Type}  type="text" class="form-control"  placeholder="Type" onChange={(e)=>handleChangeType(e)}/>
+           </div>
 
-    </div>);
+           {/* creating the FormBuilder */}
+           <div class="news" id='hatem'  ref={fb}></div>
+
+
+
+           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                 <button id='clear' onClick={(e) => clear(e)} type="button" class="btn btn-danger" >Delete</button> 
+                 <button id = 'save' onClick={(e) => edit(e)} type="button" class="btn btn-primary">Edit</button>
+        
+           </div>
+
+         </div>
+         );
     }
     
 
