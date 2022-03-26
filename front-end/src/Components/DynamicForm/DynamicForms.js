@@ -6,7 +6,7 @@ window.jQuery = $;
 window.$ = $;
  require("jquery-ui-sortable");
 
-function Forms()   {
+function DynamicForms()   {
   const [state, setState] = useState([])
   //delete button function
  const Delete = (id)=>{
@@ -53,7 +53,7 @@ function Forms()   {
                 </td>
                 <td><div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     {/* the routing button to the FormUpdate Component */}
-                    <Link  to="/home" state={{data:Form.form}}><button  type="button" class="btn btn-primary">use</button></Link>
+                    <Link  to="/DynamicFormUse" state={{data:Form.form}}><button  type="button" class="btn btn-primary">use</button></Link>
                 </div>
                 </td>
               </tr>
@@ -62,4 +62,4 @@ function Forms()   {
       </table>
       </div>);
     }
-export default Forms;
+export default DynamicForms;

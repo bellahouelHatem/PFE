@@ -1,13 +1,13 @@
 import React,{createRef, useEffect}  from "react";
 import $ from "jquery";
-import '../App.css';
+import '../../App.css';
 import { useLocation } from "react-router-dom";
 window.jQuery = $;
 window.$ = $;
 require("jquery-ui-sortable");
 require('formBuilder/dist/form-render.min.js');
  
-function Home() {
+function DformUSE() {
   const location= useLocation();
   const {data}=location.state;
     
@@ -26,5 +26,5 @@ function Home() {
       
     );
   }
-  export default Home;
+  export default DformUSE;
 

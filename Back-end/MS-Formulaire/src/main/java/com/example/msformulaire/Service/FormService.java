@@ -28,15 +28,14 @@ public class FormService {
         formulaire1.setTitre(formulaire.getTitre());
         formulaire1.setType(formulaire.getType());
         formRepository.save(formulaire1);
-
     }
 
-   @PostMapping("/Form")
+    @PostMapping("/Form")
     public void ajouter(@RequestBody Formulaire form) {
         formRepository.save(form);
     }
     @DeleteMapping("/form/{id}")
     public void Delete(@PathVariable(name = "id") Long id){
-         formRepository.deleteById(id);
+        formRepository.deleteById(id);
     }
 }

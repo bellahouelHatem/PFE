@@ -1,15 +1,21 @@
 import React, { Component }  from "react";
 import * as Rbootstrap from "react-bootstrap";
-import Home from "./Home"
-import Formulaire from "./Formulaire"
-import Forms from "./Forms";
-import UpdateFormulaire from "./FormUpdate"
+import Home from "./Home";
+import Formulaire from "./DynamicForm/Formulaire";
+import SafetyStandardsForm from './StaticForm/SafetyStandardsForm';
+import StaticForms from "./StaticForm/StaticForms";
+import DynamicForms from "./DynamicForm/DynamicForms";
+import DformUSE from "./DynamicForm/DformUSE";
+import ServerRoomInspectionForm from "./StaticForm/ServerRoomInspectionForm";
+
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Link
 } from "react-router-dom";
+import FormUpdate from "./DynamicForm/FormUpdate";
+
 export default class Page  extends Component {
     render() { 
         return (
@@ -20,20 +26,25 @@ export default class Page  extends Component {
           <Rbootstrap.Navbar.Brand as={Link}to={"/Home"}>Navbar</Rbootstrap.Navbar.Brand>
           <Rbootstrap.Nav className="me-auto">
             <Rbootstrap.Nav.Link as={Link}to={"/Home"}>Home</Rbootstrap.Nav.Link>
-            <Rbootstrap.Nav.Link as={Link}to={"/Forms"}>Forms</Rbootstrap.Nav.Link>
+            <Rbootstrap.Nav.Link as={Link}to={"/StaticForms"}>Static Forms</Rbootstrap.Nav.Link>
+            <Rbootstrap.Nav.Link as={Link}to={"/SafetyStandardsForm"}>Safety Standards Form</Rbootstrap.Nav.Link>
+            <Rbootstrap.Nav.Link as={Link}to={"/DynamicForms"}>Dynamic Forms</Rbootstrap.Nav.Link>
+            <Rbootstrap.Nav.Link as={Link}to={"/ServerRoomInspectionForm"}>Server Room Inspection Form</Rbootstrap.Nav.Link>
           </Rbootstrap.Nav>
           </Rbootstrap.Container>
           </Rbootstrap.Navbar>
           <Routes>
                 <Route path="/Home" element={<Home/>}/>
                 <Route path="/Formulaire" element={<Formulaire/>}/>
-                <Route path="/updateForm"element={<UpdateFormulaire/>}/>
-                <Route path="/Forms" element= {<Forms/>}/>
+                <Route path="/StaticForms" element={<StaticForms/>}/>
+                <Route path="/DynamicForms" element= {<DynamicForms/>}/>
+                <Route path="/SafetyStandardsForm" element={<SafetyStandardsForm/>}/>
+                <Route path="/updateForm" element={<FormUpdate/>}/>
+                <Route path="/ServerRoomInspectionForm" element={<ServerRoomInspectionForm/>}/>
+                <Route path="/DynamicFormUse" element={<DformUSE/>}/>
               </Routes>
               </div>
           </Router>
-          
-          
            );
     }
 }
