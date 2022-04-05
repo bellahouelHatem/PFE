@@ -10,15 +10,15 @@ function DynamicForms()   {
   const [state, setState] = useState([])
   //delete button function
  const Delete = (id)=>{
-  const url = 'http://localhost:8081/api/form/'+id.toString()
+  const url = 'http://localhost:8081/api/Forms/'+id.toString()
   axios.delete(url)
-  window.location.reload(false);
+  window.location.reload(true);
 }
   
     
    //getting the data from the database
   useEffect(() => {
-    fetch('http://localhost:8081/api/Forms').then(resp=>resp.json()).then(resp=>setState(resp))
+    axios.get('http://localhost:8081/api/Forms').then(resp=>setState(resp.data))
     },[])
     
         return(

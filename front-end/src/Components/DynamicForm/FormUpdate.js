@@ -1,7 +1,8 @@
 import React, { createRef, useEffect, useState } from "react";
 import $ from "jquery";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
+
 
  window.jQuery = $;
  window.$ = $;
@@ -37,7 +38,7 @@ function FormUpdate (property) {
 
   //save the changes
    const edit = ()=>  {
-     const url = 'http://localhost:8081/api/forms/'+Id.toString()
+     const url = 'http://localhost:8081/api/Forms/'+Id.toString()
     var data = JSON.stringify(Form.actions.getData('json', true))
     var Body = {
       form : data,
@@ -77,7 +78,7 @@ const view = (d)=>{
   
    
 useEffect(()=>{
-  const url = "http://localhost:8081/api/form/"+Id.toString()
+  const url = "http://localhost:8081/api/Forms/"+Id.toString()
   axios.get(url).then(res=>view(res.data)).catch(err=>console.log(err))
 },[])
    
@@ -98,7 +99,7 @@ useEffect(()=>{
 
            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                  <button id='clear' onClick={(e) => clear(e)} type="button" class="btn btn-danger" >Delete</button> 
-                 <button id = 'save' onClick={(e) => edit(e)} type="button" class="btn btn-primary">Edit</button>
+                 <Link reloadDocument={true} to="/DynamicForms"> <button id = 'save' onClick={(e)=>{ if (window.confirm('Are you sure you wish to edit this item?')) edit(e)}} type="button" class="btn btn-primary">Edit</button></Link>
         
            </div>
 
