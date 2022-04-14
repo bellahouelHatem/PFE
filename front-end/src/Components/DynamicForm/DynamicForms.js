@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {Link} from "react-router-dom";
 import $ from "jquery";
+import '../../App.css';
 import axios from "axios";
 window.jQuery = $;
 window.$ = $;
@@ -23,8 +24,10 @@ function DynamicForms()   {
     
         return(
         <div>
-           <Link  to="/Formulaire"><button id = 'save' type="button" class="btn btn-primary">Add Form</button></Link>
+          <div>
+           <Link  to="/Formulaire"><button   id = 'save' type="button" class="btn btn-primary">Add Form</button></Link>
            {/* presenting the data in a tabel */}
+           </div>
           <table class="table table-sm">
         <thead>
           <tr>
