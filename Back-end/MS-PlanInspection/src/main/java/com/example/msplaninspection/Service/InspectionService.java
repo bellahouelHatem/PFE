@@ -27,8 +27,8 @@ public class InspectionService {
     }
 
     @PostMapping("/Inspection")
-    public void ajouter(@RequestBody Inspection form) {
-        inspectionRepo.save(form);
+    public void ajouter(@RequestBody Inspection inspection) {
+        inspectionRepo.save(inspection);
     }
     @DeleteMapping("/Inspection/{id}")
     public void Delete(@PathVariable(name = "id") Long id){

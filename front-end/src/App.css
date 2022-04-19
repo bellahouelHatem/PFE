@@ -11,6 +11,17 @@
   background-size: cover;
   background-position: center;
 }
+.drop-down {
+    list-style: none;
+  }
+  
+  .drop-down li {
+    padding: 10px 0px;
+    border-bottom: 1px solid #cccccc;
+    width: 100px;
+    text-align: center;
+    background: #fbf6f6;
+  }
 
 
 .form{

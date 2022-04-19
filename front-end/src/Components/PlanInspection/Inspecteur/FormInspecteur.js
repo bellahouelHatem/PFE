@@ -2,27 +2,31 @@ import FormInspecteurInput from "./FormInspecteurInput";
 import { useState } from "react";
 import '../../../App.css';
 import { format } from 'date-fns'
-import { Label } from "reactstrap";
-import { Form } from "react-bootstrap";
-function FormInspecteur() {
+import axios from "axios";
+function FormInspecteur(props) {
+  const {show}= props;
+  const [focused, setFocused] = useState(false);
     const [values, setValues] = useState({
-        username: "",
-        StartDate: "",
       });
+      const handleFocus = (e) => {
+        setFocused(true);
+      };
+      
       const [type,setType]=useState()
       const today =format(new Date(), 'yyyy-MM-dd');
 
       const inputs = [
         {
           id: 1,
-          name: "username",
+          name: "title",
           type: "text",
-          placeholder: "Username",
+          placeholder: "title",
           errorMessage:
             "Username should be 3-16 characters and shouldn't include any special character!",
-          label: "Username",
-          pattern: "^[A-Za-z0-9]{3,16}$",
+          label: "title",
+          pattern: "^[A-Za-z]{3,16}$",
           required: true,
+          value:""
         },
         {
           id: 2,
@@ -33,16 +37,18 @@ function FormInspecteur() {
           errorMessage:"required",
           label: "Start Date",
           pattern: today,
-          required: true
+          required: true,
+          value:""
         },{
           id: 3,
-          name: "End Date",
+          name: "EndDate",
           type: "date",
           min: today,
           placeholder: "End Date",
           errorMessage:"required",
           label: "End Date",
-          required: true
+          required: true,
+          value:""
         }
       ];
     
@@ -50,7 +56,14 @@ function FormInspecteur() {
         e.preventDefault();
         console.log(values)
         console.log(type)
-        console.log (values.StartDate>today)
+          const body = {
+            title : values["title"],
+            type:type["type"],
+            startDate:values["StartDate"],
+            endDate:values["EndDate"]           
+          }
+          console.log(body)
+         axios.post('http://localhost:8082/api/Inspection',body).catch(err=>console.log(err))
       };
     
       const onChange = (e) => {
@@ -62,7 +75,7 @@ function FormInspecteur() {
     
       return (
         <div className="app">
-          <form onSubmit={handleSubmit}>
+          <form className="formInput" onSubmit={handleSubmit}>
             <h1>Register</h1>
             {inputs.map((input) => (
               <FormInspecteurInput
@@ -73,12 +86,11 @@ function FormInspecteur() {
               />
             ))}
             <label>Type</label>
-            <Form.Control required as="select" onChange={onChangeSelect} aria-label="Default select example">
+            <select   onBlur={handleFocus} required as="select" onChange={onChangeSelect} aria-label="Default select example" focused={focused.toString()}>
               <option value="">...</option>
-              <option value="One">One</option>
-              <option value="One">Two</option>
-              <option value="One">Three</option>
-            </Form.Control>
+              <option value="Food">Food</option>
+              <option value="Server Room">Server Room</option>
+            </select>
             <span className="span">you need to select a type</span>
             <button className="button">Submit</button>
           </form>

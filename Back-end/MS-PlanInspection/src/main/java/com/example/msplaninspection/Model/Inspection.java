@@ -18,7 +18,7 @@ public class Inspection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-    private String titre;
+    private String title;
     private String type;
     private LocalDate startDate;
     private LocalDate endDate;

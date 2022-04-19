@@ -1,59 +1,28 @@
-import format from "date-fns/format";
-import getDay from "date-fns/getDay";
-import parse from "date-fns/parse";
-import startOfWeek from "date-fns/startOfWeek";
-import React, { useState } from "react";
-import { dateFnsLocalizer } from "react-big-calendar";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import "react-datepicker/dist/react-datepicker.css";
-import Planing from "./PlanInspection/Planing";
-
-
-const locales = {
-    "en-US": require("date-fns/locale/en-US"),
-};
-const localizer = dateFnsLocalizer({
-    format,
-    parse,
-    startOfWeek,
-    getDay,
-    locales,
-});
-
-const events = [
-    {
-        title: "Big Meeting",
-        allDay: true,
-        start: new Date(2021, 6, 0),
-        end: new Date(2021, 6, 0),
-    },
-    {
-        title: "Vacation",
-        start: new Date(2021, 6, 7),
-        end: new Date(2021, 6, 10),
-    },
-    {
-        title: "Conference",
-        start: new Date(2021, 6, 20),
-        end: new Date(202, 6, 23),
-    },
-];
+import React, { useCallback, useEffect, useState } from 'react' 
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
+import {FaRegCopy, FaList,FaEllipsisV, FaShareAlt} from 'react-icons/fa/index'
+import {RiSendPlaneFill, RiDeleteBin6Line} from 'react-icons/ri/index'
 
 function Home() {
-    const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
-    const [allEvents, setAllEvents] = useState(events);
+    const [popUpMenu, setPopUpMenu] = React.useState(false);
+  return (
+    <div className="App">
+      <button onClick={() => setPopUpMenu(!popUpMenu)}>
+        Menu with Dropdown
+      </button>
+      {popUpMenu && PopUpMenu()}
+    </div>
+  );
+}
 
-    function handleAddEvent() {
-        setAllEvents([...allEvents, newEvent]);
-    }
-
-    return (
-        <div className="App">
-          <Planing></Planing>  
-
-        
-        </div>
-    );
+function PopUpMenu() {
+  return (
+    <ul className="drop-down">
+      <li>Menu-item-1</li>
+      <li>Menu-item-2</li>
+      <li>Menu-item-3</li>
+    </ul>
+  );
 }
 
 export default Home;
