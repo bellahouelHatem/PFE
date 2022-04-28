@@ -1,7 +1,5 @@
 import {
   Card,
-  Row,
-  Col,
   CardTitle,
   CardBody,
   Button,

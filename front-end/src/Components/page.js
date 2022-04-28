@@ -7,7 +7,7 @@ import StaticForms from "./StaticForm/StaticForms";
 import DynamicForms from "./DynamicForm/DynamicForms";
 import DformUSE from "./DynamicForm/DformUSE";
 import ServerRoomInspectionForm from "./StaticForm/ServerRoomInspectionForm";
-import Planing from"./PlanInspection/Planing"
+import Planing from"./PlanInspection/PlaningInsp"
 
 import {
   BrowserRouter as Router,
@@ -16,7 +16,9 @@ import {
   Link
 } from "react-router-dom";
 import FormUpdate from "./DynamicForm/FormUpdate";
-import FormInspecteur from "./PlanInspection/Inspecteur/FormInspecteur";
+import FormInspecteur from "./PlanInspection/Inspection/FormInspection";
+import PlaningAction from "./PlanInspection/PlaningAction";
+import PlaningInsp from "./PlanInspection/PlaningInsp";
 
 export default class Page  extends Component {
     render() { 
@@ -33,6 +35,7 @@ export default class Page  extends Component {
             <Rbootstrap.Nav.Link as={Link}to={"/DynamicForms"}>Dynamic Forms</Rbootstrap.Nav.Link>
             <Rbootstrap.Nav.Link as={Link}to={"/ServerRoomInspectionForm"}>Server Room Inspection Form</Rbootstrap.Nav.Link>
             <Rbootstrap.Nav.Link as={Link}to={"/planing"}>planing</Rbootstrap.Nav.Link>
+            <Rbootstrap.Nav.Link as={Link}to={"/planingAction"}>action</Rbootstrap.Nav.Link>
 
             <Rbootstrap.Nav.Link as={Link}to={"/IsnpecteurForm"}>Isnpecteur</Rbootstrap.Nav.Link>
           </Rbootstrap.Nav>
@@ -48,7 +51,8 @@ export default class Page  extends Component {
                 <Route path="/ServerRoomInspectionForm" element={<ServerRoomInspectionForm/>}/>
                 <Route path="/DynamicFormUse" element={<DformUSE/>}/>
                 <Route path="/IsnpecteurForm" element={<FormInspecteur/>}/>
-                <Route path="/planing" element={<Planing/>}/>
+                <Route path="/planing" element={<PlaningInsp/>}/>
+                <Route path="/planingAction" element={<PlaningAction/>}/>
               </Routes>
               </div>
           </Router>

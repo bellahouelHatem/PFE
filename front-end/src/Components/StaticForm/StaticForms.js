@@ -3,7 +3,7 @@ import {
     Col,
 } from "reactstrap";
 import Cards from "./Cards";
-import React, { Component } from 'react';
+import React from 'react';
 
 import bg1 from "../../Images/bg/bg1.jpg";
 import bg2 from "../../Images/bg/bg2.jpg";

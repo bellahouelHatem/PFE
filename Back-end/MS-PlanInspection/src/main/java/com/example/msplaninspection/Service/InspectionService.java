@@ -18,20 +18,24 @@ public class InspectionService {
         return inspectionRepo.findAll();
     }
     @GetMapping("/Inspection/{id}")
-    public Inspection getForm(@PathVariable(name = "id") Long id){
+    public Inspection getInspection(@PathVariable(name = "id") Long id){
         return inspectionRepo.findById(id).get();
     }
     @PutMapping("/Inspection/{id}")
-    public void updateForm(@PathVariable(name = "id") Long id,@RequestBody Inspection inspection){
-        inspectionRepo.save(inspection);
+    public void updateInspection(@PathVariable(name = "id") Long id,@RequestBody Inspection inspection){
+        Inspection inspection1 = inspectionRepo.findById(id).get();
+        inspection1.setTitle(inspection.getTitle());
+        inspection1.setStartDate(inspection.getStartDate());
+        inspection1.setEndDate(inspection.getEndDate());
+        inspectionRepo.save(inspection1);
     }
 
     @PostMapping("/Inspection")
-    public void ajouter(@RequestBody Inspection inspection) {
+    public void addInspection(@RequestBody Inspection inspection) {
         inspectionRepo.save(inspection);
     }
     @DeleteMapping("/Inspection/{id}")
-    public void Delete(@PathVariable(name = "id") Long id){
+    public void DeleteInspection(@PathVariable(name = "id") Long id){
         inspectionRepo.deleteById(id);
     }
 
