@@ -2,6 +2,7 @@ import React, { createRef, useEffect, useState } from "react";
 import $ from "jquery";
 import axios from "axios";
 import { useLocation, Link } from "react-router-dom";
+import FormServices from "../../Services/FormServices";
 
 
  window.jQuery = $;
@@ -38,15 +39,14 @@ function FormUpdate (property) {
 
   //save the changes
    const edit = ()=>  {
-     const url = 'http://localhost:8081/api/Forms/'+Id.toString()
     var data = JSON.stringify(Form.actions.getData('json', true))
     var Body = {
       form : data,
       type: Type,
       titre: Titre
         }
-   axios.put(url,Body)
-   .then(res=>alert("done")).catch(err=>console.log(err))
+        
+   FormServices.updateForm(Id,Body).then(res=>alert("done")).catch(err=>console.log(err))
   
  }
  //effacer le contenu du FormBuilder

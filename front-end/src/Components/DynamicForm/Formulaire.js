@@ -1,7 +1,7 @@
 import React, { Component, createRef } from "react";
 import $ from "jquery";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import FormServices from "../../Services/FormServices";
 
 window.jQuery = $;
 window.$ = $;
@@ -54,7 +54,7 @@ class Formulaire  extends Component {
       titre: this.state.titre,
       dateCreation:d
     }
-    axios.post('http://localhost:8081/api/Forms', body).then(res=>{alert("added successfully")})
+    FormServices.addForm(body).catch(err=>console.log(err)).then(res=>{alert("added successfully")})
   }
     render() { 
         return (
@@ -69,7 +69,7 @@ class Formulaire  extends Component {
           <div class="news" id='hatem'  ref={this.fb}></div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
              <button id='clear' onClick={(e) => this.clear(e)} type="button" class="btn btn-danger" >clear</button> 
-             <Link reloadDocument={true} to="/DynamicForms"><button id = 'save' onClick={(e)=>{ if (window.confirm('Are you sure you wish to add this item?')) this.save(e)}} type="button" class="btn btn-primary">Save</button></Link>
+             <button id = 'save' onClick={(e)=>{ if (window.confirm('Are you sure you wish to add this item?')) this.save(e)}} type="button" class="btn btn-primary">Save</button>
         
           </div>
         </div>

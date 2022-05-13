@@ -1,29 +1,14 @@
 import React, { Component }  from "react";
 import * as Rbootstrap from "react-bootstrap";
-import Home from "./Home";
-import Formulaire from "./DynamicForm/Formulaire";
-import SafetyStandardsForm from './StaticForm/SafetyStandardsForm';
-import StaticForms from "./StaticForm/StaticForms";
-import DynamicForms from "./DynamicForm/DynamicForms";
-import DformUSE from "./DynamicForm/DformUSE";
-import ServerRoomInspectionForm from "./StaticForm/ServerRoomInspectionForm";
-import Planing from"./PlanInspection/PlaningInsp"
-
 import {
   BrowserRouter as Router,
-  Routes,
-  Route,
   Link
 } from "react-router-dom";
-import FormUpdate from "./DynamicForm/FormUpdate";
-import FormInspecteur from "./PlanInspection/Inspection/FormInspection";
-import PlaningAction from "./PlanInspection/PlaningAction";
-import PlaningInsp from "./PlanInspection/PlaningInsp";
 
 export default class Page  extends Component {
     render() { 
         return (
-          <Router>
+         
                 <div className="news">
             <Rbootstrap.Navbar  bg="dark" variant="dark">
           <Rbootstrap.Container>
@@ -41,21 +26,9 @@ export default class Page  extends Component {
           </Rbootstrap.Nav>
           </Rbootstrap.Container>
           </Rbootstrap.Navbar>
-          <Routes>
-                <Route path="/Home" element={<Home/>}/>
-                <Route path="/Formulaire" element={<Formulaire/>}/>
-                <Route path="/StaticForms" element={<StaticForms/>}/>
-                <Route path="/DynamicForms" element= {<DynamicForms/>}/>
-                <Route path="/SafetyStandardsForm" element={<SafetyStandardsForm/>}/>
-                <Route path="/updateForm" element={<FormUpdate/>}/>
-                <Route path="/ServerRoomInspectionForm" element={<ServerRoomInspectionForm/>}/>
-                <Route path="/DynamicFormUse" element={<DformUSE/>}/>
-                <Route path="/IsnpecteurForm" element={<FormInspecteur/>}/>
-                <Route path="/planing" element={<PlaningInsp/>}/>
-                <Route path="/planingAction" element={<PlaningAction/>}/>
-              </Routes>
-              </div>
-          </Router>
+          </div>
+          
+          
            );
     }
 }

@@ -17,11 +17,11 @@ public class FormService {
     public List<Formulaire> getAll(){
         return formRepository.findAll();
     }
-    @GetMapping("/form/{id}")
+    @GetMapping("/Forms/{id}")
     public Formulaire getForm(@PathVariable(name = "id") Long id){
         return formRepository.findById(id).get();
     }
-    @PutMapping("/forms/{id}")
+    @PutMapping("/Forms/{id}")
     public void updateForm(@PathVariable(name = "id") Long id,@RequestBody Formulaire formulaire){
         Formulaire formulaire1 = formRepository.findById(id).get();
         formulaire1.setForm(formulaire.getForm());
@@ -30,11 +30,11 @@ public class FormService {
         formRepository.save(formulaire1);
     }
 
-    @PostMapping("/Form")
+    @PostMapping("/Forms")
     public void ajouter(@RequestBody Formulaire form) {
         formRepository.save(form);
     }
-    @DeleteMapping("/form/{id}")
+    @DeleteMapping("/Forms/{id}")
     public void Delete(@PathVariable(name = "id") Long id){
         formRepository.deleteById(id);
     }

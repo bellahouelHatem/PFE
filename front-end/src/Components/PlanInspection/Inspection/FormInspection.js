@@ -1,9 +1,9 @@
 import FormInspecteurInput from "./FormInput";
-import { useState } from "react";
+import React, {  useEffect,useState } from "react";
 import '../../../App.css';
 import { format } from 'date-fns'
 import axios from "axios";
-function FormInspecteur() {
+function FormInspection() {
   const [focused, setFocused] = useState(false);
     const [values, setValues] = useState({id:"",title:"",startDate:"",endDate:""});
       const handleFocus = (e) => {
@@ -39,7 +39,7 @@ function FormInspecteur() {
           id: 3,
           name: "EndDate",
           type: "date",
-          min: values.startDate,
+          min:  new Date(Date.parse(values.startDate)),
           placeholder: "End Date",
           errorMessage:"required",
           label: "End Date",
@@ -52,12 +52,12 @@ function FormInspecteur() {
           const body = {
             title : values["title"],
             type:type["type"],
-            startDate:values["StartDate"],
-            endDate:values["EndDate"]           
+            startDate:values["startDate"],
+            endDate:values["endDate"]           
           }
           console.log(body)
-         axios.post('http://localhost:8082/api/Inspection',body).catch(err=>console.log(err))
-         window.location.reload(true);
+        //  axios.post('http://localhost:8082/api/Inspection',body).catch(err=>console.log(err))
+        //  window.location.reload(true);
       };
     
       const onChange = (e) => {
@@ -71,18 +71,24 @@ function FormInspecteur() {
         setValues({ ...values, [e.target.name]: e.target.value });
     }else
     {inputs[3].errorMessage= "the end Date should be after the satart Date"  }  ;}
+    useEffect(() => {
+      setValues({id:"",title:"",startDate:new Date(),endDate:""})
+    
+     
+    }, [])
+    
       return (
         <div className="app">
           <form className="formInput" onSubmit={handleSubmit}>
             <h1>Register</h1>
-            {inputs.map((input) => (
-              <FormInspecteurInput
-                key={input.id}
-                {...input}
-                value={values[input.name]}
-                onChange={(e)=>{if(input.name==="EndDate") {onChangeEndDate(e)}else{onChange(e)}}}
-              />
-            ))}
+            <label>title</label>
+        <input onChange={(e)=>onChange(e)} name="title" type= "text" errorMessage="required" label= "Title" required ></input>
+          <label>Start Date</label> 
+           <input onChange={(e)=>onChange(e)} name="startDate" type= "date" min ={ today} placeholder= "End Date"berrorMessage="required"label= "End Date" required value={values.startDate} ></input>
+         {values.startDate&&(<React.Fragment>
+          <label>End Date</label>
+            <input onChange={(e)=>onChange(e)} name="endDate" type= "date" min ={values.startDate} placeholder= "End Date" errorMessage="required" label= "End Date" required value={values.startDate} ></input>
+            </React.Fragment>)}
             <label>Type</label>
             <select   onBlur={handleFocus} required as="select" onChange={onChangeSelect} aria-label="Default select example" focused={focused.toString()}>
               <option value="">...</option>
@@ -97,4 +103,4 @@ function FormInspecteur() {
     };
     
 
-export default FormInspecteur;
+export default FormInspection;

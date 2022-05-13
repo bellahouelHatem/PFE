@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {Link} from "react-router-dom";
 import $ from "jquery";
 import '../../App.css';
-import axios from "axios";
+import FormServices from "../../Services/FormServices";
 window.jQuery = $;
 window.$ = $;
  require("jquery-ui-sortable");
@@ -11,15 +11,13 @@ function DynamicForms()   {
   const [state, setState] = useState([])
   //delete button function
  const Delete = (id)=>{
-  const url = 'http://localhost:8081/api/Forms/'+id.toString()
-  axios.delete(url)
-  window.location.reload(true);
+  FormServices.deleteForm(id).catch(err=>console.log(err)).then(window.location.reload(true))
 }
   
     
    //getting the data from the database
   useEffect(() => {
-    axios.get('http://localhost:8081/api/Forms').then(resp=>setState(resp.data))
+    FormServices.getForms().then(resp=>setState(resp.data))
     },[])
     
         return(
