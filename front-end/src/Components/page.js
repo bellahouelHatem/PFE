@@ -1,50 +1,46 @@
 import React, { Component }  from "react";
 import * as Rbootstrap from "react-bootstrap";
 import Home from "./Home";
-import Formulaire from "./Formulaire";
-import SafetyStandardsForm from './SafetyStandardsForm';
-import StaticForms from "./StaticForms";
-import DynamicForms from "./DynamicForms";
-import ServerRoomInspectionForm from "./ServerRoomInspectionForm";
+import Formulaire from "./DynamicForm/Formulaire";
+import StaticForms from "./StaticForm/StaticForms";
+import DynamicForms from "./DynamicForm/DynamicForms";
+import RiskManagementForm from "./StaticForm/RiskManagementForm";
+import {Dashboard} from "./dashboard/dashboard.js";
 
 import {
   BrowserRouter as Router,
-  Routes,
   Route,
   Link
 } from "react-router-dom";
-import FormUpdate from "./FormUpdate";
+import FormUpdate from "./DynamicForm/FormUpdate";
+import FormInspector from "./Inspector/FormInspector";
+import { Switch } from "react-router-dom";
+import PlaningAction from "./Plan/PlaningAction";
+import PlaningInsp from "./Plan/PlaningInsp";
 
 export default class Page  extends Component {
     render() { 
+      console.log("test3");
         return (
-          <Router>
-                <div className="news">
-            <Rbootstrap.Navbar  bg="dark" variant="dark">
-          <Rbootstrap.Container>
-          <Rbootstrap.Navbar.Brand as={Link}to={"/Home"}>Navbar</Rbootstrap.Navbar.Brand>
-          <Rbootstrap.Nav className="me-auto">
-            <Rbootstrap.Nav.Link as={Link}to={"/Home"}>Home</Rbootstrap.Nav.Link>
-            <Rbootstrap.Nav.Link as={Link}to={"/Formulaire"}>Formulaire</Rbootstrap.Nav.Link>
-            <Rbootstrap.Nav.Link as={Link}to={"/StaticForms"}>Static Forms</Rbootstrap.Nav.Link>
-            <Rbootstrap.Nav.Link as={Link}to={"/SafetyStandardsForm"}>Safety Standards Form</Rbootstrap.Nav.Link>
-            <Rbootstrap.Nav.Link as={Link}to={"/DynamicForms"}>Dynamic Forms</Rbootstrap.Nav.Link>
-            <Rbootstrap.Nav.Link as={Link}to={"/ServerRoomInspectionForm"}>Server Room Inspection Form</Rbootstrap.Nav.Link>
-          </Rbootstrap.Nav>
-          </Rbootstrap.Container>
-          </Rbootstrap.Navbar>
-          <Routes>
-                <Route path="/Home" element={<Home/>}/>
-                <Route path="/Formulaire" element={<Formulaire/>}/>
-                <Route path="/StaticForms" element={<StaticForms/>}/>
-                <Route path="/DynamicForms" element= {<DynamicForms/>}/>
-                <Route path="/SafetyStandardsForm" element={<SafetyStandardsForm/>}/>
-                <Route path="/updateForm" element={<FormUpdate/>}/>
-                <Route path="/ServerRoomInspectionForm" element={<ServerRoomInspectionForm/>}/>
-              </Routes>
-              </div>
-          </Router>
-           );
+            <div className="news">
+              <Rbootstrap.Navbar  bg="dark" variant="dark">
+                <Rbootstrap.Container>
+                  <Rbootstrap.Navbar.Brand as={Link}to={"/Home"}>Navbar</Rbootstrap.Navbar.Brand>
+                  <Rbootstrap.Nav className="me-auto">
+                    <Rbootstrap.Nav.Link as={Link}to={"/Home"}>Home</Rbootstrap.Nav.Link>
+                    <Rbootstrap.Nav.Link as={Link}to={"/Formulaire"}>Formulaire</Rbootstrap.Nav.Link>
+                    <Rbootstrap.Nav.Link as={Link}to={"/StaticForms"}>Static Forms</Rbootstrap.Nav.Link>
+                    <Rbootstrap.Nav.Link as={Link}to={"/DynamicForms"}>Dynamic Forms</Rbootstrap.Nav.Link>
+                    <Rbootstrap.Nav.Link as={Link}to={"/RiskManagementForm"}>Risk Management Form</Rbootstrap.Nav.Link>
+                    <Rbootstrap.Nav.Link as={Link}to={"/FormInspector"}>Inspector Form</Rbootstrap.Nav.Link>
+                    <Rbootstrap.Nav.Link as={Link}to={"/planing"}>planing</Rbootstrap.Nav.Link>
+            <Rbootstrap.Nav.Link as={Link}to={"/planingAction"}>action</Rbootstrap.Nav.Link>
+                  </Rbootstrap.Nav>
+                </Rbootstrap.Container>
+              </Rbootstrap.Navbar>
+              
+            </div>
+        );
     }
 }
  

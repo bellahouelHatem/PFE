@@ -7,7 +7,7 @@ window.$ = $;
 require("jquery-ui-sortable");
 require('formBuilder/dist/form-render.min.js');
  
-function Home() {
+function Home(props) {
   const location= useLocation();
   const {data}=location.state;
     
