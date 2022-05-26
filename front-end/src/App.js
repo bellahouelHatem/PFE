@@ -18,6 +18,7 @@ function App() {
         <Rbootstrap.Nav.Link as={Link}to={"/StaticForms"}>Static Forms</Rbootstrap.Nav.Link>
         <Rbootstrap.Nav.Link as={Link}to={"/DynamicForms"}>Dynamic Forms</Rbootstrap.Nav.Link>
         <Rbootstrap.Nav.Link as={Link}to={"/RiskManagementForm"}>Risk Management Form</Rbootstrap.Nav.Link>
+        <Rbootstrap.Nav.Link as={Link}to={"/GAPAnalysisForm"}>GAP Analysis Form</Rbootstrap.Nav.Link>
         <Rbootstrap.Nav.Link as={Link}to={"/FormInspector"}>Inspector Form</Rbootstrap.Nav.Link>
         <Rbootstrap.Nav.Link as={Link}to={"/planing"}>planing</Rbootstrap.Nav.Link>
 <Rbootstrap.Nav.Link as={Link}to={"/planingAction"}>action</Rbootstrap.Nav.Link>
@@ -31,6 +32,4 @@ function App() {
   );
 }
 const rootElement = document.getElementById("root");
-//  ReactDOM.render(<App />, rootElement);
-
 export default App;

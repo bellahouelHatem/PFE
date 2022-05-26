@@ -1,10 +1,18 @@
 package com.example.msformulaire.Service;
 
 import com.example.msformulaire.Model.RiskManagementForm;
+import com.example.msformulaire.Model.RiskManagementFormPDFExporter;
 import com.example.msformulaire.Repositories.RiskManagementFormRepository;
+import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin("http://localhost:3000")
@@ -61,13 +69,13 @@ public class RiskManagementFormService {
         riskManagementForm.setQuestion31(formulaire.getQuestion31());
         riskManagementForm.setQuestion32(formulaire.getQuestion32());
         riskManagementFormRepository.save(riskManagementForm);
-
     }
 
     @PostMapping("/RiskManagementForm")
     public void ajouter(@RequestBody RiskManagementForm form) {
         riskManagementFormRepository.save(form);
     }
+
     @DeleteMapping("/RiskManagementForm/{id}")
     public void Delete(@PathVariable(name = "id") Long id){
         riskManagementFormRepository.deleteById(id);

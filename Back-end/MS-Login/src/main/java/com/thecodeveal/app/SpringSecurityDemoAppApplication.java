@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 
+import com.thecodeveal.app.entities.Administrator;
 import com.thecodeveal.app.entities.Inspector;
+import com.thecodeveal.app.repository.AdministratorRepository;
+import com.thecodeveal.app.repository.InspectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +24,7 @@ public class SpringSecurityDemoAppApplication {
 	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
-	private UserDetailsRepository userDetailsRepository;
+	private AdministratorRepository administratorRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringSecurityDemoAppApplication.class, args);
@@ -31,22 +34,15 @@ public class SpringSecurityDemoAppApplication {
 	protected void init() {
 		
 		List<Authority> authorityList=new ArrayList<>();
-//
-		authorityList.add(createAuthority("USER","User role"));
+		authorityList.add(createAuthority("INSPECTOR","Inspector role"));
+		authorityList.add(createAuthority("SERVICEPROVIDER","Service provider role"));
 		authorityList.add(createAuthority("ADMIN","Admin role"));
-
-		User user=new Inspector();
-		//Inspector user =new Inspector();
-
+		Administrator user =new Administrator();
 		user.setUserName("override");
-//	    ((Inspector) user).setFirstName("override");
-//		((Inspector) user).setLastName("override");
-
 		user.setPassword(passwordEncoder.encode("override"));
 		user.setEnabled(true);
-		//user.setAuthorities(authorityList);
-//
-		userDetailsRepository.save(user);
+		user.setAuthorities(authorityList);
+		administratorRepository.save(user);
 	}
 	
 	

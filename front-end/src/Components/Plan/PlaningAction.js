@@ -95,12 +95,12 @@ const handleClick=()=>{
         <>
         <App/>
         <div >
-          <Button onClick={handleShowAdd} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Employee</span></Button>
+          <Button onClick={handleShowAdd} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Inspection</span></Button>
      {/* add Modal..........................      */}
     <Modal show={showAdd} onHide={handleCloseAdd}>
         <Modal.Header closeButton>
             <Modal.Title>
-                Add Employee
+                Add Inspection
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>

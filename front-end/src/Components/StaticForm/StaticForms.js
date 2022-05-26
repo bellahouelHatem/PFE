@@ -12,21 +12,21 @@ import App from "../../App";
   const BlogData = [
     {
       image: bg1,
-      title: "Safety standards Form",
-      subtitle: "34 questions",
+      title: "Iso 31000 Risk Management Checklist",
+      subtitle: "32 questions",
       description:
-        "We can add description if needed",
+        "An ISO 31000 Risk Management Checklist is a self-assessment tool to help identify, assess, and reduce external and internal factors which could harm the organization. It's a framework for designing, implementing, and maintaining a risk management system on a company-wide level, useful for internal audits.​",
       btnbg: "primary",
-      link: "/SafetyStandardsForm"
+      link: "/RiskManagementForm"
     },
     {
       image: bg2,
-      title: "Lets be simple blog",
-      subtitle: "2 comments, 1 Like",
+      title: "ISO 9001:2015 GAP Analysis Checklist",
+      subtitle: "51 questions",
       description:
-        "This is a wider card with supporting text below as a natural lead-in to additional content.",
+        "An ISO 9001 gap analysis is an objective evaluation of your organization’s current arrangements against the ISO 9001 requirements of the standard. An ISO Gap Analysis can be an ideal place to start when implementing a new standard in your organization.",
       btnbg: "primary",
-      link: "/SafetyStandardsForm"
+      link: "/GAPAnalysisForm"
     },
   ];
 

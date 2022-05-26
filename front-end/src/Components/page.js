@@ -5,8 +5,7 @@ import Formulaire from "./DynamicForm/Formulaire";
 import StaticForms from "./StaticForm/StaticForms";
 import DynamicForms from "./DynamicForm/DynamicForms";
 import RiskManagementForm from "./StaticForm/RiskManagementForm";
-import {Dashboard} from "./dashboard/dashboard.js";
-
+import {Dashboard} from "./dashboards/dashboard.js";
 import {
   BrowserRouter as Router,
   Route,
@@ -21,6 +20,7 @@ import PlaningInsp from "./Plan/PlaningInsp";
 export default class Page  extends Component {
     render() { 
       console.log("test3");
+      console.log(localStorage.getItem('token'));
         return (
             <div className="news">
               <Rbootstrap.Navbar  bg="dark" variant="dark">
@@ -32,13 +32,13 @@ export default class Page  extends Component {
                     <Rbootstrap.Nav.Link as={Link}to={"/StaticForms"}>Static Forms</Rbootstrap.Nav.Link>
                     <Rbootstrap.Nav.Link as={Link}to={"/DynamicForms"}>Dynamic Forms</Rbootstrap.Nav.Link>
                     <Rbootstrap.Nav.Link as={Link}to={"/RiskManagementForm"}>Risk Management Form</Rbootstrap.Nav.Link>
+                    <Rbootstrap.Nav.Link as={Link}to={"/GAPAnalysisForm"}>GAP Analysis Form</Rbootstrap.Nav.Link>
                     <Rbootstrap.Nav.Link as={Link}to={"/FormInspector"}>Inspector Form</Rbootstrap.Nav.Link>
                     <Rbootstrap.Nav.Link as={Link}to={"/planing"}>planing</Rbootstrap.Nav.Link>
             <Rbootstrap.Nav.Link as={Link}to={"/planingAction"}>action</Rbootstrap.Nav.Link>
                   </Rbootstrap.Nav>
                 </Rbootstrap.Container>
               </Rbootstrap.Navbar>
-              
             </div>
         );
     }

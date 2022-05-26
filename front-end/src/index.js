@@ -12,15 +12,19 @@ import { Route } from 'react-router-dom';
 import Page from './Components/page';
 import Registration from './Components/Registration/Registration';
 import Home from './Components/Home';
-import { Dashboard } from './Components/dashboard/dashboard';
+import { Dashboard } from './Components/dashboards/dashboard';
 import Formulaire from './Components/DynamicForm/Formulaire';
 import StaticForms from './Components/StaticForm/StaticForms';
 import DynamicForms from './Components/DynamicForm/DynamicForms';
 import FormUpdate from './Components/DynamicForm/FormUpdate';
 import RiskManagementForm from './Components/StaticForm/RiskManagementForm';
+import GAPAnalysisForm from './Components/StaticForm/GAPAnalysisForm';
 import FormInspector from './Components/Inspector/FormInspector';
 import PlaningInsp from './Components/Plan/PlaningInsp';
 import PlaningAction from './Components/Plan/PlaningAction';
+import PageInspector from './Components/dashboards/PageInspector';
+import PageAdmin from './Components/dashboards/PageAdmin';
+import PageServiceProvider from './Components/dashboards/PageServiceProvider';
 
 const MyAppWithStore = () => (
   <>
@@ -30,7 +34,6 @@ const MyAppWithStore = () => (
     <Route exact path="/" component={LoginPage}/>
     <Route exact path="/registration" component={Registration}/>
     <Route exact path="/Page" component={Page}/>
-
                 <Route exact path="/Home" component={Home}/>
                 <Route exact path="/dashbord" component={Dashboard}/> 
                 <Route exact path="/Formulaire" component={Formulaire}/>
@@ -38,11 +41,14 @@ const MyAppWithStore = () => (
                 <Route exact path="/DynamicForms" component= {DynamicForms}/>
                 <Route exact path="/updateForm" component={FormUpdate}/>
                 <Route exact path="/RiskManagementForm" component={RiskManagementForm}/>
+                <Route exact path="/GAPAnalysisForm" component={GAPAnalysisForm}/>
                 <Route exact path="/FormInspector" component={FormInspector}/>
                 <Route path="/planing" component={PlaningInsp}/>
                 <Route path="/planingAction" component={PlaningAction}/>
-              
-   
+                <Route path="/PageInspector" component={PageInspector}/>
+                <Route path="/PageAdmin" component={PageAdmin}/>
+                <Route path="/PageServiceProvider" component={PageServiceProvider}/>
+
   </Switch>
   </BrowserRouter>
   </Provider>

@@ -19,11 +19,11 @@ function FormInspector() {
             id: 1,
             name: "UserName",
             type: "text",
-            placeholder: "User name",
+            placeholder: "Email",
             errorMessage:
                 "Username should be 3-16 characters and shouldn't include any special character!",
-            label: "User name",
-            pattern: "*[a-zA-Z,\s]+\s*[3,16]$",
+            label: "Email",
+            pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$",
             required: true
         },
         {
@@ -50,17 +50,6 @@ function FormInspector() {
         },
         {
             id: 4,
-            name: "Email",
-            type: "text",
-            placeholder: "Email",
-            errorMessage:
-                "Username should be 3-16 characters and shouldn't include any special character!",
-            label: "Email",
-            pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$",
-            required: true
-        },
-        {
-            id: 5,
             name: "PhoneNumber",
             type: "text",
             placeholder: "Phone number",
@@ -71,13 +60,13 @@ function FormInspector() {
             required: true
         },
         {
-          id: 6,
+          id: 5,
           name: "PAss",
           type: "text",
-          placeholder: "Phone number",
+          placeholder: "Password",
           errorMessage:
               "Username should be 3-16 characters and shouldn't include any special character!",
-          label: "Phone number",
+          label: "Password",
           pattern: "\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$",
           required: true
       }
@@ -86,14 +75,14 @@ function FormInspector() {
       const handleSubmit = (e) => {
         e.preventDefault();
           const body = {
-            userName : values["Email"],
+            userName : values["UserName"],
             firstName:values["FirstName"],
             lastName:values["LastName"],
             phoneNumber:values["PhoneNumber"],
             password:values["PAss"]             
           }
           console.log(body)
-         axios.post('http://localhost:8081/api/inspectors',body).then(resp=>console.log(resp.data)).catch(err=>console.log(err.response.data.error))
+         axios.post('http://localhost:8081/api/inspector',body,{  headers: {'Content-Type': 'application/json','Authorization': 'Bearer '+localStorage.getItem("token")}}).then(resp=>console.log(resp.data)).catch(err=>console.log(err))
         // window.location.reload(true);
       };
     

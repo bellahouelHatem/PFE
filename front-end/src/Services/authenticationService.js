@@ -22,3 +22,6 @@ export const fetchUserData=(authRequest)=>{
         }
     })
 }
+export const logOut=()=>{
+    localStorage.clear();
+}

@@ -26,26 +26,26 @@ public abstract class User implements UserDetails {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	protected long id;
 
 	@Column(name = "USER_NAME", unique = true)
-	private String userName;
+	protected String userName;
 
 	@Column(name = "USER_KEY")
-	private String password;
+	protected String password;
 
 
 	@Column(name = "CREATED_ON")
-	private Date createdAt;
+	protected Date createdAt;
 
 	@Column(name = "UPDATED_ON")
-	private Date updatedAt;
+	protected Date updatedAt;
 
 	@Column(name = "phone_number")
-	private String phoneNumber;
+	protected String phoneNumber;
 
 	@Column(name = "enabled")
-	private boolean enabled=true;
+	protected boolean enabled=true;
 
 	
 	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)

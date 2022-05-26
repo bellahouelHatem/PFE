@@ -57,10 +57,10 @@ public class JWTTokenHelper {
 	        return userName;
 	 }
 	 
-	 public String generateToken(String userName) throws InvalidKeySpecException, NoSuchAlgorithmException {
+	 public String generateToken(String userName,String role) throws Exception {
 	        
 	        return Jwts.builder()
-	                .setIssuer( appName )
+	                .setIssuer( role )
 	                .setSubject(userName)
 	                .setIssuedAt(new Date())
 	                .setExpiration(generateExpirationDate())

@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 @Entity
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @DiscriminatorValue("ServiceProvider")
 public class ServiceProvider extends User{
 
@@ -23,4 +22,9 @@ public class ServiceProvider extends User{
 
     @Column(name = "locked")
     private Boolean locked = false;
+
+
+    public   ServiceProvider(){
+        super();
+    }
 }

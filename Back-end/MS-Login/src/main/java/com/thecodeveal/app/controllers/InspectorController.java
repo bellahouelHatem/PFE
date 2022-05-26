@@ -1,17 +1,13 @@
 package com.thecodeveal.app.controllers;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.thecodeveal.app.Port.Port;
 import com.thecodeveal.app.entities.Inspector;
 import com.thecodeveal.app.entities.User;
 import com.thecodeveal.app.repository.InspectorRepository;
-import com.thecodeveal.app.repository.UserDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:3000")
 public class InspectorController {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private InspectorRepository inspectorRepository;
@@ -40,8 +38,9 @@ public class InspectorController {
     }
 
     // create employee rest api
-    @PostMapping("/inspectors")
+    @PostMapping("/inspector")
     public void createInspector(@RequestBody Inspector inspector) {
+        inspector.setPassword(passwordEncoder.encode(inspector.getPassword()));
         inspectorRepository.save(inspector);
     }
 
@@ -55,7 +54,7 @@ public class InspectorController {
 
     @PutMapping("/inspectors/{id}")
     public void updateInspector(@PathVariable Long id, @RequestBody Inspector inspectorDetails){
-        Inspector inspector = (Inspector) inspectorRepository.findById(id).get();
+        Inspector inspector = inspectorRepository.findById(id).get();
 
         inspector.setFirstName(inspectorDetails.getFirstName());
         inspector.setLastName(inspectorDetails.getLastName());

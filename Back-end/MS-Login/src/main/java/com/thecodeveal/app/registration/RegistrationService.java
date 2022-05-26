@@ -7,6 +7,8 @@ import com.thecodeveal.app.registration.token.ConfirmationToken;
 import com.thecodeveal.app.registration.token.ConfirmationTokenService;
 import com.thecodeveal.app.services.CustomUserService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,32 +18,38 @@ import java.util.Date;
 @Service
 @AllArgsConstructor
 public class RegistrationService {
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
     private final CustomUserService customUserService;
+    @Autowired
     private final EmailValidator emailValidator;
+    @Autowired
     private final ConfirmationTokenService confirmationTokenService;
+    @Autowired
     private final EmailSender emailSender;
 
-    public String register(RegistrationRequest request) {
+    public String register(ServiceProvider request) {
 
         ServiceProvider serviceProvider = new ServiceProvider();
 
-        boolean isValidEmail = emailValidator.test(request.getUserName());
+        boolean isValidEmail = emailValidator.test(request.getUsername());
 
         if (!isValidEmail) {
             throw new IllegalStateException("email not valid");
         }
 
         serviceProvider.setName(request.getName());
-        serviceProvider.setUserName(request.getUserName());
-        serviceProvider.setPassword(request.getPassword());
+        serviceProvider.setUserName(request.getUsername());
+        serviceProvider.setPassword(passwordEncoder.encode(request.getPassword()));
         serviceProvider.setLocation(request.getLocation());
         serviceProvider.setPhoneNumber(request.getPhoneNumber());
         serviceProvider.setCreatedAt(new Date());
         String token = customUserService.signUpUser(serviceProvider);
 
-        String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
-        emailSender.send( request.getUserName(), buildEmail(request.getName(), link));
+        //String link = "http://localhost:8081/api/v1/registration/confirm?token=" + token;
+        String link = "http://localhost:3000/";
+        emailSender.send( request.getUsername(), buildEmail(request.getName(), link));
         return token;
     }
 

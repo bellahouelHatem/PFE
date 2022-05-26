@@ -1,9 +1,11 @@
-import react,{useState} from 'react';
+import react,{useEffect, useState} from 'react';
 import { connect } from 'react-redux';
 import { authenticate, authFailure, authSuccess } from '../../redux/authActions';
 import './loginpage.css';
 import {userLogin} from '../../Services/authenticationService';
 import {Alert,Spinner} from 'react-bootstrap';
+
+import jwt_decode from "jwt-decode";
 
 const LoginPage=({loading,error,...props})=>{
 
@@ -21,11 +23,24 @@ const LoginPage=({loading,error,...props})=>{
         console.log(values)
 
         userLogin(values).then((response)=>{
+            
 
             console.log(response.data);
             if(response.status===200){
+                const { token } = response.data;
+                console.log(token)
+                localStorage.setItem('token', token,15000);
+                const Token = jwt_decode(token);
+                console.log(Token["iss"])
                 props.setUser(response.data);
-                props.history.push('/Page');
+                if (Token["iss"]=== "Administrator"){
+                    props.history.push('/PageAdmin');
+                }else if(Token["iss"]=== "Inspector"){
+                    props.history.push('/PageInspector');
+                }else if(Token["iss"]=== "ServiceProvider"){
+                    props.history.push('/PageServiceProvider');
+                }
+                
             }
             else{
                props.loginFailure('Something Wrong!Please Try Again'); 

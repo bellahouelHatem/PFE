@@ -1,7 +1,9 @@
 package com.thecodeveal.app.services;
 
+import com.thecodeveal.app.entities.ServiceProvider;
 import com.thecodeveal.app.registration.token.ConfirmationToken;
 import com.thecodeveal.app.registration.token.ConfirmationTokenService;
+import com.thecodeveal.app.repository.ServiceProviderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,14 +11,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.thecodeveal.app.config.JWTTokenHelper;
-
 import com.thecodeveal.app.entities.User;
 import com.thecodeveal.app.repository.UserDetailsRepository;
-
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 
 @Service
@@ -24,8 +21,11 @@ public class CustomUserService implements UserDetailsService {
 	private final static String USER_NOT_FOUND_MSG = "user with email %s not found";
 	@Autowired
 	private UserDetailsRepository userDetailsRepository;
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	@Autowired
+	private ServiceProviderRepository serviceProviderRepository;
+	@Autowired
 	private ConfirmationTokenService confirmationTokenService;
+	@Autowired
 	private JWTTokenHelper jwtTokenHelper;
 
 	@Override
@@ -43,26 +43,14 @@ public class CustomUserService implements UserDetailsService {
 		boolean userExists = userDetailsRepository.findByUserName(user.getUsername()).isPresent();
 
 		if (userExists) {
-			// TODO check of attributes are the same and
-			// TODO if email not confirmed send confirmation email.
-
 			throw new IllegalStateException("email already taken");
 		}
-
-		String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
-
-
-		user.setPassword(encodedPassword);
-
-		userDetailsRepository.save(user);
-
-		//String token = UUID.randomUUID().toString();
-
-		String token = null;
+		serviceProviderRepository.save((ServiceProvider) user);
+		String token = "";
 		try {
-			token = jwtTokenHelper.generateToken(user.getUsername());
+			token = jwtTokenHelper.generateToken(user.getUsername(),user.getClass().getSimpleName());
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());;
 		}
 
 		ConfirmationToken confirmationToken = new ConfirmationToken(
@@ -73,9 +61,6 @@ public class CustomUserService implements UserDetailsService {
 		);
 
 		confirmationTokenService.saveConfirmationToken(confirmationToken);
-
-//        TODO: SEND EMAIL
-
 		return token;
 	}
 

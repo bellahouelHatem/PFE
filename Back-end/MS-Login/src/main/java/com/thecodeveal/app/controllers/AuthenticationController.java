@@ -51,7 +51,14 @@ public class AuthenticationController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		User user=(User)authentication.getPrincipal();
-		String jwtToken=jWTTokenHelper.generateToken(user.getUsername());
+		;
+		String jwtToken ="";
+		try {
+			jwtToken=jWTTokenHelper.generateToken(user.getUsername(),user.getClass().getSimpleName());
+		}
+		catch (Exception e){
+			System.out.println(e.getMessage());
+		}
 		
 		LoginResponse response=new LoginResponse();
 		response.setToken(jwtToken);
