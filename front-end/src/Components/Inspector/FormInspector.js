@@ -1,10 +1,11 @@
 import FormInspectorInput from "./FormInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import '../../App.css';
 import { format } from 'date-fns'
 import axios from "axios";
-
-function FormInspector() {
+import jwtDecode from "jwt-decode";
+import PageAdmin from "../dashboards/PageAdmin";
+function FormInspector(props) {
   const [focused, setFocused] = useState(false);
     const [values, setValues] = useState({id:"",title:"",startDate:"",endDate:""});
       const handleFocus = (e) => {
@@ -97,7 +98,21 @@ function FormInspector() {
         setValues({ ...values, [e.target.name]: e.target.value });
     }else
     {inputs[3].errorMessage= "the end Date should be after the start Date"  }  ;} */
-      return (
+    useEffect(()=>{
+      const token = localStorage.getItem("token");
+      
+        if(token== null){
+          props.history.push('/'); 
+        }else{
+          const Dtoken =jwtDecode(token) ;
+          console.log(Dtoken)
+           if(Dtoken["iss"]=== "Inspector"){
+          props.history.push('/PageInspector');
+      }else if(Dtoken["iss"]=== "ServiceProvider"){
+          props.history.push('/PageServiceProvider');
+      }}
+    },[])
+      return (<><PageAdmin/>
         <div className="app">
           <form className="formInput" >{/* onSubmit={handleSubmit}> */}
             <h1>Register</h1>
@@ -119,6 +134,7 @@ function FormInspector() {
             <button className="button" onClick={(e) => handleSubmit(e)}>Submit</button>
           </form>
         </div>
+        </>
       );
     };
     

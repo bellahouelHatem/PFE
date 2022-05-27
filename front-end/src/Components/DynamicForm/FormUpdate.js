@@ -4,6 +4,8 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import App from "../../App";
+import jwtDecode from "jwt-decode";
+import PageInspector from "../dashboards/PageInspector";
 
  window.jQuery = $;
  window.$ = $;
@@ -81,11 +83,12 @@ const view = (d)=>{
 useEffect(()=>{
   const url = "http://localhost:8081/api/form/"+Id.toString()
   axios.get(url).then(res=>view(res.data)).catch(err=>console.log(err))
+  
 },[])
    
         return (
           <>
-          <App></App>
+          <PageInspector/>
         <div >
           
            <div class="form-group">

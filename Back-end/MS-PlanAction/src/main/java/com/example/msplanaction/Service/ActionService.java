@@ -14,16 +14,24 @@ import java.util.List;
 public class ActionService {
     @Autowired
     private ActionRepository actionRepository;
-    @GetMapping("/Inspection")
+
+    @GetMapping("/Action")
     public List<Action> getAll(){
         return actionRepository.findAll();
     }
-    @GetMapping("/Inspection/{id}")
-    public Action getInspection(@PathVariable(name = "id") Long id){
+
+    @GetMapping("/Action/{id}")
+    public Action getAction(@PathVariable(name = "id") Long id){
         return actionRepository.findById(id).get();
     }
-    @PutMapping("/Inspection/{id}")
-    public void updateInspection(@PathVariable(name = "id") Long id,@RequestBody Action action){
+
+    @GetMapping("/Actions/{clientUN}")
+    public List<Action> getActions(@PathVariable(name = "clientUN") String clientUN){
+        return actionRepository.findByClientUN(clientUN);
+    }
+
+    @PutMapping("/Action/{id}")
+    public void updateAction(@PathVariable(name = "id") Long id,@RequestBody Action action){
         Action action1 = actionRepository.findById(id).get();
         action1.setTitle(action.getTitle());
         action1.setStartDate(action.getStartDate());
@@ -31,12 +39,13 @@ public class ActionService {
         actionRepository.save(action1);
     }
 
-    @PostMapping("/Inspection")
-    public void addInspection(@RequestBody Action action) {
+    @PostMapping("/Action")
+    public void addAction(@RequestBody Action action) {
         actionRepository.save(action);
     }
-    @DeleteMapping("/Inspection/{id}")
-    public void DeleteInspection(@PathVariable(name = "id") Long id){
+
+    @DeleteMapping("/Action/{id}")
+    public void DeleteAction(@PathVariable(name = "id") Long id){
         actionRepository.deleteById(id);
     }
 }

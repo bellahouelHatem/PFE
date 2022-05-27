@@ -13,13 +13,17 @@ import java.util.List;
 public class InspectionService {
     @Autowired
     private InspectionRepository inspectionRepository;
-    @GetMapping("/Inspection")
-    public List<Inspection> getAll(){
-        return inspectionRepository.findAll();
-    }
+//    @GetMapping("/Inspection")
+//    public List<Inspection> getAll(){
+//        return inspectionRepository.findAll();
+//    }
     @GetMapping("/Inspection/{id}")
     public Inspection getInspection(@PathVariable(name = "id") Long id){
         return inspectionRepository.findById(id).get();
+    }
+    @GetMapping("/Inspections/{client}")
+    public List<Inspection> getInspectionClient(@PathVariable(name = "client") String clientUN){
+        return inspectionRepository.findByClientUN(clientUN);
     }
     @PutMapping("/Inspection/{id}")
     public void updateInspection(@PathVariable(name = "id") Long id,@RequestBody Inspection inspection){
@@ -34,6 +38,7 @@ public class InspectionService {
     public void addInspection(@RequestBody Inspection inspection) {
         inspectionRepository.save(inspection);
     }
+
     @DeleteMapping("/Inspection/{id}")
     public void DeleteInspection(@PathVariable(name = "id") Long id){
         inspectionRepository.deleteById(id);

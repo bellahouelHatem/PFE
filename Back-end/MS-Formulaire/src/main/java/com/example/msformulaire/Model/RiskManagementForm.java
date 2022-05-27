@@ -3,6 +3,8 @@ package com.example.msformulaire.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.minidev.json.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -11,6 +13,8 @@ import java.time.LocalDate;
 public class RiskManagementForm {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
+    @JsonIgnore
+    private Long idInspection;
     private LocalDate DateCreation;
     @Column(updatable = true, name="question1", nullable = false, columnDefinition = "text")
     private String question1;

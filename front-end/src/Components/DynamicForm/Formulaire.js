@@ -2,6 +2,8 @@ import React, { Component, createRef } from "react";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 import App from "../../App"
+import jwtDecode from "jwt-decode";
+import PageInspector from "../dashboards/PageInspector";
 window.jQuery = $;
 window.$ = $;
  require("jquery-ui-sortable");
@@ -30,9 +32,20 @@ class Formulaire  extends Component {
   fb = createRef();
 
   
-  componentDidMount() {
+  componentDidMount(props) {
 
        this.setState({form : $(this.fb.current).formBuilder(options)})
+       const token = localStorage.getItem("token");
+        if(token === null){
+          props.history.push('/'); 
+        }else{
+          const Dtoken =jwtDecode(token) 
+
+           if (Dtoken["iss"]=== "Administrator"){
+             props.history.push('/PageAdmin');
+          }else if(Dtoken["iss"]=== "ServiceProvider"){
+            props.history.push('/PageServiceProvider');
+      }}
     
   }
   clear(){
@@ -62,7 +75,7 @@ class Formulaire  extends Component {
     render() { 
         return (
           <>
-          <App/>
+          <PageInspector/>
         <div >
           <div class="form-group">
              <label for="formGroupExampleInput">Titre</label>

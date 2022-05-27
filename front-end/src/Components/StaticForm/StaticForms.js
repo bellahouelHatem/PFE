@@ -3,11 +3,14 @@ import {
     Col,
 } from "reactstrap";
 import Cards from "./Cards";
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 
 import bg1 from "../../Images/bg/bg1.jpg";
 import bg2 from "../../Images/bg/bg2.jpg";
 import App from "../../App";
+import jwtDecode from "jwt-decode";
+import { PageItem } from "react-bootstrap";
+import PageInspector from "../dashboards/PageInspector"
 
   const BlogData = [
     {
@@ -30,10 +33,23 @@ import App from "../../App";
     },
   ];
 
-  const StaticForms = () => {
+  const StaticForms = (props) => {
+    useEffect(()=>{
+      const token = localStorage.getItem("token");
+        if(token === null){
+          props.history.push('/'); 
+        }else{
+          const Dtoken =jwtDecode(token) 
+
+           if (Dtoken["iss"]=== "Administrator"){
+             props.history.push('/PageAdmin');
+          }else if(Dtoken["iss"]=== "ServiceProvider"){
+            props.history.push('/PageServiceProvider');
+      }}
+    },[])
     return (
       <>
-      <App/>
+      <PageInspector/>
         <div>
             <h1 className="mb-3">Form Cards</h1>
             <Row>

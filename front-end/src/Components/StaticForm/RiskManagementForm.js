@@ -10,9 +10,11 @@ import {
     Label,
     Input,
   } from "reactstrap";
-import React, { useState } from "react"; 
+import React, { useEffect, useState } from "react"; 
 import axios from "axios";
 import App from "../../App"
+import jwtDecode from "jwt-decode";
+import PageInspector from "../dashboards/PageInspector";
   
   const Framework = [
     {
@@ -193,7 +195,7 @@ const ListQuestions = [
 ]
 
   
-const RiskManagementForm = () => {
+const RiskManagementForm = (props) => {
   const d = new Date().toISOString().slice(0, 10);
 
   const [formData,setformData] = useState({
@@ -217,10 +219,23 @@ const RiskManagementForm = () => {
   const onChange=(e)=>{
     setformData({...formData,[e.target.name]:e.target.value})
   }
+  useEffect(()=>{
+    const token = localStorage.getItem("token");
+      if(token === null){
+        props.history.push('/'); 
+      }else{
+        const Dtoken =jwtDecode(token) 
+
+         if (Dtoken["iss"]=== "Administrator"){
+           props.history.push('/PageAdmin');
+        }else if(Dtoken["iss"]=== "ServiceProvider"){
+          props.history.push('/PageServiceProvider');
+    }}
+  },[])
 
     return (
       <>
-      <App/>
+      <PageInspector/>
       <div>
         <Row>
         <Col xs="12" md="8">

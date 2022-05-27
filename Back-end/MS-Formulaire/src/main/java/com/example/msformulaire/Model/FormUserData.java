@@ -3,6 +3,7 @@ package com.example.msformulaire.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -16,4 +17,6 @@ public class FormUserData {
     private Long Id;
     @Column(updatable = true, name="Form", nullable = false, columnDefinition = "text")
     private String Form;
+    @JsonIgnore
+    private String idInspection;
 }

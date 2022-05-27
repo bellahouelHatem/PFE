@@ -12,12 +12,14 @@ import axios from "axios";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
 import App from "../../App";
+import PageServiceProvider from "../dashboards/PageServiceProvider";
+import jwtDecode from "jwt-decode";
 const today =format(new Date(), 'yyyy-MM-dd');
 var x=[]
 const locales = {
     "en-US": require("date-fns/locale/en-US"),
 };
-const url='http://localhost:8082/api/Inspection'
+const url='http://localhost:8083/api/Inspection'
 const localizer = dateFnsLocalizer({
     format,
     parse,
@@ -32,6 +34,7 @@ function PlaningInsp() {
       };
     const [state,setState]=useState();
 
+
     const [showAdd, setShowAdd] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [showInsp,setShowInsp]=useState(false);
@@ -42,7 +45,11 @@ function PlaningInsp() {
     }
 
     useEffect(() => {
-    axios.get(url).then((response) => {
+      const token = localStorage.getItem("token");
+        const Dtoken = jwtDecode(token)
+       const Cid =Dtoken["sub"];
+       console.log(Cid)
+    axios.get(url+"s/"+Cid).then((response) => {
       x=[];
       const y = response.data
       console.log(y)
@@ -56,7 +63,7 @@ function PlaningInsp() {
           }])
             console.log(x)
             setState(x)
-    });
+    }).catch(err=>console.log(err));
     
     }, []);
     
@@ -83,6 +90,7 @@ const handleClick=()=>{
 }
    
     const handleSubmit = (e) => {
+      if (window.confirm('Are you sure you wish to delete this item?')){
         e.preventDefault();
         const x =url+"/"+newEvent.id
           const body = {
@@ -92,12 +100,12 @@ const handleClick=()=>{
           }
           console.log(body)
           axios.put(x,body).catch(err=>console.log(err))
-          window.location.reload(true);
+          window.location.reload(true);}
       };
 
     return (
         <>
-        <App/>
+        <PageServiceProvider/>
         <div >
           <Button onClick={handleShowAdd} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Employee</span></Button>
      {/* add Modal..........................      */}
@@ -126,14 +134,16 @@ const handleClick=()=>{
         </Modal.Header>
         <Modal.Body>
         <div className="app" >
-        <form className="formInput" >
+        <form className="formInput"  onSubmit={handleSubmit} >
         <label>title</label>
         <input onChange={(e)=>onChange(e)} name="title" type= "text" errorMessage="required" label= "Title" required value={newEvent.title}></input>
           <label>Start Date</label> 
-           <input onChange={(e)=>onChange(e)} name="startDate" type= "date" min ={ today} placeholder= "End Date"berrorMessage="required"label= "End Date" required value={newEvent.startDate}></input>
+           <input onChange={(e)=>onChange(e)} name="startDate" type= "date" min ={today} placeholder= "End Date"berrorMessage="required"label= "End Date" required value={newEvent.startDate}></input>
+           {newEvent.startDate&&(<React.Fragment>
           <label>End Date</label>
-            <input onChange={(e)=>onChange(e)} name="endDate" type= "date" min ={ today} placeholder= "End Date" errorMessage="required" label= "End Date" required value={newEvent.endDate}></input>
-            <button onClick={(e)=>{ if (window.confirm('Are you sure you wish to update this item?'))handleSubmit(e)}} className="button">Submit</button> 
+            <input onChange={(e)=>onChange(e)} name="endDate" type= "date" min ={newEvent.startDate} placeholder= "End Date" errorMessage="required" label= "End Date" required value={newEvent.endDate} ></input>
+            </React.Fragment>)}
+            <button  className="button">Submit</button> 
          </form>
           </div>
         </Modal.Body>
@@ -159,7 +169,7 @@ const handleClick=()=>{
             <p>{newEvent.type}</p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <Button className="buttonEdit" onClick={handleClick}>Edit</Button>
-            <Button className="buttonDelete"onClick={(e)=>{ if (window.confirm('Are you sure you wish to update this item?'))ondelete(e)}} >delete</Button>
+            <Button className="buttonDelete"onClick={(e)=>{ if (window.confirm('Are you sure you wish to delete this item?'))ondelete(e)}} >delete</Button>
             </div>
            </form>
           </div>

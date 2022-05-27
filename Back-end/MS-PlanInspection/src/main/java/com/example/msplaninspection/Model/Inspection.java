@@ -3,11 +3,9 @@ package com.example.msplaninspection.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.minidev.json.annotate.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -22,4 +20,8 @@ public class Inspection {
     private String type;
     private LocalDate startDate;
     private LocalDate endDate;
+    @JsonIgnore
+    private String inspectorUN;
+    @JsonIgnore
+    private String clientUN;
 }

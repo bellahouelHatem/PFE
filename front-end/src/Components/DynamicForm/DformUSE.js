@@ -3,12 +3,13 @@ import $ from "jquery";
 import '../../App.css';
 import axios from "axios";
 import { useLocation, Link } from "react-router-dom";
+import PageInspector from "../dashboards/PageInspector";
 window.jQuery = $;
 window.$ = $;
 require("jquery-ui-sortable");
 require('formBuilder/dist/form-render.min.js');
  
-function DformUSE() {
+function DformUSE(props) {
   const location= useLocation();
   const {data}=location.state;
   const [Form, setForm] = useState();
@@ -28,10 +29,21 @@ function DformUSE() {
     const fb = createRef();
     useEffect(()=>{const form = $(fb.current).formRender(formRenderOptions);
       setForm(form);
+      const token = localStorage.getItem("token");
+        if(token === null){
+          props.history.push('/'); 
+        }else{
+          const Dtoken =jwt_decode(token) 
+
+           if (Dtoken["iss"]=== "Administrator"){
+             props.history.push('/PageAdmin');
+          }else if(Dtoken["iss"]=== "ServiceProvider"){
+            props.history.push('/PageServiceProvider');
+      }}
 },[])
     return (
         <>
-      <App></App>
+      <PageInspector/>
       <div>
       <div  ref={fb}>
         </div>

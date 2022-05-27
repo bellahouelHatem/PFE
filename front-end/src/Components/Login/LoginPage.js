@@ -6,6 +6,7 @@ import {userLogin} from '../../Services/authenticationService';
 import {Alert,Spinner} from 'react-bootstrap';
 
 import jwt_decode from "jwt-decode";
+import jwtDecode from 'jwt-decode';
 
 const LoginPage=({loading,error,...props})=>{
 
@@ -85,6 +86,22 @@ console.log(err)
     };
 
     console.log("Loading ",loading);
+    useEffect(()=>{
+        const token = localStorage.getItem("token");
+        
+          if(token== null){
+            props.history.push('/'); 
+          }else{
+            const Dtoken =jwtDecode(token) ;
+            console.log(Dtoken)
+            if (Dtoken["iss"]=== "Administrator"){
+                props.history.push('/PageAdmin');
+            }else if(Dtoken["iss"]=== "Inspector"){
+                props.history.push('/PageInspector');
+            }else if(Dtoken["iss"]=== "ServiceProvider"){
+                props.history.push('/PageServiceProvider');
+            }}
+      },[])
 
     return (
         <div className="login-page">

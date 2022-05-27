@@ -3,11 +3,13 @@ import {Link} from "react-router-dom";
 import $ from "jquery";
 import axios from "axios";
 import App from "../../App";
+import jwtDecode from "jwt-decode";
+import PageInspector from "../dashboards/PageInspector";
 window.jQuery = $;
 window.$ = $;
  require("jquery-ui-sortable");
 
-function DynamicForms()   {
+function DynamicForms(props)   {
   const [state, setState] = useState([])
   //delete button function
  const Delete = (id)=>{
@@ -19,12 +21,25 @@ function DynamicForms()   {
     
    //getting the data from the database
   useEffect(() => {
-    fetch('http://localhost:8081/api/Forms').then(resp=>resp.json()).then(resp=>setState(resp))
+    const token = localStorage.getItem("token");
+        if(token === null){
+          props.history.push('/'); 
+        }else{
+          const Dtoken =jwtDecode(token) 
+
+           if (Dtoken["iss"]=== "Administrator"){
+             props.history.push('/PageAdmin');
+          }else if(Dtoken["iss"]=== "ServiceProvider"){
+            props.history.push('/PageServiceProvider');
+      }else{ axios.get('http://localhost:8081/api/Forms').then(resp=>setState(resp.data));}
+    }
+   
+    
     },[])
     
         return(
           <>
-          <App/>
+          <PageInspector/>
         <div>
            <Link  to="/Formulaire"><button id = 'save' type="button" class="btn btn-primary">Add Form</button></Link>
            {/* presenting the data in a tabel */}
