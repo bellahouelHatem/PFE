@@ -15,8 +15,8 @@ import java.time.LocalDate;
         private Long Id;
         @Column(updatable = true, name="Form", nullable = false, columnDefinition = "text")
         private String Form;
-        private String Titre;
-        private String Type;
+        private String titre;
+        private String type;
         private LocalDate DateCreation;
         @JsonIgnore
         private String inspUN;

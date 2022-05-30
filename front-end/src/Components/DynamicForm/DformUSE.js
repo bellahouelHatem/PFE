@@ -4,6 +4,7 @@ import '../../App.css';
 import axios from "axios";
 import { useLocation, Link } from "react-router-dom";
 import PageInspector from "../dashboards/PageInspector";
+import jwtDecode from "jwt-decode";
 window.jQuery = $;
 window.$ = $;
 require("jquery-ui-sortable");
@@ -17,9 +18,11 @@ function DformUSE(props) {
    var Data = JSON.stringify(Form.userData)
    console.log(JSON.parse(Data))
    const body = {
-    formdata : Data
+    form : Data,
+    idInspection:props.location.state.id
    }
-  axios.post('http://localhost:8081/api/FormUserData',body).catch(err=>console.log(err))
+   console.log(body)
+  axios.post('http://localhost:8082/api/FormUserData',body).catch(err=>console.log(err))
   
 }
     
@@ -33,7 +36,7 @@ function DformUSE(props) {
         if(token === null){
           props.history.push('/'); 
         }else{
-          const Dtoken =jwt_decode(token) 
+          const Dtoken =jwtDecode(token) 
 
            if (Dtoken["iss"]=== "Administrator"){
              props.history.push('/PageAdmin');

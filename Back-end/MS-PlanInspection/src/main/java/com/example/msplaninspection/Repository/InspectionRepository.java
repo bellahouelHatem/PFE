@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface InspectionRepository extends JpaRepository<Inspection,Long> {
-    List<Inspection> findByClientUN(String x);
+    List<Inspection> findByClientUNAndStatus(String x,String status);
+    List<Inspection> findByInspectorUNAndStatus(String x,String status);
+
 
 }

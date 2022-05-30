@@ -3,8 +3,6 @@ import $ from "jquery";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import App from "../../App";
-import jwtDecode from "jwt-decode";
 import PageInspector from "../dashboards/PageInspector";
 
  window.jQuery = $;
@@ -13,15 +11,14 @@ import PageInspector from "../dashboards/PageInspector";
   require("formBuilder");
   
   
-function FormUpdate (property) {
+function FormUpdate (props) {
 
+  const id = props.location.state.data;
   const [Form, setForm] = useState();
   const [Type,setType]=useState();
   const [Titre,setTitre]=useState();
   const location= useLocation();
-  const {Id}=location.state;
-  const {titre}=location.state
-  const {type}=location.state
+ 
 
   //input change Holder
   const  handleChangeTitre= (event)=> {
@@ -41,15 +38,14 @@ function FormUpdate (property) {
 
   //save the changes
    const edit = ()=>  {
-     const url = 'http://localhost:8081/api/forms/'+Id.toString()
+     const url = 'http://localhost:8082/api/Forms/'+id
     var data = JSON.stringify(Form.actions.getData('json', true))
     var Body = {
       form : data,
       type: Type,
       titre: Titre
         }
-   axios.put(url,Body)
-   .then(res=>alert("done")).catch(err=>console.log(err))
+   axios.put(url,Body).catch(err=>console.log(err))
   
  }
  //effacer le contenu du FormBuilder
@@ -64,6 +60,7 @@ function FormUpdate (property) {
 //getting the data by id from the databse method
 const view = (d)=>{
     const y= d;
+    console.log(y)
     const x = y.form;
     const DataForm = JSON.parse(x);
     var options =  {
@@ -75,13 +72,15 @@ const view = (d)=>{
     const formBuilder =  $(fb.current).formBuilder(options);
     //saving the formData
     setForm(formBuilder);
-    setTitre(titre);
-    setType(type);
+    setTitre(y.titre);
+    setType(y.type);
   }
   
    
 useEffect(()=>{
-  const url = "http://localhost:8081/api/form/"+Id.toString()
+  
+  console.log(id)
+  const url = "http://localhost:8082/api/Forms/"+id
   axios.get(url).then(res=>view(res.data)).catch(err=>console.log(err))
   
 },[])

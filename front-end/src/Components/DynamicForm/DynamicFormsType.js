@@ -8,7 +8,7 @@ window.jQuery = $;
 window.$ = $;
  require("jquery-ui-sortable");
 
-function DynamicForms(props)   {
+function DynamicFormsType(props)   {
   const [state, setState] = useState([])
   //delete button function
  const Delete = (id)=>{
@@ -30,7 +30,7 @@ function DynamicForms(props)   {
              props.history.push('/PageAdmin');
           }else if(Dtoken["iss"]=== "ServiceProvider"){
             props.history.push('/PageServiceProvider');
-      }else{ axios.get('http://localhost:8082/api/Forms').then(resp=>setState(resp.data));}
+      }else{ axios.get('http://localhost:8082/api/FormsT/'+props.location.state.type).then(resp=>setState(resp.data));}
     }
    
     
@@ -40,7 +40,8 @@ function DynamicForms(props)   {
           <>
           <PageInspector/>
         <div>
-           <Link  to={{pathname:"/Formulaire", state:{link:"DynamicForms"}}}><button id = 'save' type="button" class="btn btn-primary">Add Form</button></Link>
+            <h1>the client need a {props.location.state.type} inspection</h1>
+           <Link  to={{pathname:"/Formulaire", state:{link:"DynamicFormType",type:props.location.state.type}}}><button id = 'save' type="button" class="btn btn-primary">Add Form</button></Link>
            {/* presenting the data in a tabel */}
           <table class="table table-sm">
         <thead>
@@ -61,15 +62,8 @@ function DynamicForms(props)   {
                 <td>{Form.type}</td>
                 <td>{Form.dateCreation}</td>
                 <td><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                  
-                   <button id='clear' onClick={()=>{ if (window.confirm('Are you sure you wish to delete this item?'))  Delete(Form.id)}} type="button" class="btn btn-danger" >Delete</button>
-                  {/* the routing button to the FormUpdate Component */}
-                    <Link  to={{pathname:"/updateForm", state:{data:Form.id}}} ><button id = 'save' type="button" class="btn btn-primary">Edit</button></Link>
-                </div>
-                </td>
-                <td><div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     {/* the routing button to the FormUpdate Component */}
-                    <Link  to={{pathname:"/DFormUse", state:{data:Form.form}}}><button  type="button" class="btn btn-primary">use</button></Link>
+                    <Link  to={{pathname:"/DFormUse", state:{data:Form.form,id:props.location.state.id}}}><button  type="button" class="btn btn-primary">use</button></Link>
                 </div>
                 </td>
               </tr>
@@ -79,4 +73,4 @@ function DynamicForms(props)   {
       </div>
       </>);
     }
-export default DynamicForms;
+export default DynamicFormsType;

@@ -20,6 +20,7 @@ public class Inspection {
     private String type;
     private LocalDate startDate;
     private LocalDate endDate;
+    private String status;
     @JsonIgnore
     private String inspectorUN;
     @JsonIgnore

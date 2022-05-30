@@ -19,7 +19,7 @@ public class GAPAnalysisForm {
     private Long Id;
     private LocalDate DateCreation;
     @JsonIgnore
-    private String idInspection;
+    private Long idInspection;
     @Column(updatable = true, name="question1", nullable = false, columnDefinition = "text")
     private String question1;
     @Column(updatable = true, name="question2", nullable = false, columnDefinition = "text")

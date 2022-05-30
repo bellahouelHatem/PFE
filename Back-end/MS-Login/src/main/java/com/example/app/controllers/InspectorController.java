@@ -62,6 +62,12 @@ public class InspectorController {
         inspector.setUpdatedAt(new Date());
         inspectorRepository.save(inspector);
     }
+    @PutMapping("/inspector/{username}")
+    public void updateInspectorNB(@PathVariable String username){
+        Inspector inspector = inspectorRepository.findByUserName(username);
+        inspector.setInspectionsNumber(inspector.getInspectionsNumber()+1);
+        inspectorRepository.save(inspector);
+    }
 
     // delete employee rest api
     @DeleteMapping("/inspectors/{id}")

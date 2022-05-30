@@ -23,7 +23,14 @@ public class InspectionService {
     }
     @GetMapping("/Inspections/{client}")
     public List<Inspection> getInspectionClient(@PathVariable(name = "client") String clientUN){
-        return inspectionRepository.findByClientUN(clientUN);
+        return inspectionRepository.findByClientUNAndStatus(clientUN,"realized");
+    }@GetMapping("/InspectionsP/{client}")
+    public List<Inspection> getInspectionClientPlanned(@PathVariable(name = "client") String clientUN){
+        return inspectionRepository.findByClientUNAndStatus(clientUN,"planned");
+    }
+    @GetMapping("/InspectionsI/{insp}")
+    public List<Inspection> getInspectionInspector(@PathVariable(name = "insp") String insp){
+        return inspectionRepository.findByInspectorUNAndStatus(insp,"planned");
     }
     @PutMapping("/Inspection/{id}")
     public void updateInspection(@PathVariable(name = "id") Long id,@RequestBody Inspection inspection){
@@ -33,9 +40,16 @@ public class InspectionService {
         inspection1.setEndDate(inspection.getEndDate());
         inspectionRepository.save(inspection1);
     }
+    @PutMapping("/Inspections/{id}")
+    public void updateInspectionStatus(@PathVariable(name = "id") Long id){
+        Inspection inspection = inspectionRepository.findById(id).get();
+        inspection.setStatus("realized");
+        inspectionRepository.save(inspection);
+    }
 
     @PostMapping("/Inspection")
     public void addInspection(@RequestBody Inspection inspection) {
+        inspection.setStatus("planned");
         inspectionRepository.save(inspection);
     }
 

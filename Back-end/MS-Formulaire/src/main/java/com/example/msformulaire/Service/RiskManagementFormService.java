@@ -1,5 +1,6 @@
 package com.example.msformulaire.Service;
 
+import com.example.msformulaire.Model.GAPAnalysisForm;
 import com.example.msformulaire.Model.RiskManagementForm;
 import com.example.msformulaire.Model.RiskManagementFormPDFExporter;
 import com.example.msformulaire.Repositories.RiskManagementFormRepository;
@@ -31,6 +32,9 @@ public class RiskManagementFormService {
     @GetMapping("/RiskManagementForm/{id}")
     public RiskManagementForm getForm(@PathVariable(name = "id") Long id){
         return riskManagementFormRepository.findById(id).get();
+    }@GetMapping("/RiskManagementFormInsp/{id}")
+    public List<RiskManagementForm> getFormInsp(@PathVariable(name = "id") Long id){
+        return riskManagementFormRepository.findByIdInspection(id);
     }
 
     @PutMapping("/RiskManagementForm/{id}")

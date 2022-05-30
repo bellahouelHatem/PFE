@@ -22,6 +22,9 @@ public class GAPAnalysisFormService {
     @GetMapping("/GAPAnalysisForm/{id}")
     public GAPAnalysisForm getForm(@PathVariable(name = "id") Long id){
         return gapAnalysisFormRepository.findById(id).get();
+    } @GetMapping("/GAPAnalysisFormInsp/{id}")
+    public List<GAPAnalysisForm> getFormInsp(@PathVariable(name = "id") Long id){
+        return gapAnalysisFormRepository.findByIdInspection(id);
     }
 
     @PutMapping("/GAPAnalysisForm/{id}")

@@ -325,9 +325,20 @@ import PageInspector from "../dashboards/PageInspector";
     
     function save(e)
      {setformData({...formData,"dateCreation":d})
+     
+   setformData({...formData,"idInspection":props.location.state})
       console.log(formData)
+      const token =localStorage.getItem("token");
+   const dtoken =jwtDecode(token);
+   
   
-    axios.post('http://localhost:8082/api/GAPAnalysisForm',formData).catch(err=>console.log(err))
+    axios.post('http://localhost:8082/api/GAPAnalysisForm',formData).then(()=>{
+      axios({method:'PUT',
+    url:'http://localhost:8081/api/inspector/'+dtoken["sub"],
+    headers:{
+        'Authorization':'Bearer '+token}}).then( axios.put('http://localhost:8083/api/Inspections/'+props.location.state).catch(err=>console.log(err.message))).catch(err=>console.log(err.message));
+       })
+    
   }
     
     let state={show: true,};

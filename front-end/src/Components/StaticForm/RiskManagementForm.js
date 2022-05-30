@@ -206,9 +206,18 @@ const RiskManagementForm = (props) => {
   
   function save(e)
    {setformData({...formData,"dateCreation":d})
+   setformData({...formData,"idInspection":props.location.state})
+   const token =localStorage.getItem("token");
+   const dtoken =jwtDecode(token);
+   
     console.log(formData)
-
-  axios.post('http://localhost:8082/api/RiskManagementForm',formData).catch(err=>console.log(err))
+   axios.post('http://localhost:8082/api/RiskManagementForm',formData).then(()=>{
+     axios({method:'PUT',
+   url:'http://localhost:8081/api/inspector/'+dtoken["sub"],
+   headers:{
+       'Authorization':'Bearer '+token}});
+       axios.put('http://localhost:8083/api/Inspections/'+props.location.state).catch(err=>console.log(err))})
+   
 }
   
   let state={show: true,};

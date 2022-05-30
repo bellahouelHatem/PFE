@@ -1,9 +1,9 @@
-import React, { Component, createRef } from "react";
+import React, { Component, createRef, useEffect, useState } from "react";
 import $ from "jquery";
 import { Link } from "react-router-dom";
-import App from "../../App"
 import jwtDecode from "jwt-decode";
 import PageInspector from "../dashboards/PageInspector";
+import axios from "axios";
 window.jQuery = $;
 window.$ = $;
  require("jquery-ui-sortable");
@@ -20,23 +20,18 @@ var options =  {
 
 
 
-class Formulaire  extends Component {
-  constructor(){
-    super();
-    this.state={
-      titre:"",
-      type:""
-    }
-    this.handleChange = this.handleChange.bind(this);
-  }
-  fb = createRef();
+function Formulaire(props){
+ 
+  const fb = createRef();
+  const [focused, setFocused] = useState(false);
+  const [state,setState]=useState();
+  const [Type,setType]=useState();
+  const [Titre,setTitre]=useState();
 
   
-  componentDidMount(props) {
-
-       this.setState({form : $(this.fb.current).formBuilder(options)})
-       const token = localStorage.getItem("token");
-        if(token === null){
+  useEffect(()=> {
+    const token = localStorage.getItem("token")
+        if(token == null){
           props.history.push('/'); 
         }else{
           const Dtoken =jwtDecode(token) 
@@ -45,55 +40,62 @@ class Formulaire  extends Component {
              props.history.push('/PageAdmin');
           }else if(Dtoken["iss"]=== "ServiceProvider"){
             props.history.push('/PageServiceProvider');
-      }}
+      }else{
+        setState({form : $(fb.current).formBuilder(options)})
+        }
+    }
     
-  }
-  clear(){
+  },[])
+ const clear= () =>{
     
-      this.state.form.actions.clearFields()
+      state.form.actions.clearFields()
    
    } 
-   handleChange(event) {
-    this.setState({titre: event.target.value});
-  } handleChange1(event) {
-    this.setState({type: event.target.value});
+   const  handleChangeTitre= (event)=> {
+    setTitre(event.target.value);
+  }  
+  const onChangeSelect = (e)=>{
+    setType( e.target.value)
   }
+  const handleFocus = (e) => {
+    setFocused(true);
+  };
 
-   save(e)   {
-     var data = JSON.stringify(this.state.form.actions.getData('json', true))  
-     var body = {form : data,
-      type: this.state.type,
-      titre: this.state.titre,
+   const save = (e) =>  {
+     const data = JSON.stringify(state.form.actions.getData('json', true))  
+     const body = {form : data,
+      type: Type,
+      titre: Titre,
       dateCreation:d
     }
-     fetch('http://localhost:8081/api/Form',{
-       method:'POST',
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify(body)})
+  
+     axios.post('http://localhost:8082/api/Forms',body)
     .then(res=>{alert()})
   }
-    render() { 
+    
         return (
           <>
           <PageInspector/>
         <div >
           <div class="form-group">
              <label for="formGroupExampleInput">Titre</label>
-             <input value={this.state.titre} type="text" class="form-control" placeholder="Titre"  onChange={(e)=> this.handleChange(e)}/>
+             <input value={Titre} type="text" class="form-control" placeholder="Titre"  onChange={(e)=>handleChangeTitre(e)}/>
              <label for="formGroupExampleInput">Type</label>
-             <input value={this.state.type} type="text" class="form-control"  placeholder="Type" onChange={(e)=>this.handleChange1(e)}/>
+             <select   onBlur={handleFocus} required as="select" onChange={onChangeSelect} aria-label="Default select example" focused={focused.toString()}>
+              <option value="">...</option>
+              <option value="GAPAnalysis">GAP Analysis</option>
+              <option value="RiskManagement">Risk Management</option>
+            </select>
           </div>
            {/* creating the FormBuilder */}
-          <div class="news" id='hatem'  ref={this.fb}></div>
+          <div class="news" id='hatem'  ref={fb}></div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-             <button id='clear' onClick={(e) => this.clear(e)} type="button" class="btn btn-danger" >clear</button> 
-             <Link reloadDocument={true} to="/DynamicForms"><button id = 'save' onClick={(e) => this.save(e)} type="button" class="btn btn-primary">Save</button></Link>
+             <button id='clear' onClick={(e) => clear(e)} type="button" class="btn btn-danger" >clear</button> 
+             <Link reloadDocument={true} to={{pathname:"/"+props.location.state.link,state:{type:props.location.state.type}}}><button id = 'save' onClick={(e) => save(e)} type="button" class="btn btn-primary">Save</button></Link>
         
           </div>
         </div>
         </>
     );
     }
-    
-}
 export default Formulaire;

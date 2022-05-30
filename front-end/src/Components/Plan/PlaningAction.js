@@ -11,8 +11,6 @@ import axios from "axios";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
-import Page from "../page";
-import App from "../../App";
 import PageServiceProvider from "../dashboards/PageServiceProvider";
 import jwtDecode from "jwt-decode";
 const today =format(new Date(), 'yyyy-MM-dd');
@@ -107,12 +105,12 @@ const handleClick=()=>{
         <>
         <PageServiceProvider/>
         <div >
-          <Button onClick={handleShowAdd} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Inspection</span></Button>
+          <Button onClick={handleShowAdd} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Action</span></Button>
      {/* add Modal..........................      */}
     <Modal show={showAdd} onHide={handleCloseAdd}>
         <Modal.Header closeButton>
             <Modal.Title>
-                Add Inspection
+                Add Action
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -153,7 +151,7 @@ const handleClick=()=>{
     <Modal show={showInsp} onHide={handleCloseInsp}>
         <Modal.Header closeButton>
             <Modal.Title>
-                update Action
+               Action
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>

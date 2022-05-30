@@ -27,7 +27,15 @@
 .App-link {
   color: #61dafb;
 }
-
+.grid-container-element { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  grid-gap: 20px; 
+  width: 50%; 
+} 
+.grid-child-element { 
+  margin: 10px; 
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -6,20 +6,19 @@ import startOfWeek from "date-fns/startOfWeek";
 import { dateFnsLocalizer } from "react-big-calendar";
 import { Calendar } from "react-big-calendar";
 import { Button, Modal } from "react-bootstrap";
-import FormInspecteur from "./Inspection/FormInspection";
 import axios from "axios";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
-import App from "../../App";
-import PageServiceProvider from "../dashboards/PageServiceProvider";
 import jwtDecode from "jwt-decode";
+import PageInspector from "../dashboards/PageInspector";
+import { Link } from "react-router-dom";
 const today =format(new Date(), 'yyyy-MM-dd');
 var x=[]
 const locales = {
     "en-US": require("date-fns/locale/en-US"),
 };
-const url='http://localhost:8083/api/Inspection'
+const url='http://localhost:8083/api/InspectionsI'
 const localizer = dateFnsLocalizer({
     format,
     parse,
@@ -27,7 +26,7 @@ const localizer = dateFnsLocalizer({
     getDay,
     locales,
 });
-function PlaningInsp() {
+function InspectorPlan() {
     const [newEvent, setNewEvent] = useState({id:"",title:"",startDate:"",endDate:"",type:""});
     const onChange = (e) => {
         setNewEvent({ ...newEvent, [e.target.name]: e.target.value });
@@ -49,7 +48,7 @@ function PlaningInsp() {
         const Dtoken = jwtDecode(token)
        const Cid =Dtoken["sub"];
        console.log(Cid)
-    axios.get(url+"sP/"+Cid).then((response) => {
+    axios.get(url+"/"+Cid).then((response) => {
       x=[];
       const y = response.data
       console.log(y)
@@ -68,7 +67,6 @@ function PlaningInsp() {
     }, []);
     
     //Modal show and close methode ...............................................
-    const handleShowAdd = (event) => setShowAdd(true) ;
     const handleShowEdit = (event) => setShowEdit(true);
     const handleShowInsp = (event)=>{setShowInsp(true);
       console.log(event)
@@ -78,8 +76,6 @@ function PlaningInsp() {
       console.log(newEvent)
       
     }
-    
-    const handleCloseAdd = () => setShowAdd(false);
     const handleCloseEdit = () => setShowEdit(false);
     const handleCloseInsp =()=>setShowInsp(false);
     //Modal show and close methode .............................................../
@@ -105,22 +101,8 @@ const handleClick=()=>{
 
     return (
         <>
-        <PageServiceProvider/>
+        <PageInspector/>
         <div >
-          <Button onClick={handleShowAdd} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Inspection</span></Button>
-     {/* add Modal..........................      */}
-    <Modal show={showAdd} onHide={handleCloseAdd}>
-        <Modal.Header closeButton>
-            <Modal.Title>
-                Add Inspection
-            </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-            <FormInspecteur/>
-        </Modal.Body>
-    </Modal>
-     {/* add Modal........................../*/}
-    
       {/*Calendar ....................................................................................... */}
         <Calendar allDayAccessor= {true}  onSelectEvent={event=>handleShowInsp(event)} showAllEvents={true}  localizer={localizer} events={state} startAccessor="startDate" endAccessor="endDate" style={{ height: 1000,margin: "50px" }} />
       {/*Calendar ....................................................................................... /*/}
@@ -133,19 +115,7 @@ const handleClick=()=>{
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <div className="app" >
-        <form className="formInput"  onSubmit={handleSubmit} >
-        <label>title</label>
-        <input onChange={(e)=>onChange(e)} name="title" type= "text" errorMessage="required" label= "Title" required value={newEvent.title}></input>
-          <label>Start Date</label> 
-           <input onChange={(e)=>onChange(e)} name="startDate" type= "date" min ={today} placeholder= "End Date"berrorMessage="required"label= "End Date" required value={newEvent.startDate}></input>
-           {newEvent.startDate&&(<React.Fragment>
-          <label>End Date</label>
-            <input onChange={(e)=>onChange(e)} name="endDate" type= "date" min ={newEvent.startDate} placeholder= "End Date" errorMessage="required" label= "End Date" required value={newEvent.endDate} ></input>
-            </React.Fragment>)}
-            <button  className="button">Submit</button> 
-         </form>
-          </div>
+           
         </Modal.Body>
         <Modal.Footer></Modal.Footer>
     </Modal>
@@ -168,8 +138,14 @@ const handleClick=()=>{
             <label>Type</label>
             <p>{newEvent.type}</p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <Button className="buttonEdit" onClick={handleClick}>Edit</Button>
-            <Button className="buttonDelete"onClick={(e)=>{ if (window.confirm('Are you sure you wish to delete this item?'))ondelete(e)}} >delete</Button>
+             {newEvent.type === "GAPAnalysis"&&
+            <Link to={{pathname:"/GAPAnalysisForm",state:newEvent.id}}><button>conduct it</button></Link>
+            }
+            {newEvent.type === "RiskManagement"&&
+            <Link to={{pathname:"/RiskManagementForm",state:newEvent.id}}><button>conduct it</button></Link>
+            }{(newEvent.type != "RiskManagement"&&newEvent.type != "GAPAnalysis")&&
+            <Link to={{pathname:"/DynamicFormType",state:{id:newEvent.id,type:newEvent.type}}}><button>conduct it</button></Link>
+            }
             </div>
            </form>
           </div>
@@ -182,4 +158,4 @@ const handleClick=()=>{
     );
 }
 
-export default PlaningInsp;
+export default InspectorPlan;

@@ -2,7 +2,6 @@ package com.example.app.services;
 
 import com.example.app.registration.EmailValidator;
 import com.example.app.registration.token.ConfirmationToken;
-import com.example.app.email.EmailSender;
 import com.example.app.entities.ServiceProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,7 @@ public class RegistrationService {
     @Autowired
     private final ConfirmationTokenService confirmationTokenService;
     @Autowired
-    private final EmailSender emailSender;
-
+    private final EmailService emailService;
     public String register(ServiceProvider request) {
 
         ServiceProvider serviceProvider = new ServiceProvider();
@@ -44,10 +42,8 @@ public class RegistrationService {
         serviceProvider.setPhoneNumber(request.getPhoneNumber());
         serviceProvider.setCreatedAt(new Date());
         String token = customUserService.signUpUser(serviceProvider);
-
-        //String link = "http://localhost:8081/api/v1/registration/confirm?token=" + token;
         String link = "http://localhost:3000/";
-        emailSender.send( request.getUsername(), buildEmail(request.getName(), link));
+        emailService.sendEmail(request.getUsername(),buildEmail(request.getName(), link));
         return token;
     }
 

@@ -56,18 +56,24 @@ function FormInspection() {
         const token = localStorage.getItem("token");
         const Dtoken = jwtDecode(token)
        const Cid =Dtoken["sub"];
+       var Type ;
+       if(type==="custom"){
+         Type=values.type;
+       }else{
+         Type=type
+       }
        console.log(Cid)
           const body = {
             title : values["title"],
-            type:type,
+            type:Type,
             startDate:values["startDate"],
             endDate:values["endDate"],
             clientUN:Cid,
-            inspUN:inspector         
+            inspectorUN:inspector         
           }
           console.log(body)
           axios.post('http://localhost:8083/api/Inspection',body).catch(err=>console.log(err))
-          window.location.reload(true);
+        window.location.reload(true);
       };
     
       const onChange = (e) => {
@@ -80,7 +86,7 @@ function FormInspection() {
         setInspector(e.target.value)
       }
     useEffect(() => {
-      setValues({id:"",title:"",startDate:new Date(),endDate:""});
+      setValues({id:"",title:"",startDate:new Date(),endDate:"",type:""});
       const token = localStorage.getItem("token")
             console.log(token)
             axios({
@@ -108,9 +114,11 @@ function FormInspection() {
             <label>Type</label>
             <select   onBlur={handleFocus} required as="select" onChange={onChangeSelect} aria-label="Default select example" focused={focused.toString()}>
               <option value="">...</option>
-              <option value="Food">Food</option>
-              <option value="Server Room">Server Room</option>
+              <option value="GAPAnalysis">GAP Analysis</option>
+              <option value="RiskManagement">Risk Management</option>
+              <option value="custom">custom</option>
             </select>
+            {type ==="custom"&&(<React.Fragment><input name="type" onChange={onChange} placeholder="type" required value={values.type}></input></React.Fragment>)}
             <select   onBlur={handleFocus} required as="select" onChange={onChangeSelect1} aria-label="Default select example" focused={focused.toString()}>
               <option value="">inspector Name : nombre of inspection done</option>
               {inspectors.map(inspector=>
