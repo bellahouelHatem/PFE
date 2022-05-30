@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react"
 import * as d3 from 'd3';
 import { svg } from "d3";
 import PageServiceProvider from "./dashboards/PageServiceProvider";
+import { Link } from "react-router-dom";
 export const InspResults=(props)=>{
     const inspection = props.location.state.data;
     var body;
@@ -240,11 +241,15 @@ export const InspResults=(props)=>{
                 )}
         </tbody> 
       </table>
+      
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       {inspection.type == "RiskManagement"&&
-        <a href={"http://localhost:8082/api/RiskManagementForm/export/pdf/"+inspection.id}>Export to PDF</a>}
+        <a href={"http://localhost:8082/api/RiskManagementForm/export/pdf/"+inspection.id}>see Results</a>}
         {inspection.type == "GAPAnalysis"&&
-        <a href={"http://localhost:8082/api/GAPAnalysisForm/export/pdf/"+inspection.id}>Export to PDF</a>}
+        <a href={"http://localhost:8082/api/GAPAnalysisForm/export/pdf/"+inspection.id}class="btn btn-info" role="button">see Results</a>}
+        <Link to="/planingAction"><button class="btn btn-info">prepare actions</button></Link>
 		</div>
+        </div>
 
         </div>
        </>

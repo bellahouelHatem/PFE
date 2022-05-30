@@ -29,6 +29,7 @@ function PageServiceProvider(props) {
           <Rbootstrap.Nav.Link as={Link}to={"/planing"}>planing</Rbootstrap.Nav.Link>
   <Rbootstrap.Nav.Link as={Link}to={"/planingAction"}>action</Rbootstrap.Nav.Link>
   <Rbootstrap.Nav.Link as={Link}to={"/dashbordClient"}>historique</Rbootstrap.Nav.Link>
+  <Rbootstrap.Nav.Link as={Link}to={"/Home"}>home</Rbootstrap.Nav.Link>
         </Rbootstrap.Nav>
         <Rbootstrap.Nav className="justify-content-end">
         <Rbootstrap.Nav.Link as={Link}to={"/"} onClick={logOut} >Log out</Rbootstrap.Nav.Link>

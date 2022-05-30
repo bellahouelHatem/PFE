@@ -31,6 +31,9 @@ public class InspectionService {
     @GetMapping("/InspectionsI/{insp}")
     public List<Inspection> getInspectionInspector(@PathVariable(name = "insp") String insp){
         return inspectionRepository.findByInspectorUNAndStatus(insp,"planned");
+    } @GetMapping("/InspectionsIR/{insp}")
+    public List<Inspection> getInspectionsInspector(@PathVariable(name = "insp") String insp){
+        return inspectionRepository.findByInspectorUNAndStatus(insp,"realized");
     }
     @PutMapping("/Inspection/{id}")
     public void updateInspection(@PathVariable(name = "id") Long id,@RequestBody Inspection inspection){

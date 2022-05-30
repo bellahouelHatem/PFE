@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface RiskManagementFormRepository extends JpaRepository<RiskManagementForm,Long> {
-    List<RiskManagementForm> findByIdInspection(Long id);
+    RiskManagementForm findByIdInspection(Long id);
 }

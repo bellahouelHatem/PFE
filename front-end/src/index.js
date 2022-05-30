@@ -17,7 +17,12 @@ import DynamicForms from './Components/DynamicForm/DynamicForms';
 import DformUSE from './Components/DynamicForm/DformUSE';
 import FormUpdate from './Components/DynamicForm/FormUpdate';
 import RiskManagementForm from './Components/StaticForm/RiskManagementForm';
+
+import RiskManagementConfirm from './Components/StaticForm/RiskManagementConfirm';
 import GAPAnalysisForm from './Components/StaticForm/GAPAnalysisForm';
+
+import RiskManagementEdit from './Components/StaticForm/RiskManagementEdit';
+import GAPAnalysisEdit from './Components/StaticForm/GAPAnalysisEdit';
 import FormInspector from './Components/Inspector/FormInspector';
 import PlaningInsp from './Components/Plan/PlaningInsp';
 import PlaningAction from './Components/Plan/PlaningAction';
@@ -28,6 +33,8 @@ import inspectorPlan from './Components/Inspector/inspectorPlan';
 import DynamicFormsType from './Components/DynamicForm/DynamicFormsType';
 import { DashboardClient } from './Components/dashboards/dashboardClient';
 import { InspResults } from './Components/InspResults';
+import { InspectorHitorique } from './Components/Inspector/inspectorHistorique';
+import GAPConfirm from './Components/StaticForm/GAPConfirm';
 
 const MyAppWithStore = () => (
   <>
@@ -54,6 +61,11 @@ const MyAppWithStore = () => (
                 <Route path="/DynamicFormType" component={DynamicFormsType}/>
                 <Route path="/dashbordClient" component={DashboardClient}/>
                 <Route path="/Results" component={InspResults}/>
+                <Route path="/InspectorHitorique" component={InspectorHitorique}/>  
+                <Route path="/RiskManagementEdit" component={RiskManagementEdit}/>
+                <Route path="/GAPAnalysisEdit" component={GAPAnalysisEdit}/>
+                <Route path="/RiskManagementConfirm" component={RiskManagementConfirm}/>
+                <Route path="/GAPAnalysisEditConfirm" component={GAPConfirm}/>
 
   </Switch>
   </BrowserRouter>

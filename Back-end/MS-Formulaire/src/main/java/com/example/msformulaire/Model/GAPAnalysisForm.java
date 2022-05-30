@@ -18,6 +18,7 @@ public class GAPAnalysisForm {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private LocalDate DateCreation;
+    private String etat;
     @JsonIgnore
     private Long idInspection;
     @Column(updatable = true, name="question1", nullable = false, columnDefinition = "text")

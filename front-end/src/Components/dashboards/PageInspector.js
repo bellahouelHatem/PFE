@@ -30,6 +30,8 @@ function PageInspector(props) {
           <Rbootstrap.Nav.Link as={Link}to={"/Home"}>Home</Rbootstrap.Nav.Link>
           <Rbootstrap.Nav.Link as={Link}to={"/DynamicForms"}>Dynamic Forms</Rbootstrap.Nav.Link>
           <Rbootstrap.Nav.Link as={Link}to={"/PlanInspector"}>PlanInspector</Rbootstrap.Nav.Link>
+          
+          <Rbootstrap.Nav.Link as={Link}to={"/InspectorHitorique"}>historique</Rbootstrap.Nav.Link>
         </Rbootstrap.Nav>
         <Rbootstrap.Nav className="justify-content-end">
         <Rbootstrap.Nav.Link as={Link}to={"/"} onClick={logOut} >Log out</Rbootstrap.Nav.Link>

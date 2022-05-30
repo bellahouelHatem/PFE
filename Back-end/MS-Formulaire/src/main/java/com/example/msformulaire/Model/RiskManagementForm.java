@@ -13,6 +13,7 @@ import java.time.LocalDate;
 public class RiskManagementForm {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
+    private String etat;
     @JsonIgnore
     private Long idInspection;
     private LocalDate DateCreation;
