@@ -3,12 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'flag-icon-css/css/flag-icons.min.css';
 import store from './redux/store';
 import { Provider } from 'react-redux';
 import LoginPage from './Components/Login/LoginPage';
 import { BrowserRouter } from 'react-router-dom';
 import { Switch } from 'react-router-dom';
 import { Route } from 'react-router-dom';
+import i18next from 'i18next'
+import { initReactI18next } from 'react-i18next'
+import HttpApi from 'i18next-http-backend'
+import LanguageDetector from 'i18next-browser-languagedetector'
+
 import Registration from './Components/Registration/Registration';
 import Home from './Components/Home';
 import Formulaire from './Components/DynamicForm/Formulaire';
@@ -35,9 +41,32 @@ import { DashboardClient } from './Components/dashboards/dashboardClient';
 import { InspResults } from './Components/InspResults';
 import { InspectorHitorique } from './Components/Inspector/inspectorHistorique';
 import GAPConfirm from './Components/StaticForm/GAPConfirm';
+import ForgotePwd from './Components/Login/ForgotPMail';
+import PwdEdit from './Components/Login/pwdEdit';
 
+i18next
+  .use(HttpApi)
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    supportedLngs: ['en', 'ger', 'fr'],
+    fallbackLng: 'en',
+    debug: false,
+    // Options for language detector
+    detection: {
+      order: ['path', 'cookie', 'htmlTag'],
+      caches: ['cookie'],
+    },
+     react: { useSuspense: false },
+    backend: {
+      loadPath: '/assets/locales/{{lng}}/translation.json',
+    },
+  })
 const MyAppWithStore = () => (
   <>
+  
+  
+  
   <Provider store={store}>
   <BrowserRouter>
     <Switch>
@@ -66,6 +95,8 @@ const MyAppWithStore = () => (
                 <Route path="/GAPAnalysisEdit" component={GAPAnalysisEdit}/>
                 <Route path="/RiskManagementConfirm" component={RiskManagementConfirm}/>
                 <Route path="/GAPAnalysisEditConfirm" component={GAPConfirm}/>
+                <Route path="/ForgotePwd" component={ForgotePwd}/>
+                <Route path="/ForgotePwdEdit" component={PwdEdit}/>
 
   </Switch>
   </BrowserRouter>

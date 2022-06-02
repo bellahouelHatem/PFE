@@ -7,12 +7,30 @@ import { dateFnsLocalizer } from "react-big-calendar";
 import { Calendar } from "react-big-calendar";
 import { Button, Modal } from "react-bootstrap";
 import axios from "axios";
-
+import { useTranslation } from 'react-i18next'
+import cookies from 'js-cookie'
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
 import jwtDecode from "jwt-decode";
 import PageInspector from "../dashboards/PageInspector";
 import { Link } from "react-router-dom";
+const languages = [
+  {
+    code: 'fr',
+    name: 'Français',
+    country_code: 'fr',
+  },
+  {
+    code: 'en',
+    name: 'English',
+    country_code: 'gb',
+  },
+  {
+    code: 'ger',
+    name: 'deutsch',
+    country_code: 'de',
+  },
+]
 const today =format(new Date(), 'yyyy-MM-dd');
 var x=[]
 const locales = {
@@ -27,6 +45,9 @@ const localizer = dateFnsLocalizer({
     locales,
 });
 function InspectorPlan() {
+  const currentLanguageCode = cookies.get('i18next') || 'en'
+  const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
+  const { t } = useTranslation()
     const [newEvent, setNewEvent] = useState({id:"",title:"",startDate:"",endDate:"",type:""});
     const onChange = (e) => {
         setNewEvent({ ...newEvent, [e.target.name]: e.target.value });
@@ -106,45 +127,31 @@ const handleClick=()=>{
       {/*Calendar ....................................................................................... */}
         <Calendar allDayAccessor= {true}  onSelectEvent={event=>handleShowInsp(event)} showAllEvents={true}  localizer={localizer} events={state} startAccessor="startDate" endAccessor="endDate" style={{ height: 1000,margin: "50px" }} />
       {/*Calendar ....................................................................................... /*/}
-
-       {/* Edit Modal................................................................................     */}
-        <Modal show={showEdit} onHide={handleCloseEdit}>
+<Modal show={showInsp} onHide={handleCloseInsp}>
         <Modal.Header closeButton>
             <Modal.Title>
-                update Inspection
-            </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-           
-        </Modal.Body>
-        <Modal.Footer></Modal.Footer>
-    </Modal>
-    {/* Edit Modal............................................................................................../*/}
-    <Modal show={showInsp} onHide={handleCloseInsp}>
-        <Modal.Header closeButton>
-            <Modal.Title>
-                 Inspection
+                 {t("inspection")}
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <div className="app" >
         <form className="formInput" >
-        <label>title</label>
+        <label>{t("title")}</label>
         <p>{newEvent.title}</p>
-          <label>Start Date</label> 
+          <label>{t("Start_Date")}</label> 
           <p>{newEvent.startDate}</p>
-            <label>End Date</label>
+            <label>{t("end_Date")}</label>
             <p>{newEvent.endDate}</p>
-            <label>Type</label>
+            <label>{t("Type")}</label>
             <p>{newEvent.type}</p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
              {newEvent.type === "GAPAnalysis"&&
-            <Link to={{pathname:"/GAPAnalysisForm",state:newEvent.id}}><button>conduct it</button></Link>
+            <Link to={{pathname:"/GAPAnalysisForm",state:newEvent.id}}><button>{t("conduct")}</button></Link>
             }
             {newEvent.type === "RiskManagement"&&
-            <Link to={{pathname:"/RiskManagementForm",state:newEvent.id}}><button>conduct it</button></Link>
+            <Link to={{pathname:"/RiskManagementForm",state:newEvent.id}}><button>{t("conduct")}</button></Link>
             }{(newEvent.type != "RiskManagement"&&newEvent.type != "GAPAnalysis")&&
-            <Link to={{pathname:"/DynamicFormType",state:{id:newEvent.id,type:newEvent.type}}}><button>conduct it</button></Link>
+            <Link to={{pathname:"/DynamicFormType",state:{id:newEvent.id,type:newEvent.type}}}><button>{t("conduct")}</button></Link>
             }
             </div>
            </form>

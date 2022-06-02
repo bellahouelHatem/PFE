@@ -14,6 +14,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import App from "../../App";
 import PageServiceProvider from "../dashboards/PageServiceProvider";
 import jwtDecode from "jwt-decode";
+import { useTranslation } from 'react-i18next'
+import i18next from 'i18next'
+import cookies from 'js-cookie'
 const today =format(new Date(), 'yyyy-MM-dd');
 var x=[]
 const locales = {
@@ -28,6 +31,26 @@ const localizer = dateFnsLocalizer({
     locales,
 });
 function PlaningInsp() {
+  const languages = [
+    {
+      code: 'fr',
+      name: 'Français',
+      country_code: 'fr',
+    },
+    {
+      code: 'en',
+      name: 'English',
+      country_code: 'gb',
+    },
+    {
+      code: 'ger',
+      name: 'deutsch',
+      country_code: 'de',
+    },
+  ]
+  const currentLanguageCode = cookies.get('i18next') || 'en'
+  const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
+  const { t } = useTranslation()
     const [newEvent, setNewEvent] = useState({id:"",title:"",startDate:"",endDate:"",type:""});
     const onChange = (e) => {
         setNewEvent({ ...newEvent, [e.target.name]: e.target.value });
@@ -107,12 +130,12 @@ const handleClick=()=>{
         <>
         <PageServiceProvider/>
         <div >
-          <Button onClick={handleShowAdd} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Inspection</span></Button>
+          <Button onClick={handleShowAdd} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>{t("AddNI")}</span></Button>
      {/* add Modal..........................      */}
     <Modal show={showAdd} onHide={handleCloseAdd}>
         <Modal.Header closeButton>
             <Modal.Title>
-                Add Inspection
+                {t("AddNI")}
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>

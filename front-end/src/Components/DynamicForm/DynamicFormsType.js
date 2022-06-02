@@ -4,11 +4,33 @@ import $ from "jquery";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import PageInspector from "../dashboards/PageInspector";
+import { useTranslation } from 'react-i18next';
+import cookies from 'js-cookie';
 window.jQuery = $;
 window.$ = $;
  require("jquery-ui-sortable");
 
 function DynamicFormsType(props)   {
+  const currentLanguageCode = cookies.get('i18next') || 'en'
+  const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
+  const { t } = useTranslation()
+  const languages = [
+    {
+      code: 'fr',
+      name: 'Français',
+      country_code: 'fr',
+    },
+    {
+      code: 'en',
+      name: 'English',
+      country_code: 'gb',
+    },
+    {
+      code: 'ger',
+      name: 'deutsch',
+      country_code: 'de',
+    },
+  ]
   const [state, setState] = useState([])
   //delete button function
  const Delete = (id)=>{
@@ -45,11 +67,11 @@ function DynamicFormsType(props)   {
            {/* presenting the data in a tabel */}
           <table class="table table-sm">
         <thead>
-          <tr>
-            <th scope="col">id</th>
-            <th scope="col">Titre</th>
-            <th scope="col">Type</th>
-            <th scope="col">Date de creation</th>
+        <tr>
+            <th scope="col">{t("id")}</th>
+            <th scope="col">{t("Titre")}</th>
+            <th scope="col">{t("Type")}</th>
+            <th scope="col">{t("Creation_date")}</th>
             <th scope="col"></th>
             
           </tr>

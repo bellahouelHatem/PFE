@@ -25,7 +25,7 @@ public class RiskManagementFormController {
     @GetMapping("/RiskManagementForm/export/pdf/{id}")
     public void exportToPDF(HttpServletResponse response, @PathVariable Long id) throws DocumentException, IOException {
         response.setContentType("application/pdf");
-        RiskManagementForm riskManagementForm =service.getForm(id);
+        RiskManagementForm riskManagementForm =service.getFormInsp(id);
         RiskManagementFormPDFExporter exporter = new RiskManagementFormPDFExporter(riskManagementForm);
         exporter.export(response);
 

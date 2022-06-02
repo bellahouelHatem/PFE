@@ -24,7 +24,7 @@ public class GAPAnalysisFormController {
     @GetMapping("/GAPAnalysisForm/export/pdf/{id}")
     public void exportToPDF(HttpServletResponse response, @PathVariable Long id) throws DocumentException, IOException {
         response.setContentType("application/pdf");
-        GAPAnalysisForm gapAnalysisForm =service.getForm(id);
+        GAPAnalysisForm gapAnalysisForm =service.getFormInsp(id);
         GAPAnalysisFormPDFExporter exporter = new GAPAnalysisFormPDFExporter(gapAnalysisForm);
         exporter.export(response);
 }

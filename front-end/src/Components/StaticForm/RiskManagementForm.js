@@ -15,6 +15,9 @@ import axios from "axios";
 import App from "../../App"
 import jwtDecode from "jwt-decode";
 import PageInspector from "../dashboards/PageInspector";
+import { useTranslation } from 'react-i18next';
+import cookies from 'js-cookie';
+    
   
   const Framework = [
     {
@@ -193,9 +196,29 @@ const ListQuestions = [
   "Framework",
   "Process"
 ]
+const languages = [
+  {
+    code: 'fr',
+    name: 'Français',
+    country_code: 'fr',
+  },
+  {
+    code: 'en',
+    name: 'English',
+    country_code: 'gb',
+  },
+  {
+    code: 'ger',
+    name: 'deutsch',
+    country_code: 'de',
+  },
+]
 
   
 const RiskManagementForm = (props) => {
+  const currentLanguageCode = cookies.get('i18next') || 'en'
+const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
+const { t } = useTranslation()
   const d = new Date().toISOString().slice(0, 10);
 
   const [formData,setformData] = useState({
@@ -250,7 +273,7 @@ const RiskManagementForm = (props) => {
         <Col xs="12" md="8">
           <Card>
             <CardTitle tag="h1" className="border-bottom p-3 mb-0">
-            ISO 31000 Risk Management Inspection
+            ISO 31000 {t("Risk")}
             </CardTitle>
             <CardBody>
               <Form>
@@ -265,7 +288,7 @@ const RiskManagementForm = (props) => {
                       <div sm="6" lg="6" xl="3" id={index} >
                         <Card>
                           <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-                            {qt.question}
+                          {t("R"+qt.name)}
                           </CardTitle>
                           <CardBody className="">
                             <FormGroup check>

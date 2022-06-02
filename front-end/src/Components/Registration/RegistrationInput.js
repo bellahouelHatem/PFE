@@ -10,7 +10,7 @@ function RegistrationInput(props){
   };
 
   return (
-    <div className="RegistrationInput">
+    <div className="formInput">
       <label>{label}</label>
       <input
         {...inputProps}

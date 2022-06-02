@@ -4,7 +4,29 @@ import * as d3 from 'd3';
 import { svg } from "d3";
 import PageServiceProvider from "./dashboards/PageServiceProvider";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
+import cookies from 'js-cookie';
+const languages = [
+  {
+    code: 'fr',
+    name: 'Français',
+    country_code: 'fr',
+  },
+  {
+    code: 'en',
+    name: 'English',
+    country_code: 'gb',
+  },
+  {
+    code: 'ger',
+    name: 'deutsch',
+    country_code: 'de',
+  },
+]
 export const InspResults=(props)=>{
+    const currentLanguageCode = cookies.get('i18next') || 'en'
+    const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
+    const { t } = useTranslation()
     const inspection = props.location.state.data;
     var body;
     var y;
@@ -15,7 +37,7 @@ export const InspResults=(props)=>{
         
         if(inspection.type==="GAPAnalysis"){
             axios.get('http://localhost:8082/api/GAPAnalysisFormInsp/'+inspection.id).then(resp=>{
-                resp.data.map(Form=>{
+                const Form = resp.data
                     var yes = 0;
                     var no = 0;
                     var na = 0;
@@ -106,14 +128,11 @@ export const InspResults=(props)=>{
               .style("font-size", 17)
               .attr("y", 15)
               .attr("x", 18);
- /////////////////////////////////////////////////////////////////////////endPie///////////////////////////////////////////////////////////////////////
-
-                });
-            
+ /////////////////////////////////////////////////////////////////////////endPie///////////////////////////////////////////////////////////////////////            
             
             })}else if(inspection.type==="RiskManagement"){
                 axios.get('http://localhost:8082/api/RiskManagementFormInsp/'+inspection.id).then(resp=>{
-                    resp.data.map(Form=>{
+                    const Form = resp.data
                         var yes = 0;
                         var no = 0;
                         var na = 0;
@@ -206,7 +225,7 @@ export const InspResults=(props)=>{
                           .attr("y", 15)
                           .attr("x", 18);
 /////////////////////////////////////////////////////////////////////////endPie///////////////////////////////////////////////////////////////////////
-                    })
+                    
                 })}
                 console.log(body)
                 // Get positions for each data object
@@ -244,7 +263,7 @@ export const InspResults=(props)=>{
       
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       {inspection.type == "RiskManagement"&&
-        <a href={"http://localhost:8082/api/RiskManagementForm/export/pdf/"+inspection.id}>see Results</a>}
+        <a href={"http://localhost:8082/api/RiskManagementForm/export/pdf/"+inspection.id}>{t("seeResults")}</a>}
         {inspection.type == "GAPAnalysis"&&
         <a href={"http://localhost:8082/api/GAPAnalysisForm/export/pdf/"+inspection.id}class="btn btn-info" role="button">see Results</a>}
         <Link to="/planingAction"><button class="btn btn-info">prepare actions</button></Link>

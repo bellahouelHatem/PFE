@@ -1,28 +1,22 @@
-import react,{useEffect, useState} from 'react';
-import { connect } from 'react-redux';
-import { authenticate, authFailure, authSuccess } from '../../redux/authActions';
-import './loginpage.css';
-import {userLogin} from '../../Services/authenticationService';
-import {Alert,Spinner} from 'react-bootstrap';
-import jwt_decode from "jwt-decode";
-import jwtDecode from 'jwt-decode';
+import axios from "axios";
+import { Alert } from "bootstrap";
+import jwtDecode from "jwt-decode";
+import { useEffect, useState } from "react";
+import { Spinner } from "reactstrap";
+import { userLogin } from "../../Services/authenticationService";
 
-const LoginPage=({loading,error,...props})=>{
+const ForgotePwd=({loading,error,...props})=>{
 
 
 
     const [values, setValues] = useState({
-        // userName: '',
-        // password: ''
+        userName: ''
         });
 
     const handleSubmit=(evt)=>{
         evt.preventDefault();
-        console.log("test4");
-        props.authenticate();
-        console.log(values)
 
-        userLogin(values).then((response)=>{
+        axios.post("http://localhost:8081/api/v1/ForgotPassword/"+values.userName).then((response)=>{
             
 
             console.log(response.data);
@@ -30,7 +24,7 @@ const LoginPage=({loading,error,...props})=>{
                 const { token } = response.data;
                 console.log(token)
                 localStorage.setItem('token', token,15000);
-                const Token = jwt_decode(token);
+                const Token = jwtDecode(token);
                 console.log(Token["iss"])
                 props.setUser(response.data);
                 if (Token["iss"]=== "Administrator"){
@@ -49,31 +43,7 @@ const LoginPage=({loading,error,...props})=>{
 
         }).catch((err)=>{
 console.log(err)
-            if(err && err.response){
-            
-            switch(err.response.status){
-                case 401:
-                    console.log(err.response.data);
-                    console.log("401 status");
-                    props.loginFailure("Authentication Failed.Bad Credentials");
-                    break;
-                default:
-                    props.loginFailure('Something Wrong!Please Try Again'); 
-
-            }
-
-            } 
-            else{
-                props.loginFailure('Something Wrong!Please Try Again');
-            }
-                
-
-            
-
-        });
-        //console.log("Loading again",loading);
-
-        
+             });      
     }
 
     const handleChange = (e) => {
@@ -85,22 +55,7 @@ console.log(err)
     };
 
     console.log("Loading ",loading);
-    useEffect(()=>{
-        const token = localStorage.getItem("token");
-        
-          if(token== null){
-            props.history.push('/'); 
-          }else{
-            const Dtoken =jwtDecode(token);
-            console.log(Dtoken)
-            if (Dtoken["iss"]=== "Administrator"){
-                props.history.push('/PageAdmin');
-            }else if(Dtoken["iss"]=== "Inspector"){
-                props.history.push('/PageInspector');
-            }else if(Dtoken["iss"]=== "ServiceProvider"){
-                props.history.push('/PageServiceProvider');
-            }}
-      },[])
+    
 
     return (
         <div className="login-page">
@@ -124,18 +79,17 @@ console.log(err)
                                         <div className="invalid-feedback">
                                             UserId is invalid
                                         </div>
+                                    
+                                    
+                                    
                                 </div>
 
                                 <div className="form-group">
                                     <label>Password
-                                        <a href="ForgotePwd" className="float-right">
+                                        <a href="forgot.html" className="float-right">
                                             Forgot Password?
                                         </a>
                                     </label>
-                                    <input id="password" type="password" className="form-control" minLength={8} value={values.password} onChange={handleChange} name="password" required/>
-                                    <div className="invalid-feedback">
-                                        Password is required
-                                    </div>
                                 </div>
                                 <div>
                                     <a href="registration" className="float-right">
@@ -146,7 +100,7 @@ console.log(err)
 
                                 <div className="form-group m-0">
                                     <button type="submit" className="btn btn-primary">
-                                        Login
+                                        Send Mail
                                         {loading && (
                                             <Spinner
                                             as="span"
@@ -177,22 +131,5 @@ console.log(err)
     
 }
 
-const mapStateToProps=({auth})=>{
-    console.log("state ",auth)
-    return {
-        loading:auth.loading,
-        error:auth.error
-}}
 
-
-const mapDispatchToProps=(dispatch)=>{
-
-    return {
-        authenticate :()=> dispatch(authenticate()),
-        setUser:(data)=> dispatch(authSuccess(data)),
-        loginFailure:(message)=>dispatch(authFailure(message))
-    }
-}
-
-
-export default connect(mapStateToProps,mapDispatchToProps)(LoginPage);
+export default ForgotePwd;

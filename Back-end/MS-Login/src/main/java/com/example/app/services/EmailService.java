@@ -20,23 +20,11 @@ public class EmailService{// implements EmailSender {
 
     @Autowired
     private final JavaMailSender mailSender;
-
-//    @Override
-//    @Async
     public void sendEmail(String toEmail, String body){//String to, String email) {
 try {
 
-
-//            MimeMessage mimeMessage = mailSender.createMimeMessage();
-//            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
-//            helper.setText(email, true);
-//            helper.setTo(to);
-//            helper.setSubject("Confirm your email");
-//            helper.setFrom("dogguimohamedhabib@gmail.com");
-//            mailSender.send(mimeMessage);
             MimeMessage mimeMessage = mailSender.createMimeMessage();
            MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "utf-8");
-            //SimpleMailMessage message =new SimpleMailMessage();
             message.setFrom("emailpfe1@gmail.com");
             message.setTo(toEmail);
             message.setText(body,true);

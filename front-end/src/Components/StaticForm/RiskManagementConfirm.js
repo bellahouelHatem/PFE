@@ -15,6 +15,8 @@ import {
   import App from "../../App"
   import jwtDecode from "jwt-decode";
   import PageInspector from "../dashboards/PageInspector";
+  import { useTranslation } from 'react-i18next';
+import cookies from 'js-cookie';
     
     const Framework = [
       {
@@ -184,6 +186,23 @@ import {
         name: "question32"
       },
     ];
+    const languages = [
+      {
+        code: 'fr',
+        name: 'Français',
+        country_code: 'fr',
+      },
+      {
+        code: 'en',
+        name: 'English',
+        country_code: 'gb',
+      },
+      {
+        code: 'ger',
+        name: 'deutsch',
+        country_code: 'de',
+      },
+    ]
   
   const Questions = [
     Framework,
@@ -196,6 +215,9 @@ import {
   
     
   const RiskManagementConfirm = (props) => {
+    const currentLanguageCode = cookies.get('i18next') || 'en'
+    const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
+    const { t } = useTranslation()
     const d = new Date().toISOString().slice(0, 10);
   const [x,setX]=useState(Questions)
     const [formData,setformData] = useState({
@@ -257,7 +279,7 @@ import {
           <Col xs="12" md="8">
             <Card>
               <CardTitle tag="h1" className="border-bottom p-3 mb-0">
-              ISO 31000 Risk Management Inspection
+              ISO 31000 {t("Risk")}
               </CardTitle>
               <CardBody>
                 <Form>
@@ -272,50 +294,24 @@ import {
                         <div sm="6" lg="6" xl="3" id={index} >
                           <Card>
                             <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-                              {qt.question}
+                              {t("R"+qt.name)}
                             </CardTitle>
                             {qt.resp=="Yes"&&<React.Fragment>
                               <CardBody className="">
-                              <FormGroup check>
-                                  <Input checked value="Yes" name={qt.name} type="radio" onChange={(e)=>onChange(e)}/>
-                                  <Label check>Yes</Label>
-                              </FormGroup>
-                              <FormGroup check>
-                                  <Input value="No" name={qt.name} type="radio" onChange={(e)=>onChange(e)}/>
-                                  <Label check>No</Label>
-                              </FormGroup>
-                              <FormGroup check>
-                                  <Input value="NA" name={qt.name} type="radio" onChange={(e)=>onChange(e)}/>
-                                  <Label check>N/A</Label>
-                              </FormGroup></CardBody></React.Fragment>}
+                              <CardTitle tag="h6" className="border-bottom p-3 mb-0">
+                              Yes
+                            </CardTitle>
+                             </CardBody></React.Fragment>}
                               {qt.resp==="NA"&&
                               <CardBody className="">
-                              <FormGroup check>
-                                  <Input  value="Yes" name={qt.name} type="radio" onChange={(e)=>onChange(e)}/>
-                                  <Label check>Yes</Label>
-                              </FormGroup>
-                              <FormGroup check>
-                                  <Input value="No" name={qt.name} type="radio" onChange={(e)=>onChange(e)}/>
-                                  <Label check>No</Label>
-                              </FormGroup>
-                              <FormGroup check>
-                                  <Input checked value="NA" name={qt.name} type="radio" onChange={(e)=>onChange(e)}/>
-                                  <Label  check>N/A</Label>
-                              </FormGroup></CardBody>}
+                               <CardTitle tag="h6" className="border-bottom p-3 mb-0">
+                              N/A
+                            </CardTitle></CardBody>}
                               {qt.resp==="No"&&
                               <CardBody className="">
-                              <FormGroup check>
-                                  <Input  value="Yes" name={qt.name} type="radio" onChange={(e)=>onChange(e)}/>
-                                  <Label check>Yes</Label>
-                              </FormGroup>
-                              <FormGroup check>
-                                  <Input checked value="No" name={qt.name} type="radio" onChange={(e)=>onChange(e)}/>
-                                  <Label check>No</Label>
-                              </FormGroup>
-                              <FormGroup check>
-                                  <Input value="NA" name={qt.name} type="radio" onChange={(e)=>onChange(e)}/>
-                                  <Label check>N/A</Label>
-                              </FormGroup>
+                               <CardTitle tag="h6" className="border-bottom p-3 mb-0">
+                              No
+                            </CardTitle>
                               </CardBody>}
                             
                           </Card>

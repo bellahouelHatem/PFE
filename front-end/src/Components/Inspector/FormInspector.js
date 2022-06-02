@@ -5,7 +5,30 @@ import { format } from 'date-fns'
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import PageAdmin from "../dashboards/PageAdmin";
+
+import { useTranslation } from 'react-i18next';
+import cookies from 'js-cookie';
+const languages = [
+  {
+    code: 'fr',
+    name: 'Français',
+    country_code: 'fr',
+  },
+  {
+    code: 'en',
+    name: 'English',
+    country_code: 'gb',
+  },
+  {
+    code: 'ger',
+    name: 'deutsch',
+    country_code: 'de',
+  },
+]
 function FormInspector(props) {
+  const currentLanguageCode = cookies.get('i18next') || 'en'
+  const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
+  const { t } = useTranslation()
   const [focused, setFocused] = useState(false);
     const [values, setValues] = useState({id:"",title:"",startDate:"",endDate:""});
       const handleFocus = (e) => {
@@ -20,7 +43,7 @@ function FormInspector(props) {
             id: 1,
             name: "UserName",
             type: "text",
-            placeholder: "Email",
+            placeholder: t("Email"),
             errorMessage:
                 "Username should be 3-16 characters and shouldn't include any special character!",
             label: "Email",
@@ -31,10 +54,10 @@ function FormInspector(props) {
             id: 2,
             name: "FirstName",
             type: "text",
-            placeholder: "First name",
+            placeholder: t("FirstName"),
             errorMessage:
                 "First name should be 3-16 characters and shouldn't include any special character!",
-            label: "First name",
+            label: t("FirstName"),
             pattern: "*[a-zA-Z,\s]+\s*[3,16]$",
             required: true
         },
@@ -42,10 +65,10 @@ function FormInspector(props) {
             id: 3,
             name: "LastName",
             type: "text",
-            placeholder: "Last name",
+            placeholder:t("LastName"),
             errorMessage:
                 "First name should be 3-16 characters and shouldn't include any special character!",
-            label: "Last name",
+            label: t("LastName"),
             pattern: "*[a-zA-Z,\s]+\s*[3,16]$",
             required: true
         },
@@ -53,10 +76,10 @@ function FormInspector(props) {
             id: 4,
             name: "PhoneNumber",
             type: "text",
-            placeholder: "Phone number",
+            placeholder:  t("PhoneNumber"),
             errorMessage:
                 "Username should be 3-16 characters and shouldn't include any special character!",
-            label: "Phone number",
+            label:  t("PhoneNumber"),
             pattern: "\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$",
             required: true
         },
@@ -64,10 +87,10 @@ function FormInspector(props) {
           id: 5,
           name: "PAss",
           type: "text",
-          placeholder: "Password",
+          placeholder: t("PAss"),
           errorMessage:
               "Username should be 3-16 characters and shouldn't include any special character!",
-          label: "Password",
+          label: t("PAss"),
           pattern: "\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$",
           required: true
       }
@@ -124,13 +147,7 @@ function FormInspector(props) {
                 onChange={(e)=>{onChange(e)}}
               />
             ))}
-            {/* <label>Type</label>
-            <select   onBlur={handleFocus} required as="select" onChange={onChangeSelect} aria-label="Default select example" focused={focused.toString()}>
-              <option value="">...</option>
-              <option value="Food">Food</option>
-              <option value="Server Room">Server Room</option>
-            </select>
-            <span className="span">you need to select a type</span> */}
+
             <button className="button" onClick={(e) => handleSubmit(e)}>Submit</button>
           </form>
         </div>

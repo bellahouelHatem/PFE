@@ -12,9 +12,10 @@ import {
     } from "reactstrap";
   import React, { useEffect, useState } from "react"; 
   import axios from "axios";
-  import App from "../../App"
 import jwtDecode from "jwt-decode";
 import PageInspector from "../dashboards/PageInspector";
+import { useTranslation } from 'react-i18next';
+import cookies from 'js-cookie';
     
     const ContextOfTheOrganization = [
       {
@@ -312,9 +313,29 @@ import PageInspector from "../dashboards/PageInspector";
     "Performance evaluation",
     "Improvement"
   ]
+  const languages = [
+    {
+      code: 'fr',
+      name: 'Français',
+      country_code: 'fr',
+    },
+    {
+      code: 'en',
+      name: 'English',
+      country_code: 'gb',
+    },
+    {
+      code: 'ger',
+      name: 'deutsch',
+      country_code: 'de',
+    },
+  ]
   
     
   const GAPAnalysisForm = (props) => {
+    const currentLanguageCode = cookies.get('i18next') || 'en'
+const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
+const { t } = useTranslation()
     const d = new Date().toISOString().slice(0, 10);
   
     const [formData,setformData] = useState({
@@ -386,7 +407,7 @@ import PageInspector from "../dashboards/PageInspector";
                         <div sm="6" lg="6" xl="3" id={index} >
                           <Card>
                             <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-                              {qt.question}
+                              {t(qt.name)}
                             </CardTitle>
                             <CardBody className="">
                               <FormGroup check>
