@@ -19,4 +19,5 @@ public class FormUserData {
     private String Form;
     @JsonIgnore
     private String idInspection;
+    private String status;
 }

@@ -10,9 +10,8 @@ window.$ = $;
 require("jquery-ui-sortable");
 require('formBuilder/dist/form-render.min.js');
  
-function DformUSE(props) {
+function DformUSEUpdate(props) {
   const location= useLocation();
-  const {data}=location.state;
   const [Form, setForm] = useState();
   const save = ()=>  {
    var Data = JSON.stringify(Form.userData)
@@ -25,21 +24,14 @@ function DformUSE(props) {
    console.log(body)
    const token = localStorage.getItem("token");
    const Dtoken =jwtDecode(token) 
-  axios.post('http://localhost:8082/api/FormUserData',body).then(()=>{
-    axios({method:'PUT',
-  url:'http://localhost:8081/api/inspector/'+Dtoken["sub"],
-  headers:{
-      'Authorization':'Bearer '+token}}).then( axios.put('http://localhost:8083/api/Inspections/'+props.location.state.id).catch(err=>console.log(err.message))).catch(err=>console.log(err.message));
-     })
-  
+  axios.put('http://localhost:8082/api/FormUserData/'+props.location.state["id"],body)
+    
 }
     
-    var formRenderOptions = {
-        formData: JSON.parse(data),
-    dataType:'json' }
+    
     const fb = createRef();
-    useEffect(()=>{const form = $(fb.current).formRender(formRenderOptions);
-      setForm(form);
+    useEffect(()=>{
+       const id =props.location.state.id
       const token = localStorage.getItem("token");
         if(token === null){
           props.history.push('/'); 
@@ -50,7 +42,16 @@ function DformUSE(props) {
              props.history.push('/PageAdmin');
           }else if(Dtoken["iss"]=== "ServiceProvider"){
             props.history.push('/PageServiceProvider');
-      }}
+      }else {
+          axios.get('http://localhost:8082/api/FormUserDatas/'+id).then(resp=>{
+              
+          var formRenderOptions = {
+            formData: JSON.parse(resp.data.form),
+        dataType:'json' }
+    const form = $(fb.current).formRender(formRenderOptions);
+      setForm(form);
+      })}
+    }
 },[])
     return (
         <>
@@ -63,4 +64,4 @@ function DformUSE(props) {
       </>
     );
   }
-  export default DformUSE;
+  export default DformUSEUpdate;

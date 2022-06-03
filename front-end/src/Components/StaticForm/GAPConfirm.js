@@ -409,6 +409,7 @@ const { t } = useTranslation()
    
   
     axios.put('http://localhost:8082/api/GAPAnalysisFormEtat/'+x.id).catch(err=>console.log(err.message));
+    axios.put('http://localhost:8083/api/InspectionsStatu/'+props.location.state.id)
       
     
   }

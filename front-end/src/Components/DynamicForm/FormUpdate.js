@@ -65,7 +65,13 @@ const view = (d)=>{
     const DataForm = JSON.parse(x);
     var options =  {
       showActionButtons: false ,
-      formData : DataForm
+      formData : DataForm,
+      disableFields:  [
+        'autocomplete',
+        'file',
+        'hidden',
+        'button'
+      ]
     }; 
 
     //genereiting the form from the data

@@ -13,9 +13,15 @@ window.$ = $;
 
 var options =  {
  
-     showActionButtons: false 
+     showActionButtons: false ,
+     disableFields:  [
+      'autocomplete',
+      'file',
+      'hidden',
+      'button'
+    ]
+  };
 
-     };
 
 
 
@@ -64,7 +70,7 @@ function Formulaire(props){
    const save = (e) =>  {
      const data = JSON.stringify(state.form.actions.getData('json', true))  
      const body = {form : data,
-      type: Type,
+      type: props.location.state.type,
       titre: Titre,
       dateCreation:d
     }
@@ -81,11 +87,7 @@ function Formulaire(props){
              <label for="formGroupExampleInput">Titre</label>
              <input value={Titre} type="text" class="form-control" placeholder="Titre"  onChange={(e)=>handleChangeTitre(e)}/>
              <label for="formGroupExampleInput">Type</label>
-             <select   onBlur={handleFocus} required as="select" onChange={onChangeSelect} aria-label="Default select example" focused={focused.toString()}>
-              <option value="">...</option>
-              <option value="GAPAnalysis">GAP Analysis</option>
-              <option value="RiskManagement">Risk Management</option>
-            </select>
+             <input value={props.location.state.type} type="text" class="form-control" placeholder="Type"  />
           </div>
            {/* creating the FormBuilder */}
           <div class="news" id='hatem'  ref={fb}></div>

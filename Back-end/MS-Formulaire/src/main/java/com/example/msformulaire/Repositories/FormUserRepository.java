@@ -4,5 +4,6 @@ import com.example.msformulaire.Model.FormUserData;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FormUserRepository extends JpaRepository<FormUserData,Long> {
+    FormUserData findByIdInspection(String id);
 
 }

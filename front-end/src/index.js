@@ -45,6 +45,7 @@ import GAPConfirm from './Components/StaticForm/GAPConfirm';
 import ForgotePwd from './Components/Login/ForgotPMail';
 import PwdEdit from './Components/Login/pwdEdit';
 import ProfileAdmin from './Components/Profiles/ProfileAdmin';
+import DformUSEUpdate from './Components/DynamicForm/DformUseUpdate';
 
 i18next
   .use(HttpApi)
@@ -100,6 +101,7 @@ const MyAppWithStore = () => (
                 <Route path="/ForgotePwd" component={ForgotePwd}/>
                 <Route path="/ForgotePwdEdit" component={PwdEdit}/>
                 <Route path="/FormInspectorEdit" component={FormInspectorEdit}/>
+                <Route path="/FormUseUpdate" component={DformUSEUpdate}/>
 
   </Switch>
   </BrowserRouter>

@@ -233,6 +233,7 @@ import cookies from 'js-cookie';
      
       console.log(formData)
      axios.put('http://localhost:8082/api/RiskManagementFormEtat/'+x.id).catch(err=>console.log(err))
+     axios.put('http://localhost:8083/api/InspectionsStatu/'+props.location.state.id)
      
   }
     

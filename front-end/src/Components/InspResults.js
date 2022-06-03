@@ -103,7 +103,7 @@ export const InspResults=(props)=>{
 				.on('mouseout',()=>{
 					tooldiv.style('visibility','hidden')
 				})
-                svg.selectAll().data(piedata).join("text").text(d=>d.data.pourcentage+"%").attr("transform",d=>`translate(${arc.centroid(d)})`).style("text-anchor","middle").style("fill","#FFFFFF");
+                svg.selectAll().data(piedata).join("text").text(d=>d.data.name+":"+d.data.pourcentage+"%").attr("transform",d=>`translate(${arc.centroid(d)})`).style("text-anchor","middle").style("fill","#FFFFFF");
                 const  legendG = svg.selectAll(".legend")
                 .data(piedata)
                 .enter()

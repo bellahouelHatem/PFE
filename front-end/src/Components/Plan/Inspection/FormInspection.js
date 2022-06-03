@@ -87,7 +87,7 @@ function FormInspection() {
             console.log(body1)
             axios.post("http://localhost:8081/api/v1/Inspection/"+inspector,body1,{  headers: {'Content-Type': 'application/json','Authorization': 'Bearer '+localStorage.getItem("token")}})}
           ).catch(err=>console.log(err))
-       // window.location.reload(true);
+        window.location.reload(true);
       })
       };
     

@@ -11,9 +11,6 @@ window.$ = $;
  require("jquery-ui-sortable");
 
 function DynamicFormsType(props)   {
-  const currentLanguageCode = cookies.get('i18next') || 'en'
-  const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
-  const { t } = useTranslation()
   const languages = [
     {
       code: 'fr',
@@ -31,6 +28,10 @@ function DynamicFormsType(props)   {
       country_code: 'de',
     },
   ]
+  const currentLanguageCode = cookies.get('i18next') || 'en'
+  const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
+  const { t } = useTranslation()
+  
   const [state, setState] = useState([])
   //delete button function
  const Delete = (id)=>{
@@ -42,6 +43,7 @@ function DynamicFormsType(props)   {
     
    //getting the data from the database
   useEffect(() => {
+    console.log(props.location.state.id)
     const token = localStorage.getItem("token");
         if(token === null){
           props.history.push('/'); 

@@ -14,23 +14,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import jwtDecode from "jwt-decode";
 import PageInspector from "../dashboards/PageInspector";
 import { Link } from "react-router-dom";
-const languages = [
-  {
-    code: 'fr',
-    name: 'Français',
-    country_code: 'fr',
-  },
-  {
-    code: 'en',
-    name: 'English',
-    country_code: 'gb',
-  },
-  {
-    code: 'ger',
-    name: 'deutsch',
-    country_code: 'de',
-  },
-]
+
 const today =format(new Date(), 'yyyy-MM-dd');
 var x=[]
 const locales = {
@@ -45,6 +29,23 @@ const localizer = dateFnsLocalizer({
     locales,
 });
 function InspectorPlan() {
+  const languages = [
+    {
+      code: 'fr',
+      name: 'Français',
+      country_code: 'fr',
+    },
+    {
+      code: 'en',
+      name: 'English',
+      country_code: 'gb',
+    },
+    {
+      code: 'ger',
+      name: 'deutsch',
+      country_code: 'de',
+    },
+  ]
   const currentLanguageCode = cookies.get('i18next') || 'en'
   const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
   const { t } = useTranslation()

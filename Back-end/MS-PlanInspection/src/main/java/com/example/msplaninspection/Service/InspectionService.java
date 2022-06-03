@@ -23,7 +23,7 @@ public class InspectionService {
     }
     @GetMapping("/Inspections/{client}")
     public List<Inspection> getInspectionClient(@PathVariable(name = "client") String clientUN){
-        return inspectionRepository.findByClientUNAndStatus(clientUN,"realized");
+        return inspectionRepository.findByClientUNAndStatus(clientUN,"finished");
     }@GetMapping("/InspectionsP/{client}")
     public List<Inspection> getInspectionClientPlanned(@PathVariable(name = "client") String clientUN){
         return inspectionRepository.findByClientUNAndStatus(clientUN,"planned");
@@ -47,6 +47,12 @@ public class InspectionService {
     public void updateInspectionStatus(@PathVariable(name = "id") Long id){
         Inspection inspection = inspectionRepository.findById(id).get();
         inspection.setStatus("realized");
+        inspectionRepository.save(inspection);
+    }
+    @PutMapping("/InspectionsStatu/{id}")
+    public void updateInspectionStatu(@PathVariable(name = "id") Long id){
+        Inspection inspection = inspectionRepository.findById(id).get();
+        inspection.setStatus("finished");
         inspectionRepository.save(inspection);
     }
 

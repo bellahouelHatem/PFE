@@ -31,12 +31,21 @@ export const InspectorHitorique=(props)=>{
     const { t } = useTranslation()
     const url='http://localhost:8083/api/InspectionsIR'
     const [data,setData]=useState([]);
+    const update =(id)=>{
+      axios.put('http://localhost:8082/api/FormUserDataEtat/'+id).then(resp=>{
+        axios.put('http://localhost:8083/api/InspectionsStatu/'+id)
+      })
+
+
+    }
     useEffect(()=>{
         const token = localStorage.getItem("token");
         const Dtoken = jwtDecode(token)
        const Cid =Dtoken["sub"];
        console.log(Cid);
-    axios.get(url+"/"+Cid).then(resp=>{console.log(resp.data);
+    axios.get(url+"/"+Cid).then(resp=>{
+
+      console.log(resp.data);
         setData(resp.data)})
     
     },[])
@@ -70,6 +79,9 @@ export const InspectorHitorique=(props)=>{
                     {insp.type==="RiskManagement"&&<>
                     <Link  to={{pathname:"/RiskManagementEdit", state:{id:insp.id}}} ><button id = 'save' type="button" class="btn btn-primary">{t("EditR")}</button></Link>
                     <Link  to={{pathname:"/RiskManagementConfirm", state:{id:insp.id}}} ><button id = 'save' type="button" class="btn btn-primary">{t("confirmR")}</button></Link></>}
+                    {insp.type!="RiskManagement"&&insp.type!="GAPAnalysis"&&<>
+                    <Link  to={{pathname:"/FormUseUpdate", state:{id:insp.id}}} ><button id = 'save' type="button" class="btn btn-primary">{t("EditR")}</button></Link>
+                    <button id = 'save' type="button" class="btn btn-primary"onClick={(e)=>update(insp.id)}>{t("confirmR")}</button></>}
                 </div>
                 </td>
               </tr>

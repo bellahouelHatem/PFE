@@ -71,7 +71,7 @@ const LoginPage=({loading,error,...props})=>{
                 console.log(Token["iss"])
                 props.setUser(response.data);
                 if (Token["iss"]=== "Administrator"){
-                    props.history.push('/PageAdmin');
+                    props.history.push('/Home');
                 }else if(Token["iss"]=== "Inspector"){
                     props.history.push('/PageInspector');
                 }else if(Token["iss"]=== "ServiceProvider"){
