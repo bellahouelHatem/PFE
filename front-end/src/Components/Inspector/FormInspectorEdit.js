@@ -26,12 +26,14 @@ const languages = [
     country_code: 'de',
   },
 ]
-function FormInspector(props) {
+function FormInspectorEdit(props) {
   const currentLanguageCode = cookies.get('i18next') || 'en'
   const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
   const { t } = useTranslation()
+  const data =props.history.location.state.data;
   const [focused, setFocused] = useState(false);
-    const [values, setValues] = useState({id:"",title:"",startDate:"",endDate:""});
+  
+    const [values, setValues] = useState(data);
       const handleFocus = (e) => {
         setFocused(true);
       };
@@ -41,19 +43,8 @@ function FormInspector(props) {
 
       const inputs = [
         {
-            id: 1,
-            name: "UserName",
-            type: "text",
-            placeholder: t("Email"),
-            errorMessage:
-                "Username should be 3-16 characters and shouldn't include any special character!",
-            label: "Email",
-            pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$",
-            required: true
-        },
-        {
             id: 2,
-            name: "FirstName",
+            name: "firstName",
             type: "text",
             placeholder: t("FirstName"),
             errorMessage:
@@ -64,7 +55,7 @@ function FormInspector(props) {
         },
         {
             id: 3,
-            name: "LastName",
+            name: "lastName",
             type: "text",
             placeholder:t("LastName"),
             errorMessage:
@@ -75,7 +66,7 @@ function FormInspector(props) {
         },
         {
             id: 4,
-            name: "PhoneNumber",
+            name: "phoneNumber",
             type: "text",
             placeholder:  t("PhoneNumber"),
             errorMessage:
@@ -83,54 +74,24 @@ function FormInspector(props) {
             label:  t("PhoneNumber"),
             pattern: "\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$",
             required: true
-        },
-        {
-          id: 5,
-          name: "PAss",
-          type: "text",
-          placeholder: t("PAss"),
-          errorMessage:
-              "Username should be 3-16 characters and shouldn't include any special character!",
-          label: t("PAss"),
-          pattern: "\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$",
-          required: true
-      }
+        }
       ];
     
       const handleSubmit = (e) => {
         e.preventDefault();
-        var exist = false;
 
           const body = {
-            userName : values["UserName"],
-            firstName:values["FirstName"],
-            lastName:values["LastName"],
-            phoneNumber:values["PhoneNumber"],
-            password:values["PAss"]             
+            firstName:values["firstName"],
+            lastName:values["lastName"],
+            phoneNumber:values["phoneNumber"]         
           }
-          axios.get("http://localhost:8081/api/user").then(resp=>{
-            console.log(resp.data)
-            resp.data.map(user=>{
-              console.log(values["UserName"])
-              if(user.username === values["UserName"]){
-                exist = true;
-                return
-              }
-              
-            })
-            if(exist){
-              alert("this Email is taken")
-            }else{
-            axios.post('http://localhost:8081/api/inspector',body,{  headers: {'Content-Type': 'application/json','Authorization': 'Bearer '+localStorage.getItem("token")}}).then(resp=>console.log(resp.data)).catch(err=>console.log(err))
-            props.history.push("/PageAdmin")
-            }
+          console.log(body)
+            axios.put('http://localhost:8081/api/inspectors/'+values["id"],body,{  headers: {'Content-Type': 'application/json','Authorization': 'Bearer '+localStorage.getItem("token")}}).catch(err=>console.log(err))
+            props.history.push("/Home")
+           
             
-          }
-          )
-          
-          
-         
-      };
+          } ;
+      
     
       const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
@@ -178,4 +139,4 @@ function FormInspector(props) {
     };
     
 
-export default FormInspector;
+export default FormInspectorEdit;

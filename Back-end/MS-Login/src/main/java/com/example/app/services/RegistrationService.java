@@ -43,7 +43,7 @@ public class RegistrationService {
         serviceProvider.setCreatedAt(new Date());
         String token = customUserService.signUpUser(serviceProvider);
         String link = "http://localhost:3000/";
-        emailService.sendEmail(request.getUsername(),buildEmail(request.getName(), link));
+        emailService.sendEmail(request.getUsername(),buildEmail(request.getName(), link),"Confirmation mail");
         return token;
     }
 

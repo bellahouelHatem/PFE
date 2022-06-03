@@ -20,7 +20,7 @@ public class EmailService{// implements EmailSender {
 
     @Autowired
     private final JavaMailSender mailSender;
-    public void sendEmail(String toEmail, String body){//String to, String email) {
+    public void sendEmail(String toEmail, String body,String object){//String to, String email) {
 try {
 
             MimeMessage mimeMessage = mailSender.createMimeMessage();
@@ -28,7 +28,7 @@ try {
             message.setFrom("emailpfe1@gmail.com");
             message.setTo(toEmail);
             message.setText(body,true);
-            message.setSubject("Confirmation mail");
+            message.setSubject(object);
             mailSender.send(mimeMessage);
 }catch (Exception e){
 

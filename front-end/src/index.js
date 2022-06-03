@@ -30,6 +30,7 @@ import GAPAnalysisForm from './Components/StaticForm/GAPAnalysisForm';
 import RiskManagementEdit from './Components/StaticForm/RiskManagementEdit';
 import GAPAnalysisEdit from './Components/StaticForm/GAPAnalysisEdit';
 import FormInspector from './Components/Inspector/FormInspector';
+import FormInspectorEdit from './Components/Inspector/FormInspectorEdit';
 import PlaningInsp from './Components/Plan/PlaningInsp';
 import PlaningAction from './Components/Plan/PlaningAction';
 import PageInspector from './Components/dashboards/PageInspector';
@@ -43,6 +44,7 @@ import { InspectorHitorique } from './Components/Inspector/inspectorHistorique';
 import GAPConfirm from './Components/StaticForm/GAPConfirm';
 import ForgotePwd from './Components/Login/ForgotPMail';
 import PwdEdit from './Components/Login/pwdEdit';
+import ProfileAdmin from './Components/Profiles/ProfileAdmin';
 
 i18next
   .use(HttpApi)
@@ -73,7 +75,7 @@ const MyAppWithStore = () => (
     <Route exact path="/" component={LoginPage}/>
     <Route exact path="/registration" component={Registration}/>
     <Route exact path="/DFormUse" component={DformUSE}/>
-                <Route exact path="/Home" component={Home}/>
+                <Route exact path="/Home" component={ProfileAdmin}/>
                 <Route exact path="/Formulaire" component={Formulaire}/>
                 <Route exact path="/StaticForms" component={StaticForms}/>
                 <Route exact path="/DynamicForms" component= {DynamicForms}/>
@@ -97,6 +99,7 @@ const MyAppWithStore = () => (
                 <Route path="/GAPAnalysisEditConfirm" component={GAPConfirm}/>
                 <Route path="/ForgotePwd" component={ForgotePwd}/>
                 <Route path="/ForgotePwdEdit" component={PwdEdit}/>
+                <Route path="/FormInspectorEdit" component={FormInspectorEdit}/>
 
   </Switch>
   </BrowserRouter>

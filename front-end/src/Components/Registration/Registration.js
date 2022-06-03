@@ -96,16 +96,30 @@ function Registration() {
     
       const handleSubmit = (e) => {
         e.preventDefault();
+        var exist = false;
           const body = {
             name : values["Name"],
             userName:values["UserName"],
             phoneNumber:values["PhoneNumber"],
             location:values["Location"],
             password:values["Password"]             
-          }
+          } 
+          axios.get("http://localhost:8081/api/user").then(resp=>{
+            console.log(resp.data)
+          resp.data.map(user=>{
+              console.log(values["UserName"])
+              if(user.username === values["UserName"]){
+                exist = true;
+                return
+              }
+              
+            })
+            if(exist){
+              alert("this Email is taken")
+            }else{
           console.log(body)
          axios.post('http://localhost:8081/api/registration',body).then(resp=>console.log(resp.data)).catch(err=>console.log(err.response.data.error))
-      };
+      };})}
     
       const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });

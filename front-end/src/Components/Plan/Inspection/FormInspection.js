@@ -56,7 +56,10 @@ function FormInspection() {
         const token = localStorage.getItem("token");
         const Dtoken = jwtDecode(token)
        const Cid =Dtoken["sub"];
+    
        var Type ;
+       axios.get("http://localhost:8081/api/user/"+Cid).then(resp=>{
+         const client = resp.data;
        if(type==="custom"){
          Type=values.type;
        }else{
@@ -72,8 +75,20 @@ function FormInspection() {
             inspectorUN:inspector         
           }
           console.log(body)
-          axios.post('http://localhost:8083/api/Inspection',body).catch(err=>console.log(err))
-        window.location.reload(true);
+           const body1 = {
+            name : client["name"],
+            userName:client["userName"],
+            phoneNumber:client["phoneNumber"],
+            location:client["location"]           
+          } 
+          
+          
+          axios.post('http://localhost:8083/api/Inspection',body).then(resp=>{
+            console.log(body1)
+            axios.post("http://localhost:8081/api/v1/Inspection/"+inspector,body1,{  headers: {'Content-Type': 'application/json','Authorization': 'Bearer '+localStorage.getItem("token")}})}
+          ).catch(err=>console.log(err))
+       // window.location.reload(true);
+      })
       };
     
       const onChange = (e) => {

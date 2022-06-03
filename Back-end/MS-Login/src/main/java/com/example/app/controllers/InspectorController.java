@@ -54,10 +54,8 @@ public class InspectorController {
     @PutMapping("/inspectors/{id}")
     public void updateInspector(@PathVariable Long id, @RequestBody Inspector inspectorDetails){
         Inspector inspector = inspectorRepository.findById(id).get();
-
         inspector.setFirstName(inspectorDetails.getFirstName());
         inspector.setLastName(inspectorDetails.getLastName());
-        inspector.setUserName(inspectorDetails.getUsername());
         inspector.setPhoneNumber(inspectorDetails.getPhoneNumber());
         inspector.setUpdatedAt(new Date());
         inspectorRepository.save(inspector);

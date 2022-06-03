@@ -1,10 +1,7 @@
 import axios from "axios";
 import { Alert } from "bootstrap";
-import jwtDecode from "jwt-decode";
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import { Spinner } from "reactstrap";
-import { userLogin } from "../../Services/authenticationService";
-import {Link} from "react-router-dom";
 
 const PwdEdit=({loading,error,...props})=>{
     
@@ -23,32 +20,7 @@ const PwdEdit=({loading,error,...props})=>{
 
         axios.put("http://localhost:8081/api/user/"+values.userName,body).then((response)=>{
             props.history.push("/")
-            
-
             console.log(response.data);
-//             if(response.status===200){
-//                 const { token } = response.data;
-//                 console.log(token)
-//                 localStorage.setItem('token', token,15000);
-//                 const Token = jwtDecode(token);
-//                 console.log(Token["iss"])
-//                 props.setUser(response.data);
-//                 if (Token["iss"]=== "Administrator"){
-//                     props.history.push('/PageAdmin');
-//                 }else if(Token["iss"]=== "Inspector"){
-//                     props.history.push('/PageInspector');
-//                 }else if(Token["iss"]=== "ServiceProvider"){
-//                     props.history.push('/PageServiceProvider');
-//                 }
-                
-//             }
-//             else{
-//                props.loginFailure('Something Wrong!Please Try Again'); 
-//             }
-
-
-//         }).catch((err)=>{
-// console.log(err)
               }).catch((err)=>{
                  console.log(err.message)});      
     }
