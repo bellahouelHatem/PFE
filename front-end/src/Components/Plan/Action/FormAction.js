@@ -46,7 +46,6 @@ function FormAction() {
           <>
         <div className="app">
           <form className="formInput" onSubmit={handleSubmit}>
-            <h1>Register</h1>
             <label>title</label>
         <input onChange={(e)=>onChange(e)} name="title" type= "text" errorMessage="required" label= "Title" required ></input>
         <label>Start Date</label> 
@@ -59,7 +58,7 @@ function FormAction() {
             <textarea errorMessage="hiiii" focused={focused.toString()} onChange={onChangeSelect}
         onBlur={handleFocus} name="Decreption"  required ></textarea>
             <span className="span">you need to select a type</span>
-            <button className="button">Submit</button>
+            <button className="btn btn-primary" >Add action</button>
           </form>
         </div>
         </>

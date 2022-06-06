@@ -403,7 +403,7 @@ const { t } = useTranslation()
    
   
     axios.put('http://localhost:8082/api/GAPAnalysisForm/'+x.id,formData).catch(err=>console.log(err.message));
-      
+    props.history.push("/InspectorHitorique")
     
   }
     
@@ -448,7 +448,7 @@ const { t } = useTranslation()
         <PageInspector/>
         <div>
           <Row>
-          <Col xs="12" md="8">
+          <Col xs="12" md="8" className="wost">
             <Card>
               <CardTitle tag="h1" className="border-bottom p-3 mb-0">
               GAP Analysis Form Inspection
@@ -457,11 +457,12 @@ const { t } = useTranslation()
                 <Form>
                   {Questions.map((qts, index) => (
                     <div>
-                      <Button className="btn" color="primary" size="lg" block  onClick={onSubmit}>
-                       {ListQuestions[index].toString()}
-                      </Button>
-                      {state.show ?
-  
+                      <Card>
+                        <CardTitle tag="h6" className="border-bottom p-3 mb-0">
+                          <h3>{ListQuestions[index].toString()}</h3>
+                        </CardTitle>
+                      </Card>
+                      {
                       qts.map((qt, index) => (
                         <div sm="6" lg="6" xl="3" id={index} >
                           <Card>
@@ -516,13 +517,12 @@ const { t } = useTranslation()
                           </Card>
                         </div>
                       ))
-                    :<h6>selket</h6>
                     }
                     </div>
                   ))}
     
-                  <Button id= 'save' onClick={(e) => save(e)} type="button" class="btn btn-primary">
-                    Submit
+                  <Button id= 'save' onClick={(e) => save(e)} type="button" class="btn btn-primary wost">
+                    Edit
                   </Button>
                 </Form>
               </CardBody>

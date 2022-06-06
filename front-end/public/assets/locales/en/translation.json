@@ -1,6 +1,6 @@
 {
     "Dynamic_Form":"Dynamic Forms",
-    "planInspector":"The inspection plans",
+    "planInspector":"Inspections plan",
     "Inspector":"Inspector Form",
     "Location":"Location",
     "CompanyName":"Company name",
@@ -119,6 +119,7 @@
     "Rquestion30":"18. Do you report results of monitor and review?",
     "Rquestion31":"19. Are your processes traceable?",
     "Rquestion32":"20. Have you retained suitable records?",
-    "Risk":"Risk Management Inspection"
-
+    "Risk":"Risk Management Inspection",
+    "prepareActions":"Prepare action",
+    "Administrator": "Administrator"
 }

@@ -73,9 +73,9 @@ const LoginPage=({loading,error,...props})=>{
                 if (Token["iss"]=== "Administrator"){
                     props.history.push('/Home');
                 }else if(Token["iss"]=== "Inspector"){
-                    props.history.push('/PageInspector');
+                    props.history.push('/PlanInspector');
                 }else if(Token["iss"]=== "ServiceProvider"){
-                    props.history.push('/PageServiceProvider');
+                    props.history.push('/planning');
                 }
                 
             }
@@ -131,12 +131,12 @@ console.log(err)
             const Dtoken =jwtDecode(token);
             console.log(Dtoken)
             if (Dtoken["iss"]=== "Administrator"){
-                props.history.push('/PageAdmin');
-            }else if(Dtoken["iss"]=== "Inspector"){
-                props.history.push('/PageInspector');
-            }else if(Dtoken["iss"]=== "ServiceProvider"){
-                props.history.push('/PageServiceProvider');
-            }}
+              props.history.push('/Home');
+          }else if(Dtoken["iss"]=== "Inspector"){
+              props.history.push('/PlanInspector');
+          }else if(Dtoken["iss"]=== "ServiceProvider"){
+              props.history.push('/planning');
+          }}
       },[])
 
     return (

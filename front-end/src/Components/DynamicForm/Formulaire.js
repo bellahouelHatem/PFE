@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import PageInspector from "../dashboards/PageInspector";
 import axios from "axios";
+import { type } from "@testing-library/user-event/dist/type";
 window.jQuery = $;
 window.$ = $;
  require("jquery-ui-sortable");
@@ -60,9 +61,9 @@ function Formulaire(props){
    const  handleChangeTitre= (event)=> {
     setTitre(event.target.value);
   }  
-  const onChangeSelect = (e)=>{
-    setType( e.target.value)
-  }
+  const  handleChangeType= (event)=> {
+    setType(event.target.value);
+  } 
   const handleFocus = (e) => {
     setFocused(true);
   };
@@ -70,13 +71,19 @@ function Formulaire(props){
    const save = (e) =>  {
      const data = JSON.stringify(state.form.actions.getData('json', true))  
      const body = {form : data,
-      type: props.location.state.type,
+      type: Type,
       titre: Titre,
       dateCreation:d
     }
   
+
      axios.post('http://localhost:8082/api/Forms',body)
-    .then(res=>{alert()})
+     const link ="/"+props.location.state.link
+     props.history.push({
+      pathname: link,
+      state: {type:props.location.state.type }
+    })
+     window.location.reload(false);
   }
     
         return (
@@ -84,16 +91,19 @@ function Formulaire(props){
           <PageInspector/>
         <div >
           <div class="form-group">
+            <form >
              <label for="formGroupExampleInput">Titre</label>
-             <input value={Titre} type="text" class="form-control" placeholder="Titre"  onChange={(e)=>handleChangeTitre(e)}/>
+             <input value={Titre} required type="text" class="form-control" placeholder="Titre"  onChange={(e)=>handleChangeTitre(e)}/>
              <label for="formGroupExampleInput">Type</label>
-             <input value={props.location.state.type} type="text" class="form-control" placeholder="Type"  />
+             <input value={props.location.state.type} required type="text" class="form-control" placeholder="Type" onChange={(e)=>handleChangeType(e)} />
+             <div class="news" id='hatem'  ref={fb}></div>
+             </form>
           </div>
            {/* creating the FormBuilder */}
-          <div class="news" id='hatem'  ref={fb}></div>
+          
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
              <button id='clear' onClick={(e) => clear(e)} type="button" class="btn btn-danger" >clear</button> 
-             <Link reloadDocument={true} to={{pathname:"/"+props.location.state.link,state:{type:props.location.state.type}}}><button id = 'save' onClick={(e) => save(e)} type="button" class="btn btn-primary">Save</button></Link>
+             <button id = 'save' onClick={(e) => save(e)} type="button" class="btn btn-primary">Save</button>
         
           </div>
         </div>

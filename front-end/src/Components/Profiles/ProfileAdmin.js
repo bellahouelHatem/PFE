@@ -48,19 +48,22 @@ function ProfileAdmin(props){
        
         
         },[])
+
+
+        
         
             return(
               <>
               <PageAdmin/>
-              <table class="table table-sm">
-            <thead>
+              <table class="table mb-0 border-bottom mb-4">
+            <thead class="bg-light">
               <tr>
-                <th scope="col">{t("id")}</th>
-                <th scope="col">{t("Email")}</th>
-                <th scope="col">{t("FirstName")}</th>
-                <th scope="col">{t("LastName")}</th>
-                <th scope="col">{t("PhoneNumber")}</th>
-                <th scope="col"></th>
+                <th scope="col" className="border-0">{t("id")}</th>
+                <th scope="col" className="border-0">{t("Email")}</th>
+                <th scope="col" className="border-0">{t("FirstName")}</th>
+                <th scope="col" className="border-0">{t("LastName")}</th>
+                <th scope="col" className="border-0">{t("PhoneNumber")}</th>
+                <th scope="col" className="border-0"></th>
                 
               </tr>
            </thead>

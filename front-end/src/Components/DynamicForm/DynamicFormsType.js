@@ -54,7 +54,7 @@ function DynamicFormsType(props)   {
              props.history.push('/PageAdmin');
           }else if(Dtoken["iss"]=== "ServiceProvider"){
             props.history.push('/PageServiceProvider');
-      }else{ axios.get('http://localhost:8082/api/FormsT/'+props.location.state.type).then(resp=>setState(resp.data));}
+      }else{ axios.get('http://localhost:8082/api/Forms').then(resp=>setState(resp.data));}
     }
    
     
@@ -64,8 +64,8 @@ function DynamicFormsType(props)   {
           <>
           <PageInspector/>
         <div>
-            <h1>the client need a {props.location.state.type} inspection</h1>
-           <Link  to={{pathname:"/Formulaire", state:{link:"DynamicFormType",type:props.location.state.type}}}><button id = 'save' type="button" class="btn btn-primary">Add Form</button></Link>
+            <h3 class="bood">The client need a "{props.location.state.type}" inspection</h3>
+           <Link  to={{pathname:"/Formulaire", state:{link:"DynamicFormType",type:props.location.state.type}}}><button id = 'save' type="button" class="btn btn-primary loutaymin kober">Add Form</button></Link>
            {/* presenting the data in a tabel */}
           <table class="table table-sm">
         <thead>

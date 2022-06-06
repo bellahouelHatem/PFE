@@ -233,6 +233,7 @@ import cookies from 'js-cookie';
      
       console.log(formData)
      axios.put('http://localhost:8082/api/RiskManagementForm/'+x.id,formData).catch(err=>console.log(err))
+     props.history.push("/InspectorHitorique")
      
   }
     
@@ -276,7 +277,7 @@ import cookies from 'js-cookie';
         <PageInspector/>
         <div>
           <Row>
-          <Col xs="12" md="8">
+          <Col xs="12" md="8"  className="wost">
             <Card>
               <CardTitle tag="h1" className="border-bottom p-3 mb-0">
               ISO 31000 {t("Risk")}
@@ -285,12 +286,12 @@ import cookies from 'js-cookie';
                 <Form>
                   {Questions.map((qts, index) => (
                     <div>
-                      <Button className="btn" color="primary" size="lg" block  onClick={onSubmit}>
-                       {ListQuestions[index].toString()}
-                      </Button>
-                      {state.show ?
-  
-                      qts.map((qt, index) => (
+                      <Card>
+                        <CardTitle tag="h6" className="border-bottom p-3 mb-0">
+                          <h3>{ListQuestions[index].toString()}</h3>
+                        </CardTitle>
+                      </Card>
+                      {qts.map((qt, index) => (
                         <div sm="6" lg="6" xl="3" id={index} >
                           <Card>
                             <CardTitle tag="h6" className="border-bottom p-3 mb-0">
@@ -343,13 +344,12 @@ import cookies from 'js-cookie';
                           </Card>
                         </div>
                       ))
-                    :<h6>selket</h6>
                     }
                     </div>
                   ))}
     
-                  <Button id= 'save' onClick={(e) => save(e)} type="button" class="btn btn-primary">
-                    Submit
+                  <Button id= 'save' onClick={(e) => save(e)} type="button" class="btn btn-primary wost">
+                    Edit
                   </Button>
                 </Form>
               </CardBody>

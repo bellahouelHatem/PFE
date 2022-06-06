@@ -61,15 +61,17 @@ const currentLanguageCode = cookies.get('i18next') || 'en'
     // },[])
     return (
       
-      <Rbootstrap.Navbar  bg="dark" variant="dark">
+      <Rbootstrap.Navbar  bg="dark" variant="dark" expand="sm" collapseOnSelect>
       <Rbootstrap.Container>
-        <Rbootstrap.Navbar.Brand as={Link}to={"/Home"}>inspector</Rbootstrap.Navbar.Brand>
+        <Rbootstrap.Navbar.Brand ><b>Inspector</b></Rbootstrap.Navbar.Brand>
+        <Rbootstrap.Navbar.Toggle/>
+        <Rbootstrap.Navbar.Collapse>
         <Rbootstrap.Nav className="me-auto">
-          <Rbootstrap.Nav.Link as={Link}to={"/DynamicForms"}>{t("Dynamic_Form")}</Rbootstrap.Nav.Link>
           <Rbootstrap.Nav.Link as={Link}to={"/PlanInspector"}>{t("planInspector")}</Rbootstrap.Nav.Link>
-          
+          <Rbootstrap.Nav.Link as={Link}to={"/DynamicForms"}>{t("Dynamic_Form")}</Rbootstrap.Nav.Link>
           <Rbootstrap.Nav.Link as={Link}to={"/InspectorHitorique"}>{t("history")}</Rbootstrap.Nav.Link>
         </Rbootstrap.Nav>
+        
         <Rbootstrap.Nav className="justify-content-end">
         <Rbootstrap.Nav.Link as={Link}to={"/"} onClick={logOut} >{t("log_out")}</Rbootstrap.Nav.Link>
         <Rbootstrap.Nav.Link ><div className="dropdown">
@@ -109,6 +111,7 @@ const currentLanguageCode = cookies.get('i18next') || 'en'
             </ul>
           </div></Rbootstrap.Nav.Link>
         </Rbootstrap.Nav>
+        </Rbootstrap.Navbar.Collapse>
       </Rbootstrap.Container>
     </Rbootstrap.Navbar>
     

@@ -87,7 +87,7 @@ function FormInspection() {
             console.log(body1)
             axios.post("http://localhost:8081/api/v1/Inspection/"+inspector,body1,{  headers: {'Content-Type': 'application/json','Authorization': 'Bearer '+localStorage.getItem("token")}})}
           ).catch(err=>console.log(err))
-        window.location.reload(true);
+         window.location.reload(true);
       })
       };
     
@@ -117,11 +117,10 @@ function FormInspection() {
           <>
         <div className="app">
           <form className="formInput" onSubmit={handleSubmit}>
-            <h1>Register</h1>
             <label>title</label>
-        <input onChange={(e)=>onChange(e)} name="title" type= "text" errorMessage="required" label= "Title" required ></input>
+        <input onChange={(e)=>onChange(e)} name="title" type= "text" errorMessage="required" pattern="*[a-zA-Z,\s]+\s*[3,16]$" label= "Title" required ></input>
           <label>Start Date</label> 
-           <input onChange={(e)=>onChange(e)} name="startDate" type= "date" min ={ today} placeholder= "End Date"berrorMessage="required"label= "End Date" required value={values.startDate} ></input>
+           <input onChange={(e)=>onChange(e)} name="startDate" type= "date" min ={ today} placeholder= "End Date" errorMessage="required"label= "End Date" required value={values.startDate} ></input>
          {values.startDate&&(<React.Fragment>
           <label>End Date</label>
             <input onChange={(e)=>onChange(e)} name="endDate" type= "date" min ={values.startDate} placeholder= "End Date" errorMessage="required" label= "End Date" required value={values.endDate} ></input>
@@ -140,7 +139,7 @@ function FormInspection() {
               <option value={inspector.username}>{inspector.firstName}:{inspector.inspectionsNumber}</option>)}
             </select>
             <span className="span">you need to select a type</span>
-            <button className="button">Submit</button>
+            <button className="button">Add inspection</button>
           </form>
         </div>
         </>

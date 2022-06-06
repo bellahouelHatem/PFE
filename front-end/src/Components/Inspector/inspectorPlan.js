@@ -147,12 +147,12 @@ const handleClick=()=>{
             <p>{newEvent.type}</p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
              {newEvent.type === "GAPAnalysis"&&
-            <Link to={{pathname:"/GAPAnalysisForm",state:newEvent.id}}><button>{t("conduct")}</button></Link>
+            <Link to={{pathname:"/GAPAnalysisForm",state:newEvent.id}}><button class="btn btn-primary">{t("conduct")}</button></Link>
             }
             {newEvent.type === "RiskManagement"&&
-            <Link to={{pathname:"/RiskManagementForm",state:newEvent.id}}><button>{t("conduct")}</button></Link>
+            <Link to={{pathname:"/RiskManagementForm",state:newEvent.id}}><button class="btn btn-primary">{t("conduct")}</button></Link>
             }{(newEvent.type != "RiskManagement"&&newEvent.type != "GAPAnalysis")&&
-            <Link to={{pathname:"/DynamicFormType",state:{id:newEvent.id,type:newEvent.type}}}><button>{t("conduct")}</button></Link>
+            <Link to={{pathname:"/DynamicFormType",state:{id:newEvent.id,type:newEvent.type}}}><button class="btn btn-primary">{t("conduct")}</button></Link>
             }
             </div>
            </form>

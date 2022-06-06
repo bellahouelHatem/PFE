@@ -32,6 +32,9 @@ function DformUSE(props) {
       'Authorization':'Bearer '+token}}).then( axios.put('http://localhost:8083/api/Inspections/'+props.location.state.id).catch(err=>console.log(err.message))).catch(err=>console.log(err.message));
      })
   
+    //  props.history.push("/PlanInspector")
+     
+    //  window.location.reload(false);
 }
     
     var formRenderOptions = {
@@ -40,6 +43,7 @@ function DformUSE(props) {
     const fb = createRef();
     useEffect(()=>{const form = $(fb.current).formRender(formRenderOptions);
       setForm(form);
+      console.log(props.location.state.id)
       const token = localStorage.getItem("token");
         if(token === null){
           props.history.push('/'); 

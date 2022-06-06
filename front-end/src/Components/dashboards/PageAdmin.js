@@ -65,11 +65,14 @@ const GlobeIcon = ({ width = 24, height = 24 }) => (
       
       <Rbootstrap.Navbar  bg="dark" variant="dark">
       <Rbootstrap.Container>
-        <Rbootstrap.Navbar.Brand as={Link}to={"/Home"}>Admin</Rbootstrap.Navbar.Brand>
+        <Rbootstrap.Navbar.Brand ><b>{t("Administrator")}</b></Rbootstrap.Navbar.Brand>
+        <Rbootstrap.Navbar.Toggle/>
+        <Rbootstrap.Navbar.Collapse>
         <Rbootstrap.Nav className="me-auto">
-          <Rbootstrap.Nav.Link as={Link}to={"/Home"} >Home</Rbootstrap.Nav.Link>
+          <Rbootstrap.Nav.Link as={Link}to={"/Home"} >{t('Home')}</Rbootstrap.Nav.Link>
           <Rbootstrap.Nav.Link as={Link}to={"/FormInspector"}>{t('Inspector')}</Rbootstrap.Nav.Link>
         </Rbootstrap.Nav>
+        </Rbootstrap.Navbar.Collapse>
         <Rbootstrap.Nav className="justify-content-end">
         <Rbootstrap.Nav.Link as={Link}to={"/"} onClick={logOut} >{t('log_out')}</Rbootstrap.Nav.Link>
         <Rbootstrap.Nav.Link ><div className="dropdown">
@@ -107,8 +110,8 @@ const GlobeIcon = ({ width = 24, height = 24 }) => (
                 </li>
               ))}
             </ul>
-          </div></Rbootstrap.Nav.Link>        </Rbootstrap.Nav>
-
+          </div></Rbootstrap.Nav.Link>       
+           </Rbootstrap.Nav>
       </Rbootstrap.Container>
     </Rbootstrap.Navbar>
       

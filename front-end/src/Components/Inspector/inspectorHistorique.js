@@ -33,7 +33,7 @@ export const InspectorHitorique=(props)=>{
     const [data,setData]=useState([]);
     const update =(id)=>{
       axios.put('http://localhost:8082/api/FormUserDataEtat/'+id).then(resp=>{
-        axios.put('http://localhost:8083/api/InspectionsStatu/'+id)
+        axios.put('http://localhost:8083/api/InspectionsStatu/'+id).then(console.log("done"))
       })
 
 
@@ -54,14 +54,14 @@ export const InspectorHitorique=(props)=>{
        <>
        <PageInspector/>
        <div>
-           <table class="table table-sm">
-        <thead>
+           <table class="table mb-0 border-bottom mb-4">
+        <thead class="bg-light">
           <tr>
-            <th scope="col">{t("id")}</th>
-            <th scope="col">{t("Titre")}</th>
-            <th scope="col">{t("Type")}</th>
-            <th scope="col">{t("date")}</th>
-            <th scope="col"></th>
+            <th scope="col" className="border-0">{t("id")}</th>
+            <th scope="col" className="border-0">{t("Titre")}</th>
+            <th scope="col" className="border-0">{t("Type")}</th>
+            <th scope="col" className="border-0">{t("date")}</th>
+            <th scope="col" className="border-0"></th>
             
           </tr>
        </thead>

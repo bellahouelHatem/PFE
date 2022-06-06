@@ -122,7 +122,9 @@ function FormInspector(props) {
               alert("this Email is taken")
             }else{
             axios.post('http://localhost:8081/api/inspector',body,{  headers: {'Content-Type': 'application/json','Authorization': 'Bearer '+localStorage.getItem("token")}}).then(resp=>console.log(resp.data)).catch(err=>console.log(err))
-            props.history.push("/PageAdmin")
+            props.history.push("/Home")
+            window.location.reload(true);
+            
             }
             
           }

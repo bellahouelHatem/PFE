@@ -62,11 +62,13 @@ const currentLanguageCode = cookies.get('i18next') || 'en'
       
       <Rbootstrap.Navbar  bg="dark" variant="dark">
       <Rbootstrap.Container>
-        <Rbootstrap.Navbar.Brand as={Link}to={"/Home"}>Services Provider</Rbootstrap.Navbar.Brand>
+        <Rbootstrap.Navbar.Brand ><b>Client</b></Rbootstrap.Navbar.Brand>
+        <Rbootstrap.Navbar.Toggle/>
+        <Rbootstrap.Navbar.Collapse>
         <Rbootstrap.Nav className="me-auto">
-          <Rbootstrap.Nav.Link as={Link}to={"/planing"}>{t('planInspector')}</Rbootstrap.Nav.Link>
-  <Rbootstrap.Nav.Link as={Link}to={"/dashbordClient"}>{t('history')}</Rbootstrap.Nav.Link>
-  <Rbootstrap.Nav.Link as={Link}to={"/Home"}>{t("Home")}</Rbootstrap.Nav.Link>
+          <Rbootstrap.Nav.Link as={Link}to={"/planning"}>{t('planInspector')}</Rbootstrap.Nav.Link>
+          <Rbootstrap.Nav.Link as={Link}to={"/Actions"}>{'Actions plan'}</Rbootstrap.Nav.Link>
+          <Rbootstrap.Nav.Link as={Link}to={"/dashbordClient"}>{t('history')}</Rbootstrap.Nav.Link>
         </Rbootstrap.Nav>
         <Rbootstrap.Nav className="justify-content-end">
         <Rbootstrap.Nav.Link as={Link}to={"/"} onClick={logOut} >{t("log_out")}</Rbootstrap.Nav.Link>
@@ -105,7 +107,10 @@ const currentLanguageCode = cookies.get('i18next') || 'en'
                 </li>
               ))}
             </ul>
-          </div></Rbootstrap.Nav.Link>        </Rbootstrap.Nav>
+          </div>
+          </Rbootstrap.Nav.Link>
+                  </Rbootstrap.Nav>
+          </Rbootstrap.Navbar.Collapse>
       </Rbootstrap.Container>
     </Rbootstrap.Navbar>
     

@@ -48,7 +48,7 @@ const PwdEdit=({loading,error,...props})=>{
 
                     <div className="card fat">
                         <div className="card-body">
-                            <h4 className="card-title">Login</h4>
+                            <h4 className="card-title">Update password</h4>
                             
                             <form class="row g-3 needs-validation" novalidate onSubmit={handleSubmit} >
                                 <div className="form-group">

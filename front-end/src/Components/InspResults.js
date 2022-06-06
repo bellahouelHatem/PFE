@@ -52,7 +52,7 @@ export const InspResults=(props)=>{
                             na++
                         }
                     }
-                    y =[{name:"yes",value:yes,pourcentage:((yes/51)*100).toFixed(2)},{name:"no",value:no,pourcentage:((no/51)*100).toFixed(2)},{name:"N/A",value:na,pourcentage:((na/51)*100).toFixed(2)}]
+                    y =[{name:"Yes",value:yes,pourcentage:((yes/51)*100).toFixed(2)},{name:"No",value:no,pourcentage:((no/51)*100).toFixed(2)},{name:"N/A",value:na,pourcentage:((na/51)*100).toFixed(2)}]
                     body=y;
                     console.log(y)
                     setData(y)
@@ -62,7 +62,7 @@ export const InspResults=(props)=>{
 		// Define arcs for graphing 
 		const arc = d3.arc().innerRadius(0).outerRadius(200)
 
-		const colors = d3.scaleOrdinal(['#26E07F','#FA314A','#ff6150'])
+		const colors = d3.scaleOrdinal(['#adaa5a','#ad5a60','#5a65ad'])
 
 		// Define the size and position of svg
 		const svg = d3.select(pieChart.current)
@@ -147,7 +147,7 @@ export const InspResults=(props)=>{
                                 na++
                             }
                         }
-                        z =[{name:"yes",value:yes,pourcentage:((yes/32)*100).toFixed(2)},{name:"no",value:no,pourcentage:((no/32)*100).toFixed(2)},{name:"N/A",value:na,pourcentage:((na/32)*100).toFixed(2)}]
+                        z =[{name:"Yes",value:yes,pourcentage:((yes/32)*100).toFixed(2)},{name:"No",value:no,pourcentage:((no/32)*100).toFixed(2)},{name:"N/A",value:na,pourcentage:((na/32)*100).toFixed(2)}]
                         body=z;
                     console.log(body)
                     
@@ -158,7 +158,7 @@ export const InspResults=(props)=>{
                     // Define arcs for graphing 
                     const arc = d3.arc().innerRadius(0).outerRadius(200)
             
-                    const colors = d3.scaleOrdinal(['#26E07F','#FA314A','#ff6150'])
+                    const colors = d3.scaleOrdinal(['#adaa5a','#ad5a60','#5a65ad'])
             
                     // Define the size and position of svg
                     const svg = d3.select(pieChart.current)
@@ -236,18 +236,17 @@ export const InspResults=(props)=>{
     return (
        <>
        <PageServiceProvider/>
-       <div className="grid-container-element">
-       <div id='chartArea' class="grid-child-element purple">
+       <div className="wost">
+       <div id='chartArea'className="wost">
 			<svg ref={pieChart}></svg>
 		</div>
-        <div  class="grid-child-element green">
-        <table class="table table-sm">
+        <div  class="table mb-0 border-bottom mb-4 wost">
+        <table class="bg-light">
         <thead>
           <tr>
-            <th scope="col">response</th>
-            <th scope="col">value</th>
-            <th scope="col">pourcentage</th>
-            <th scope="col"></th>
+            <th scope="col" className="border-0">response</th>
+            <th scope="col" className="border-0">value</th>
+            <th scope="col" className="border-0">pourcentage</th>
             
           </tr>
        </thead>
@@ -263,13 +262,12 @@ export const InspResults=(props)=>{
       
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       {inspection.type == "RiskManagement"&&
-        <a href={"http://localhost:8082/api/RiskManagementForm/export/pdf/"+inspection.id}>{t("seeResults")}</a>}
+        <a href={"http://localhost:8082/api/RiskManagementForm/export/pdf/"+inspection.id} class="btn btn-info" role="button" target="_blank">{t("seeResults")}</a>}
         {inspection.type == "GAPAnalysis"&&
-        <a href={"http://localhost:8082/api/GAPAnalysisForm/export/pdf/"+inspection.id}class="btn btn-info" role="button">see Results</a>}
-        <Link to="/planingAction"><button class="btn btn-info">prepare actions</button></Link>
+        <a href={"http://localhost:8082/api/GAPAnalysisForm/export/pdf/"+inspection.id}class="btn btn-info" role="button" target="_blank">{t("seeResults")}</a>}
+        <button onClick={(e)=>props.history.push("/planingAction")} class="btn btn-info">{t("prepareActions")}</button>
 		</div>
         </div>
-
         </div>
        </>
     )

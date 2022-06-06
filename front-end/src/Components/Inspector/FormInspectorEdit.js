@@ -121,7 +121,7 @@ function FormInspectorEdit(props) {
       return (<><PageAdmin/>
         <div className="app">
           <form className="formInput" >{/* onSubmit={handleSubmit}> */}
-            <h1>Register</h1>
+            <h1>Update Inspector</h1>
             {inputs.map((input) => (
               <FormInspectorInput
                 key={input.id}
@@ -131,7 +131,7 @@ function FormInspectorEdit(props) {
               />
             ))}
 
-            <button className="button" onClick={(e) => handleSubmit(e)}>Submit</button>
+            <button className="btn btn-primary" onClick={(e) => handleSubmit(e)}>Update</button>
           </form>
         </div>
         </>

@@ -119,6 +119,7 @@
     "Rquestion30":"18. Berichten Sie Ergebnisse von Monitor und Review?",
     "Rquestion31":"19. Sind Ihre Prozesse nachvollziehbar?",
     "Rquestion32":"20. Haben Sie geeignete Unterlagen aufbewahrt?",
-    "Risk":"Inspektion des Risikomanagements"
-
+    "Risk":"Inspektion des Risikomanagements",
+    "prepareActions":"Aktion vorbereiten",
+    "Administrator": "Administrator"
 }

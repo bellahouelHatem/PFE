@@ -19,27 +19,8 @@ const ForgotePwd=({loading,error,...props})=>{
         axios.post("http://localhost:8081/api/v1/ForgotPassword/"+values.userName).then((response)=>{
             
 
-            console.log(response.data);
-            if(response.status===200){
-                const { token } = response.data;
-                console.log(token)
-                localStorage.setItem('token', token,15000);
-                const Token = jwtDecode(token);
-                console.log(Token["iss"])
-                props.setUser(response.data);
-                if (Token["iss"]=== "Administrator"){
-                    props.history.push('/PageAdmin');
-                }else if(Token["iss"]=== "Inspector"){
-                    props.history.push('/PageInspector');
-                }else if(Token["iss"]=== "ServiceProvider"){
-                    props.history.push('/PageServiceProvider');
-                }
-                
-            }
-            else{
-               props.loginFailure('Something Wrong!Please Try Again'); 
-            }
-
+            alert("Check your email to change the password")
+            
 
         }).catch((err)=>{
 console.log(err)
@@ -69,7 +50,7 @@ console.log(err)
 
                     <div className="card fat">
                         <div className="card-body">
-                            <h4 className="card-title">Login</h4>
+                            <h4 className="card-title">Change password</h4>
                             
                             <form className="my-login-validation" onSubmit={handleSubmit} noValidate={false}>
                                 <div className="form-group">
@@ -80,21 +61,6 @@ console.log(err)
                                             UserId is invalid
                                         </div>
                                     
-                                    
-                                    
-                                </div>
-
-                                <div className="form-group">
-                                    <label>Password
-                                        <a href="forgot.html" className="float-right">
-                                            Forgot Password?
-                                        </a>
-                                    </label>
-                                </div>
-                                <div>
-                                    <a href="registration" className="float-right">
-                                        Sign in
-                                    </a>
                                 </div>
                                 
 

@@ -41,6 +41,7 @@ function DynamicForms(props)   {
     
    //getting the data from the database
   useEffect(() => {
+
     const token = localStorage.getItem("token");
         if(token === null){
           props.history.push('/'); 
@@ -53,24 +54,24 @@ function DynamicForms(props)   {
             props.history.push('/PageServiceProvider');
       }else{ axios.get('http://localhost:8082/api/Forms').then(resp=>setState(resp.data));}
     }
-   
-    
     },[])
     
         return(
           <>
           <PageInspector/>
         <div>
-           <Link  to={{pathname:"/Formulaire", state:{link:"DynamicForms"}}}><button id = 'save' type="button" class="btn btn-primary">{t("add_Form")}</button></Link>
+        <div className="loutaymin">
+           <Link  to={{pathname:"/Formulaire", state:{link:"DynamicForms"}}}><button id = 'save' type="button" class="btn btn-success kober">{t("add_Form")}</button></Link>
+           </div>
            {/* presenting the data in a tabel */}
-          <table class="table table-sm">
-        <thead>
+          <table class="table mb-0 border-bottom mb-4">
+        <thead class="bg-light">
           <tr>
-            <th scope="col">{t("id")}</th>
-            <th scope="col">{t("Titre")}</th>
-            <th scope="col">{t("Type")}</th>
-            <th scope="col">{t("Creation_date")}</th>
-            <th scope="col"></th>
+            <th scope="col" className="border-0">{t("id")}</th>
+            <th scope="col" className="border-0">{t("Titre")}</th>
+            <th scope="col" className="border-0">{t("Type")}</th>
+            <th scope="col" className="border-0">{t("Creation_date")}</th>
+            <th scope="col" className="border-0"></th>
             
           </tr>
        </thead>
@@ -88,11 +89,7 @@ function DynamicForms(props)   {
                     <Link  to={{pathname:"/updateForm", state:{data:Form.id}}} ><button id = 'save' type="button" class="btn btn-primary">{t("edit")}</button></Link>
                 </div>
                 </td>
-                <td><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    {/* the routing button to the FormUpdate Component */}
-                    <Link  to={{pathname:"/DFormUse", state:{data:Form.form}}}><button  type="button" class="btn btn-primary">{t("use")}</button></Link>
-                </div>
-                </td>
+                
               </tr>
                 )}
         </tbody> 

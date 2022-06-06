@@ -119,6 +119,7 @@
     "Rquestion30":"18. Déclarez-vous les résultats de la surveillance et de l’examen?",
     "Rquestion31":"19. Vos processus sont-ils traçables?",
     "Rquestion32":"20. Avez-vous conservé des dossiers appropriés?",
-    "Risk":"Inspection de la gestion des risques"
-
+    "Risk":"Inspection de la gestion des risques",
+    "prepareActions":"Prépare action",
+    "Administrator": "Administrateur"
 }

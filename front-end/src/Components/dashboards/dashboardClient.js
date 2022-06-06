@@ -5,12 +5,34 @@ import { Button, Container } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {fetchUserData} from '../../Services/authenticationService';import PageServiceProvider from './PageServiceProvider';
-;
 
 
+import { useTranslation } from 'react-i18next';
+import cookies from 'js-cookie';
 
 
-export const DashboardClient=(props)=>{
+const languages = [
+  {
+    code: 'fr',
+    name: 'Français',
+    country_code: 'fr',
+  },
+  {
+    code: 'en',
+    name: 'English',
+    country_code: 'gb',
+  },
+  {
+    code: 'ger',
+    name: 'deutsch',
+    country_code: 'de',
+  },
+]
+
+
+export const DashboardClient=(props)=>{ const currentLanguageCode = cookies.get('i18next') || 'en'
+const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
+const { t } = useTranslation()
     const url='http://localhost:8083/api/Inspections'
     const [data,setData]=useState([]);
     useEffect(()=>{
@@ -28,18 +50,18 @@ export const DashboardClient=(props)=>{
        <PageServiceProvider/>
        <div>
            <table class="table table-sm">
-        <thead>
-          <tr>
-            <th scope="col">id</th>
-            <th scope="col">Titre</th>
-            <th scope="col">Type</th>
-            <th scope="col">Date</th>
-            <th scope="col"></th>
+        <thead>  <tr>
+            <th scope="col" className="border-0">{t("id")}</th>
+            <th scope="col" className="border-0">{t("Titre")}</th>
+            <th scope="col" className="border-0">{t("Type")}</th>
+            <th scope="col" className="border-0">{t("date")}</th>
+            <th scope="col" className="border-0"></th>
             
           </tr>
        </thead>
         <tbody>
             {data.map(insp=>           
+            insp.type==="RiskManagement"||insp.type==="GAPAnalysis"&&<>
                 <tr>
                 <td>{insp.id}</td>
                 <td>{insp.title}</td>
@@ -50,6 +72,7 @@ export const DashboardClient=(props)=>{
                 </div>
                 </td>
               </tr>
+              </>
                 )}
         </tbody> 
       </table>

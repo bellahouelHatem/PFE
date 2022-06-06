@@ -130,7 +130,10 @@ const handleClick=()=>{
         <>
         <PageServiceProvider/>
         <div >
-          <Button onClick={handleShowAdd} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>{t("AddNI")}</span></Button>
+        <div className="loutaymin">
+    <Button onClick={handleShowAdd} className="btn btn-success kober" data-toggle="modal"><span>{t("AddNI")}</span></Button>
+    
+        </div>
      {/* add Modal..........................      */}
     <Modal show={showAdd} onHide={handleCloseAdd}>
         <Modal.Header closeButton>
@@ -199,7 +202,7 @@ const handleClick=()=>{
         </Modal.Body>
         <Modal.Footer></Modal.Footer>
     </Modal>
-        
+    
         </div>
         </>
     );

@@ -26,7 +26,7 @@ const localizer = dateFnsLocalizer({
     getDay,
     locales,
 });
-function PlaningAction() {
+function Actions() {
     const [newEvent, setNewEvent] = useState({id:"",title:"",startDate:"",endDate:"",type:""});
     const onChange = (e) => {
         setNewEvent({ ...newEvent, [e.target.name]: e.target.value });
@@ -60,7 +60,6 @@ function PlaningAction() {
     }, []);
     
     //Modal show and close methode ...............................................
-    const handleShowAdd = (event) => setShowAdd(true) ;
     const handleShowEdit = (event) => setShowEdit(true);
     const handleShowInsp = (event)=>{setShowInsp(true);
       console.log(event)
@@ -71,7 +70,6 @@ function PlaningAction() {
       
     }
     
-    const handleCloseAdd = () => setShowAdd(false);
     const handleCloseEdit = () => setShowEdit(false);
     const handleCloseInsp =()=>setShowInsp(false);
     //Modal show and close methode .............................................../
@@ -104,23 +102,8 @@ const handleClick=()=>{
     return (
         <>
         <PageServiceProvider/>
-
         <div >
-        <div className="loutaymin">
-        <Button onClick={handleShowAdd} className="btn btn-success kober" data-toggle="modal"> <span>Add New Action</span></Button>
-        </div>
-          {/* add Modal..........................      */}
-    <Modal show={showAdd} onHide={handleCloseAdd}>
-        <Modal.Header closeButton>
-            <Modal.Title>
-                Add Action
-            </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-            <FormAction/>
-        </Modal.Body>
-    </Modal>
-     {/* add Modal........................../*/}
+          
     
       {/*Calendar ....................................................................................... */}
         <Calendar allDayAccessor= {true}  onSelectEvent={event=>handleShowInsp(event)} showAllEvents={true}  localizer={localizer} events={state} startAccessor="startDate" endAccessor="endDate" style={{ height: 1000,margin: "50px" }} />
@@ -177,11 +160,10 @@ const handleClick=()=>{
         </Modal.Body>
         <Modal.Footer></Modal.Footer>
     </Modal>
-    
-     
+        
         </div>
         </>
     );
 }
 
-export default PlaningAction;
+export default Actions;
