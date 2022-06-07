@@ -144,7 +144,7 @@ public class AuthenticationController {
 				"</div></div>";
 		User user =(User) userDetailsService.loadUserByUsername(email);
 		if (user!=null){
-			emailService.sendEmail(email,Body,"Confirmation mail");
+			emailService.sendEmail(email,Body,"Change password");
 
 		}
 
@@ -220,7 +220,7 @@ public class AuthenticationController {
 				"</div></div>";
 		User user =(User) userDetailsService.loadUserByUsername(email);
 		if (user!=null){
-			emailService.sendEmail(email,Body,"Inspection");
+			emailService.sendEmail(email,Body,"New inspection");
 
 		}
 

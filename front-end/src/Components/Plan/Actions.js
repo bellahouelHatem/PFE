@@ -153,7 +153,7 @@ const handleClick=()=>{
             <p>{newEvent.type}</p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <Button className="buttonEdit" onClick={handleClick}>Edit</Button>
-            <Button className="buttonDelete"onClick={(e)=>{ if (window.confirm('Are you sure you wish to delete this item?'))ondelete(e)}} >delete</Button>
+            <Button className="buttonDelete"onClick={(e)=>{ if (window.confirm('Are you sure you wish to delete this action?'))ondelete(e)}} >delete</Button>
             </div>
            </form>
           </div>

@@ -113,7 +113,7 @@ const handleClick=()=>{
 }
    
     const handleSubmit = (e) => {
-      if (window.confirm('Are you sure you wish to delete this item?')){
+      if (window.confirm('Are you sure you wish to update this item?')){
         e.preventDefault();
         const x =url+"/"+newEvent.id
           const body = {
@@ -169,7 +169,7 @@ const handleClick=()=>{
           <label>End Date</label>
             <input onChange={(e)=>onChange(e)} name="endDate" type= "date" min ={newEvent.startDate} placeholder= "End Date" errorMessage="required" label= "End Date" required value={newEvent.endDate} ></input>
             </React.Fragment>)}
-            <button  className="button">Submit</button> 
+            <button  className="btn btn-primary">Update</button> 
          </form>
           </div>
         </Modal.Body>

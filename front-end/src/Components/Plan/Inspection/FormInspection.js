@@ -139,7 +139,7 @@ function FormInspection() {
               <option value={inspector.username}>{inspector.firstName}:{inspector.inspectionsNumber}</option>)}
             </select>
             <span className="span">you need to select a type</span>
-            <button className="button">Add inspection</button>
+            <button className="btn btn-primary">Add inspection</button>
           </form>
         </div>
         </>
